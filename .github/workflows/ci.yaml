@@ -33,7 +33,7 @@ jobs:
   plan:
     strategy:
       matrix:
-        workspaces: [development, pre-production]
+        workspaces: [development, pre-production, production]
     uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@0.12.1
     secrets:
       account: ${{ secrets.AWS_ACCOUNT }}
