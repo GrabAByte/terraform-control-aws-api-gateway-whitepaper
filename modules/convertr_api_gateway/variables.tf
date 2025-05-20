@@ -20,7 +20,7 @@ variable "api_http_method" {
   description = "The API HTTP Method"
 }
 
-variable "api_authorization_mathod" {
+variable "api_authorization_method" {
   type        = string
   description = "The API Authroization Method"
 }
@@ -34,4 +34,9 @@ variable "integration_http_method" {
 variable "integration_type" {
   type        = string
   description = "The Integration platform provider"
+}
+
+variable "lambda_invoke_arn" {
+  type = string
+  description = "The URI to the Lambda integration"
 }

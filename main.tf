@@ -2,11 +2,12 @@ module "convertr_api_gateway" {
   source = "./modules/convertr_api_gateway"
 
   api_name                 = "convertr"
-  api_path_port            = "convertr"
+  api_path_part            = "convertr"
   api_http_method          = "POST"
   api_authorization_method = "NONE"
   integration_http_method  = "POST"
   integration_type         = "AWS"
+  lambda_invoke_arn        = "<data.lambda.arn>"
 }
 
 module "convertr_lambda" {
@@ -14,10 +15,13 @@ module "convertr_lambda" {
 
   iam_role_name         = "convertr_lambda"
   archive_source        = "convertr_lambda.py"
-  output_path           = "convertr_lambda_function.zip"
-  function_anme         = "convertr_lambda_function"
+  archive_output        = "convertr_lambda_function.zip"
+  function_name         = "convertr_lambda_function"
+  handler               = "index.handler"
   runtime               = "python3.13"
-  environment_variables = { foo = bar }
+  environment_variables = { 
+    foo = "bar" 
+  }
 }
 
 module "convertr_s3" {
