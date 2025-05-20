@@ -66,4 +66,4 @@ jobs:
       region: eu-west-2
       terraformPath: .
       workspace: ${{ matrix.workspaces }}
-    needs: [lint,validate,scan,plan]
+    needs: [lint,validate,scan]
