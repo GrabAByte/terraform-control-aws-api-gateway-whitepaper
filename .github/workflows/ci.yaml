@@ -12,16 +12,16 @@ permissions:
 
 jobs:
   lint:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformLint.yml@feat/convertr
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformLint.yml@0.12.0
     with:
       terraformPath: .
   validate:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformValidate.yml@feat/convertr
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformValidate.yml@0.12.0
     with:
       terraformPath: .
     needs: [lint]
   scan:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformScan.yml@feat/convertr
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformScan.yml@0.12.0
     with:
       terraformPath: .
     needs: [lint,validate]
@@ -30,7 +30,7 @@ jobs:
   #   strategy:
   #     matrix:
   #       environments: [development, pre-production, production]
-  #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@feat/convertr
+  #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@0.12.0
   #   secrets:
   #     account: ${{ secrets.AWS_ACCOUNT }}
   #     role: ${{ secrets.AWS_ROLE }}
@@ -44,7 +44,7 @@ jobs:
   #   strategy:
   #     matrix:
   #       environments: [development, pre-production, production]
-  #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@feat/convertr
+  #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@0.12.0
   #   secrets:
   #     account: ${{ secrets.AWS_ACCOUNT }}
   #     role: ${{ secrets.AWS_ROLE }}
