@@ -4,7 +4,7 @@ variable "api_name" {
 }
 
 variable "endpoint_configuration_types" {
-  type    = List
+  type    = list
   default = [
     "REGIONAL"
   ]
