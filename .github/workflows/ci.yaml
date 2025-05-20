@@ -11,6 +11,11 @@ permissions:
   contents: read
 
 jobs:
+   get-version:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/getVersion.yml@0.12.0
+    with:
+      metadataFile: 'metadata.json'
+      metadataPath: .
   lint:
     uses: GrabAByte/github-devops-workflows/.github/workflows/terraformLint.yml@0.12.0
     with:
@@ -25,6 +30,14 @@ jobs:
     with:
       terraformPath: .
     needs: [lint,validate]
+  update-version:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/updateVersion.yml@0.12.0
+    with:
+      gitUsername: 'grababyte'
+      gitEmail: 'grababyte@github.com'
+      metadataFile: 'metadata.json'
+      metadataPath: .
+    needs: [lint,validate,scan]
 
   # plan:
   #   strategy:
