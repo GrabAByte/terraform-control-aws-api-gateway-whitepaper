@@ -28,9 +28,7 @@ module "convertr_s3" {
   source = "./modules/convertr_s3"
 
   bucket_name = "convertr-bucket"
-  tags = {
-    project = "convertr-demo"
-  }
+  tags        = merge(local.tags, { project = "convertr-demo" })
 }
 
 module "convertr_vpc" {

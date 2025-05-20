@@ -28,8 +28,7 @@ variable "" {
 
 locals {
   environment = lookup(var.environment_map, terraform.workspace, "development")
-  # ??            = var.??[local.environment]
-  # tags = {
-  #   environment   = local.environment
-  # }
+  tags = {
+    environment = local.environment
+  }
 }
