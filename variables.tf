@@ -11,7 +11,7 @@ variable "environment_map" {
 variable "region" {
   type        = string
   description = "The AWS region in which to deploy"
-  default    = "eu-west-2"
+  default     = "eu-west-2"
 }
 
 /*
@@ -27,7 +27,7 @@ variable "" {
 */
 
 locals {
-  environment   = lookup(var.environment_map, terraform.workspace, "development")
+  environment = lookup(var.environment_map, terraform.workspace, "development")
   # ??            = var.??[local.environment]
   # tags = {
   #   environment   = local.environment

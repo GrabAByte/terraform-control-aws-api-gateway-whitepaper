@@ -1,23 +1,36 @@
 module "convertr_api_gateway" {
   source = "./modules/convertr_api_gateway"
 
-  # vars
+  api_name                 = "convertr"
+  api_path_port            = "convertr"
+  api_http_method          = "POST"
+  api_authorization_method = "NONE"
+  integration_http_method  = "POST"
+  integration_type         = "AWS"
 }
 
 module "convertr_lambda" {
   source = "./modules/convertr_lambda"
 
-  # vars
+  iam_role_name         = "convertr_lambda"
+  archive_source        = "convertr_lambda.py"
+  output_path           = "convertr_lambda_function.zip"
+  function_anme         = "convertr_lambda_function"
+  runtime               = "python3.13"
+  environment_variables = { foo = bar }
 }
 
 module "convertr_s3" {
   source = "./modules/convertr_s3"
 
-  # vars
+  bucket_name = "convertr-bucket"
+  tags = {
+    project = "convertr-demo"
+  }
 }
 
 module "convertr_vpc" {
   source = "./modules/convertr_vpc"
 
-  # vars
+  cidr_block = "10.0.0.0/16"
 }

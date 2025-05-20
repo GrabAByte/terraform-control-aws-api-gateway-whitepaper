@@ -12,22 +12,22 @@ data "aws_iam_policy_document" "convertr_lambda_policy" {
 }
 
 resource "aws_iam_role" "convertr_lambda_role" {
-  name               = "convertr_lambda_role" # var.iam_role_name
+  name               = var.iam_role_name
   assume_role_policy = data.aws_iam_policy_document.convertr_lambda_policy.json
 }
 
 data "archive_file" "convertr_lambda_archive" {
-  type        = "zip"                            # var.archive_type
-  source_file = "convertr_lambda.py"             # var.archive_source
-  output_path = "convertr_lambda_function.zip"   # var.archive_output
+  type        = var.archive_type
+  source_file = var.archive_source
+  output_path = var.archive_output
 }
 
 resource "aws_lambda_function" "convertr_lambda" {
-  filename      = "convertr_lambda_function.zip" # var.function_filename
-  function_name = "convertr_lambda_function"     # var.function_name
+  filename      = var.archive_output
+  function_name = var.function_name
   role          = aws_iam_role.convertr_lambda_role.arn
-  handler       = "index.handler"                # var.handler
-  runtime = "python3.13"                         # var.runtime
+  handler       = var.handler
+  runtime       = var.runtime
   source_code_hash = data.archive_file.convertr_lambda_archive.output_base64sha256
 
   # vpc_config {
@@ -35,9 +35,7 @@ resource "aws_lambda_function" "convertr_lambda" {
   #   security_group_ids = [aws_default_security_group.default_security_group.id]
   # }
 
-  environment {   # var.environment_variables
-    variables = {
-      foo = "bar"
-    }
+  environment {
+    variables = var.environment_variables
   }
 }
