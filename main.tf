@@ -7,7 +7,7 @@ module "convertr_api_gateway" {
   api_authorization_method = "NONE"
   integration_http_method  = "POST"
   integration_type         = "AWS"
-  lambda_invoke_arn        = "<data.lambda.arn>"
+  lambda_invoke_arn        = "<data.lambda.arn>" # placeholder
 }
 
 module "convertr_lambda" {
