@@ -30,14 +30,6 @@ jobs:
     with:
       terraformPath: .
     needs: [lint,validate]
-  update-version:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/updateVersion.yml@0.12.0
-    with:
-      gitUsername: 'grababyte'
-      gitEmail: 'grababyte@github.com'
-      metadataFile: 'metadata.json'
-      metadataPath: .
-    needs: [lint,validate,scan]
 
   # plan:
   #   strategy:
@@ -67,3 +59,12 @@ jobs:
       terraformPath: .
       workspace: ${{ matrix.workspaces }}
     needs: [lint,validate,scan]
+  update-version:
+    if: github.ref == 'refs/heads/main'
+    uses: GrabAByte/github-devops-workflows/.github/workflows/updateVersion.yml@feat/manual-trigger-tf-apply
+    with:
+      gitUsername: 'grababyte'
+      gitEmail: 'grababyte@github.com'
+      metadataFile: 'metadata.json'
+      metadataPath: .
+    needs: [lint,validate,scan,apply]
