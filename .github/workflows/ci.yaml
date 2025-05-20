@@ -42,7 +42,7 @@ jobs:
   # plan:
   #   strategy:
   #     matrix:
-  #       environments: [development, pre-production, production]
+  #       workspaces: [development, pre-production]
   #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@0.12.0
   #   secrets:
   #     account: ${{ secrets.AWS_ACCOUNT }}
@@ -50,13 +50,13 @@ jobs:
   #   with:
   #     region: eu-west-2
   #     terraformPath: .
-  #     workspace: ${{ matrix.environments }}
+  #     workspace: ${{ matrix.workspaces }}
   #   needs: [lint,validate,scan]
 
   # apply:
   #   strategy:
   #     matrix:
-  #       environments: [development, pre-production, production]
+  #       workspaces: [development, pre-production]
   #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@0.12.0
   #   secrets:
   #     account: ${{ secrets.AWS_ACCOUNT }}
@@ -64,5 +64,5 @@ jobs:
   #   with:
   #     region: eu-west-2
   #     terraformPath: .
-  #     workspace: ${{ matrix.environments }}
+  #     workspace: ${{ matrix.workspaces }}
   #   needs: [lint,validate,scan,plan]
