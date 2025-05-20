@@ -1,0 +1,68 @@
+---
+name: CI
+'on':
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  get-version:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/getVersion.yml@0.12.0
+    with:
+      metadataFile: 'metadata.json'
+      metadataPath: .
+  lint:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformLint.yml@0.12.0
+    with:
+      terraformPath: .
+  validate:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformValidate.yml@0.12.0
+    with:
+      terraformPath: .
+    needs: [lint]
+  scan:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformScan.yml@0.12.0
+    with:
+      terraformPath: .
+    needs: [lint,validate]
+  update-version:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/updateVersion.yml@0.12.0
+    with:
+      gitUsername: 'grababyte'
+      gitEmail: 'grababyte@github.com'
+      metadataFile: 'metadata.json'
+      metadataPath: .
+    needs: [lint,validate,scan]
+
+  # plan:
+  #   strategy:
+  #     matrix:
+  #       environments: [development, pre-production, production]
+  #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@0.12.0
+  #   secrets:
+  #     account: ${{ secrets.AWS_ACCOUNT }}
+  #     role: ${{ secrets.AWS_ROLE }}
+  #   with:
+  #     region: eu-west-2
+  #     terraformPath: .
+  #     workspace: ${{ matrix.environments }}
+  #   needs: [lint,validate,scan]
+
+  # apply:
+  #   strategy:
+  #     matrix:
+  #       environments: [development, pre-production, production]
+  #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@0.12.0
+  #   secrets:
+  #     account: ${{ secrets.AWS_ACCOUNT }}
+  #     role: ${{ secrets.AWS_ROLE }}
+  #   with:
+  #     region: eu-west-2
+  #     terraformPath: .
+  #     workspace: ${{ matrix.environments }}
+  #   needs: [lint,validate,scan,plan]
