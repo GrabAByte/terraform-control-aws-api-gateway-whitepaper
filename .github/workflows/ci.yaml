@@ -57,6 +57,20 @@ jobs:
       terraformPath: .
       workspace: ${{ matrix.workspaces }}
     needs: [lint,validate,scan,plan]
+  destroy:
+    if: github.ref == 'refs/heads/main'
+    strategy:
+      matrix:
+        workspaces: [development]
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestory.yml@feat/terraformDestroy
+    secrets:
+      account: ${{ secrets.AWS_ACCOUNT }}
+      role: ${{ secrets.AWS_ROLE }}
+    with:
+      region: eu-west-2
+      terraformPath: .
+      workspace: ${{ matrix.workspaces }}
+    needs: [lint,validate,scan,plan,apply]
   update-version:
     if: github.ref == 'refs/heads/main'
     uses: GrabAByte/github-devops-workflows/.github/workflows/updateVersion.yml@0.12.1
