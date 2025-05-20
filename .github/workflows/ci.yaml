@@ -53,16 +53,16 @@ jobs:
   #     workspace: ${{ matrix.workspaces }}
   #   needs: [lint,validate,scan]
 
-  # apply:
-  #   strategy:
-  #     matrix:
-  #       workspaces: [development, pre-production]
-  #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@0.12.0
-  #   secrets:
-  #     account: ${{ secrets.AWS_ACCOUNT }}
-  #     role: ${{ secrets.AWS_ROLE }}
-  #   with:
-  #     region: eu-west-2
-  #     terraformPath: .
-  #     workspace: ${{ matrix.workspaces }}
-  #   needs: [lint,validate,scan,plan]
+  apply:
+    strategy:
+      matrix:
+        workspaces: [development]
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@feat/manual-trigger-tf-apply
+    secrets:
+      account: ${{ secrets.AWS_ACCOUNT }}
+      role: ${{ secrets.AWS_ROLE }}
+    with:
+      region: eu-west-2
+      terraformPath: .
+      workspace: ${{ matrix.workspaces }}
+    needs: [lint,validate,scan,plan]
