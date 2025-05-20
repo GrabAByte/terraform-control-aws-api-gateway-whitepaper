@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 jobs:
-   get-version:
+  get-version:
     uses: GrabAByte/github-devops-workflows/.github/workflows/getVersion.yml@0.12.0
     with:
       metadataFile: 'metadata.json'
