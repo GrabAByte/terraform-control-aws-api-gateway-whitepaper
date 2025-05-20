@@ -30,21 +30,19 @@ jobs:
     with:
       terraformPath: .
     needs: [lint,validate]
-
-  # plan:
-  #   strategy:
-  #     matrix:
-  #       workspaces: [development, pre-production]
-  #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@0.12.0
-  #   secrets:
-  #     account: ${{ secrets.AWS_ACCOUNT }}
-  #     role: ${{ secrets.AWS_ROLE }}
-  #   with:
-  #     region: eu-west-2
-  #     terraformPath: .
-  #     workspace: ${{ matrix.workspaces }}
-  #   needs: [lint,validate,scan]
-
+  plan:
+    strategy:
+      matrix:
+        workspaces: [development, pre-production]
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@feat/manual-trigger-tf-apply
+    secrets:
+      account: ${{ secrets.AWS_ACCOUNT }}
+      role: ${{ secrets.AWS_ROLE }}
+    with:
+      region: eu-west-2
+      terraformPath: .
+      workspace: ${{ matrix.workspaces }}
+    needs: [lint,validate,scan]
   apply:
     if: github.ref == 'refs/heads/main'
     strategy:
@@ -58,7 +56,7 @@ jobs:
       region: eu-west-2
       terraformPath: .
       workspace: ${{ matrix.workspaces }}
-    needs: [lint,validate,scan]
+    needs: [lint,validate,scan,plan]
   update-version:
     if: github.ref == 'refs/heads/main'
     uses: GrabAByte/github-devops-workflows/.github/workflows/updateVersion.yml@feat/manual-trigger-tf-apply
@@ -67,4 +65,4 @@ jobs:
       gitEmail: 'grababyte@github.com'
       metadataFile: 'metadata.json'
       metadataPath: .
-    needs: [lint,validate,scan,apply]
+    needs: [lint,validate,scan,plan,apply]
