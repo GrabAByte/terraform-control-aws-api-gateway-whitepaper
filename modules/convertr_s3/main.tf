@@ -1,8 +1,5 @@
 resource "aws_s3_bucket" "convertr" {
-  bucket = "convertr-bucket"
+  bucket = "convertr-bucket" # var.bucket_name
 
-  tags = {
-    Name        = "convertr"
-    Environment = local.environment
-  }
+  tags = { } # var.tags
 }
