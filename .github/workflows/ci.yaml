@@ -58,7 +58,7 @@ jobs:
     strategy:
       matrix:
         workspaces: [development]
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@feat/manual-trigger-tf-apply0
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@feat/manual-trigger-tf-apply
     secrets:
       account: ${{ secrets.AWS_ACCOUNT }}
       role: ${{ secrets.AWS_ROLE }}
