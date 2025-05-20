@@ -31,10 +31,11 @@ jobs:
   #     matrix:
   #       environments: [development, pre-production, production]
   #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@feat/convertr
-  #   with:
+  #   secrets:
   #     account: ${{ secrets.AWS_ACCOUNT }}
-  #     region: eu-west-2
   #     role: ${{ secrets.AWS_ROLE }}
+  #   with:
+  #     region: eu-west-2
   #     terraformPath: .
   #     workspace: ${{ matrix.environments }}
   #   needs: [lint,validate,scan]
@@ -44,10 +45,11 @@ jobs:
   #     matrix:
   #       environments: [development, pre-production, production]
   #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@feat/convertr
-  #   with:
+  #   secrets:
   #     account: ${{ secrets.AWS_ACCOUNT }}
-  #     region: eu-west-2
   #     role: ${{ secrets.AWS_ROLE }}
+  #   with:
+  #     region: eu-west-2
   #     terraformPath: .
   #     workspace: ${{ matrix.environments }}
   #   needs: [lint,validate,scan,plan]
