@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.2.0] - (21-05-2025)
+feat: (d52458f) Add terraform destroy and lambda ARN lookup (#9)
+
 ## [0.1.0] - (20-05-2025)
 feat: (08b8c67) convert repository to implement terraform modules (#7)
 
