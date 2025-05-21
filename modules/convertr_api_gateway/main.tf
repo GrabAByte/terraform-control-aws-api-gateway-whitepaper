@@ -20,12 +20,12 @@ resource "aws_api_gateway_method" "convertr_method" {
   authorization = var.api_authorization_method
 }
 
-# TODO: Add operator for if to use resource
-resource "aws_api_gateway_integration" "convertr_integration" {
-  rest_api_id             = aws_api_gateway_rest_api.convertr_api.id
-  resource_id             = aws_api_gateway_resource.convertr_path.id
-  integration_http_method = var.integration_http_method
-  http_method             = aws_api_gateway_method.convertr_method.http_method
-  type                    = var.integration_type
-  uri                     = var.lambda_invoke_arn
-}
+# TODO: Fix Add operator for if to use resource
+# resource "aws_api_gateway_integration" "convertr_integration" {
+#   rest_api_id             = aws_api_gateway_rest_api.convertr_api.id
+#   resource_id             = aws_api_gateway_resource.convertr_path.id
+#   integration_http_method = var.integration_http_method
+#   http_method             = aws_api_gateway_method.convertr_method.http_method
+#   type                    = var.integration_type
+#   uri                     = var.lambda_invoke_arn
+#}
