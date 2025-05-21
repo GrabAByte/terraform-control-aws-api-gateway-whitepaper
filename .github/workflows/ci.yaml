@@ -62,7 +62,7 @@ jobs:
     strategy:
       matrix:
         workspaces: [development]
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestory.yml@0.13.0
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestroy.yml@0.13.0
     secrets:
       account: ${{ secrets.AWS_ACCOUNT }}
       role: ${{ secrets.AWS_ROLE }}
