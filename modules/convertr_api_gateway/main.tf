@@ -17,7 +17,7 @@ resource "aws_api_gateway_resource" "convertr_path" {
 resource "aws_api_gateway_method" "convertr_method" {
   rest_api_id   = aws_api_gateway_rest_api.convertr_api.id
   resource_id   = aws_api_gateway_resource.convertr_path.id
-  http_method   = aws_api_gateway_method.convertr_method.http_method
+  http_method   = var.api_http_method
   authorization = var.api_authorization_method
 }
 
