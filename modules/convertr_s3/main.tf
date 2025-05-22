@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 resource "aws_s3_bucket" "convertr" {
   bucket = var.bucket_name
   # for terraforms sake
@@ -44,12 +46,75 @@ resource "aws_s3_bucket_lifecycle_configuration" "convertr_lifecycle" {
   }
 }
 
+resource "aws_kms_key" "convertr_key" {
+  description = "KMS Key for SSE-KMS"
+  enable_key_rotation     = true
+  deletion_window_in_days = 20
+}
+
+resource "aws_kms_key_policy" "convert_key_policy" {
+  key_id = aws_kms_key.key.id
+  policy = jsonencode({
+    Id = "key"
+    Statement = [
+      {
+        Sid = "Enable IAM User Permissions"
+        Effect = "Allow"
+        Principal = {
+          AWS = "*"
+        }
+        Action = "kms:*"
+        Resource = "*"
+      },
+      {
+        Sid = "Allow use of the key"
+        Effect = "Allow"
+        Principal = {
+          AWS = "*"
+        }
+        Action = [
+          "kms:Encrypt",
+          "kms:Decrypt",
+          "kms:ReEncrypt*",
+          "kms:GenerateDataKey*",
+          "kms:DescribeKey"
+        ]
+        Resource = "*"
+      },
+        Sid    = "Allow administration of the key"
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/grababt"
+        },
+        Action = [
+          "kms:ReplicateKey",
+          "kms:Create*",
+          "kms:Describe*",
+          "kms:Enable*",
+          "kms:List*",
+          "kms:Put*",
+          "kms:Update*",
+          "kms:Revoke*",
+          "kms:Disable*",
+          "kms:Get*",
+          "kms:Delete*",
+          "kms:ScheduleKeyDeletion",
+          "kms:CancelKeyDeletion"
+        ],
+        Resource = "*"
+      },
+    ]
+    Version = "2012-10-17"
+  })
+}
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "convertr_encrypt" {
   bucket = aws_s3_bucket.convertr.id
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
+      kms_master_key_id = aws_kms_key.convertr_key.arn
+      sse_algorithm = "aws:kms"
     }
   }
 }
