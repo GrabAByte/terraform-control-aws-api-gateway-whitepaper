@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.5.0] - (22-05-2025)
+feat: (5d40754) extra sec hardening (#16)
+
 ## [0.4.0] - (22-05-2025)
 feat: (ebe8ed1) apply hardening configuation (#15)
 
