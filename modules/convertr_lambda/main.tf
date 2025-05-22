@@ -34,6 +34,12 @@ resource "aws_iam_role_policy" "convertr_lambda_s3_policy" {
   })
 }
 
+resource "aws_vpc_endpoint" "lambda_endpoint" {
+  vpc_id            = var.vpc_id
+  vpc_endpoint_type = "Interface"
+  service_name      = "com.amazonaws.${var.aws_region}.lambda"
+}
+
 data "archive_file" "convertr_lambda_archive" {
   type        = var.archive_type
   source_file = var.archive_source
@@ -64,5 +70,5 @@ resource "aws_lambda_permission" "api_gatewway" {
   function_name = aws_lambda_function.convertr_lambda.function_name
   principal     = "apigateway.amazonaws.com"
 
-  source_arn = "${var.api_gateway_execution_arn}/*/*"
+  source_arn    = "${var.api_gateway_execution_arn}/*/*"
 }

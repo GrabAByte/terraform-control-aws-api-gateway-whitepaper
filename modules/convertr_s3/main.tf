@@ -20,8 +20,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "convertr_lifecycle" {
     id     = "delete_old_versions"
     status = "Enabled"
 
-    filter {}
-
     noncurrent_version_expiration {
       noncurrent_days = 90
     }
@@ -31,8 +29,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "convertr_lifecycle" {
     id     = "abort_incomplete_uploads"
     status = "Enabled"
 
-    filter {}
-
     abort_incomplete_multipart_upload {
       days_after_initiation = 7
     }
@@ -41,8 +37,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "convertr_lifecycle" {
   rule {
     id     = "expire_delete_markers"
     status = "Enabled"
-
-    filter {}
 
     expiration {
       expired_object_delete_marker = true
@@ -80,7 +74,7 @@ resource "aws_s3_bucket_policy" "https_only" {
         Effect    = "Deny"
         Principal = "*"
         Action    = "s3:*"
-        Resource = [
+         Resource = [
           "${aws_s3_bucket.convertr.arn}/*",
           aws_s3_bucket.convertr.arn
         ]

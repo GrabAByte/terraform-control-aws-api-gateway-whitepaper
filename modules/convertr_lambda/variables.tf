@@ -1,3 +1,9 @@
+variable "aws_region" {
+  type        = string
+  description = "The AWS region in which to deploy"
+  default     = "eu-west-2"
+}
+
 variable "api_gateway_execution_arn" {
   type        = string
   description = "The Execution ARN of the API Gateway"
@@ -53,4 +59,9 @@ variable "iam_role_name" {
 variable "runtime" {
   type        = string
   description = "The lambda runtime"
+}
+
+variable "vpc_id" {
+  type = string
+  description = "The VPC to create an endpoint from"
 }
