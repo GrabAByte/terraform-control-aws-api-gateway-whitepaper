@@ -24,9 +24,9 @@ resource "aws_subnet" "convertr_subnet" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
 }
 
-resource "aws_vpc_endpoint" "api_gateway_endpoint" {
-  vpc_id       = aws_vpc.convertr.id
-  service_name = "com.amazonaws.${var.aws_region}.execute-api"
+#resource "aws_vpc_endpoint" "api_gateway_endpoint" {
+#  vpc_id       = aws_vpc.convertr.id
+#  service_name = "com.amazonaws.${var.aws_region}.execute-api"
 
-  tags = var.tags
-}
+#  tags = var.tags
+#}
