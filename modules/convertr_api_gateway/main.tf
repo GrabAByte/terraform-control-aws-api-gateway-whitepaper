@@ -24,7 +24,7 @@ resource "aws_api_gateway_method" "convertr_method" {
 resource "aws_api_gateway_method_response" "convertr_response" {
   rest_api_id = aws_api_gateway_rest_api.convertr_api.id
   resource_id = aws_api_gateway_resource.convertr_path.id
-  http_method = aws_api_gateway_method.convertr_method.http_method
+  http_method = "PUT"
   status_code = 200
   response_models     = {
     "application/json" = "Empty"
@@ -35,7 +35,7 @@ resource "aws_api_gateway_integration" "convertr_integration" {
   rest_api_id             = aws_api_gateway_rest_api.convertr_api.id
   resource_id             = aws_api_gateway_resource.convertr_path.id
   integration_http_method = var.integration_http_method
-  http_method             = aws_api_gateway_method.convertr_method.http_method
+  http_method             = "PUT"
   passthrough_behavior    = var.passthrough_behaviour
   type                    = var.integration_type
   uri                     = var.lambda_invoke_arn
@@ -49,7 +49,7 @@ resource "aws_api_gateway_integration" "convertr_integration" {
 resource "aws_api_gateway_integration_response" "convertr_integration_response" {
   rest_api_id = aws_api_gateway_rest_api.convertr_api.id
   resource_id = aws_api_gateway_resource.convertr_path.id
-  http_method = aws_api_gateway_method.convertr_method.http_method
+  http_method = "PUT"
   status_code = aws_api_gateway_method_response.convertr_response.status_code
 
   # Transforms the backend JSON response to XML
@@ -58,8 +58,8 @@ resource "aws_api_gateway_integration_response" "convertr_integration_response" 
   }
 }
 
-resource "time_sleep" "wait_30_seconds" {
-  create_duration = "30s"
+resource "time_sleep" "wait_90_seconds" {
+  create_duration = "90s"
 }
 
 resource "aws_api_gateway_deployment" "convertr_deployment" {
@@ -73,7 +73,7 @@ resource "aws_api_gateway_deployment" "convertr_deployment" {
     create_before_destroy = true
   }
 
-  depends_on = [time_sleep.wait_30_seconds]
+  depends_on = [time_sleep.wait_90_seconds]
 }
 
 resource "aws_api_gateway_stage" "convertr_stage" {

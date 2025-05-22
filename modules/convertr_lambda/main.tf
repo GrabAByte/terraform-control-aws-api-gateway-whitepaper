@@ -34,6 +34,7 @@ resource "aws_iam_role_policy" "convertr_lambda_s3_policy" {
   })
 }
 
+
 data "archive_file" "convertr_lambda_archive" {
   type        = var.archive_type
   source_file = var.archive_source
@@ -56,4 +57,13 @@ resource "aws_lambda_function" "convertr_lambda" {
   environment {
     variables = var.environment_variables
   }
+}
+
+resource "aws_lambda_permission" "api_gatewway" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.convertr_lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${var.api_gateway_execution_arn}/*/*"
 }

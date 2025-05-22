@@ -19,6 +19,7 @@ module "convertr_lambda" {
   archive_output = "convertr_lambda_function.zip"
   function_name  = "convertr_lambda_function"
   handler        = "convertr_lambda.lambda_handler"
+  api_gateway_execution_arn = module.convertr_api_gateway.api_gateway_execution_arn
   runtime        = "python3.13"
   environment_variables = {
     bucket = module.convertr_s3.bucket_name
