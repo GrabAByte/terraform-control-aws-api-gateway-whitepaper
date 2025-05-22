@@ -54,6 +54,7 @@ resource "aws_lambda_function" "convertr_lambda" {
   runtime          = var.runtime
   source_code_hash = data.archive_file.convertr_lambda_archive.output_base64sha256
 
+  # TODO: Get this lambda in a VPC with private subnets
   # vpc_config {
   #   subnet_ids         = [var.vpc_subnets]
   #   security_group_ids = [var.security_groups]
