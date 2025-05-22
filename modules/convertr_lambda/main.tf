@@ -28,7 +28,7 @@ resource "aws_iam_role_policy" "convertr_lambda_s3_policy" {
           "s3:PutObject"
         ]
         Effect = "Allow"
-        Resource = "arn:aws:s3:::image-uploader-bucket-demo/*"
+        Resource = "${var.bucket_arn}/${var.bucket_object}"
       },
     ]
   })

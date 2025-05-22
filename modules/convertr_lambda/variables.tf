@@ -38,3 +38,14 @@ variable "environment_variables" {
   type = map(any)
   description = "The Environment variables available to the lambda function"
 }
+
+variable "bucket_arn" {
+  type = string
+  description = "The S3 bucket ARN to upload the images to"
+}
+
+variable "bucket_object" {
+  type = string
+  description = "The S3 bucket object(s)"
+  default = "*"
+}

@@ -10,6 +10,26 @@ variable "endpoint_configuration_types" {
   ]
 }
 
+variable "binary_media_types" {
+  type = list
+  description = "The applicable binary media types to accept"
+  default = [
+    "*/*"
+  ]
+}
+
+variable "passthrough_behaviour" {
+  type = string
+  description = "The passthrough behaviour for requests"
+  default = "WHEN_NO_MATCH"
+}
+
+variable "content_handling" {
+  type = string
+  description = "The behaviour when handling content"
+  default = "CONVERT_TO_TEXT"
+}
+
 variable "api_path_part" {
   type        = string
   description = "The API path part"
@@ -34,6 +54,7 @@ variable "integration_http_method" {
 variable "integration_type" {
   type        = string
   description = "The Integration platform provider"
+  default     = "AWS"
 }
 
 variable "lambda_invoke_arn" {
