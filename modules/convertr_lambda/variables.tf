@@ -62,6 +62,6 @@ variable "runtime" {
 }
 
 variable "vpc_id" {
-  type = string
+  type        = string
   description = "The VPC to create an endpoint from"
 }

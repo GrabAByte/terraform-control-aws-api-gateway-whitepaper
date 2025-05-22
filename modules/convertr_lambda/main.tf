@@ -71,5 +71,5 @@ resource "aws_lambda_permission" "api_gatewway" {
   function_name = aws_lambda_function.convertr_lambda.function_name
   principal     = "apigateway.amazonaws.com"
 
-  source_arn    = "${var.api_gateway_execution_arn}/*/*"
+  source_arn = "${var.api_gateway_execution_arn}/*/*"
 }

@@ -46,28 +46,22 @@ resource "aws_s3_bucket_lifecycle_configuration" "convertr_lifecycle" {
   }
 }
 
-resource "aws_kms_key" "convertr_key" {
-  description = "KMS Key for SSE-KMS"
-  enable_key_rotation     = true
-  deletion_window_in_days = 20
-}
-
 resource "aws_kms_key_policy" "convert_key_policy" {
-  key_id = aws_kms_key.key.id
+  key_id = aws_kms_key.convertr_key.id
   policy = jsonencode({
     Id = "key"
     Statement = [
       {
-        Sid = "Enable IAM User Permissions"
+        Sid    = "Enable IAM User Permissions"
         Effect = "Allow"
         Principal = {
           AWS = "*"
         }
-        Action = "kms:*"
+        Action   = "kms:*"
         Resource = "*"
       },
       {
-        Sid = "Allow use of the key"
+        Sid    = "Allow use of the key"
         Effect = "Allow"
         Principal = {
           AWS = "*"
@@ -81,11 +75,12 @@ resource "aws_kms_key_policy" "convert_key_policy" {
         ]
         Resource = "*"
       },
+      {
         Sid    = "Allow administration of the key"
         Effect = "Allow"
         Principal = {
-          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/grababt"
-        },
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/grababyte"
+        }
         Action = [
           "kms:ReplicateKey",
           "kms:Create*",
@@ -100,12 +95,18 @@ resource "aws_kms_key_policy" "convert_key_policy" {
           "kms:Delete*",
           "kms:ScheduleKeyDeletion",
           "kms:CancelKeyDeletion"
-        ],
+        ]
         Resource = "*"
-      },
+      }
     ]
     Version = "2012-10-17"
   })
+}
+
+resource "aws_kms_key" "convertr_key" {
+  description             = "KMS Key for SSE-KMS"
+  enable_key_rotation     = true
+  deletion_window_in_days = 20
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "convertr_encrypt" {
@@ -114,7 +115,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "convertr_encrypt"
   rule {
     apply_server_side_encryption_by_default {
       kms_master_key_id = aws_kms_key.convertr_key.arn
-      sse_algorithm = "aws:kms"
+      sse_algorithm     = "aws:kms"
     }
   }
 }
@@ -139,7 +140,7 @@ resource "aws_s3_bucket_policy" "https_only" {
         Effect    = "Deny"
         Principal = "*"
         Action    = "s3:*"
-         Resource = [
+        Resource = [
           "${aws_s3_bucket.convertr.arn}/*",
           aws_s3_bucket.convertr.arn
         ]
