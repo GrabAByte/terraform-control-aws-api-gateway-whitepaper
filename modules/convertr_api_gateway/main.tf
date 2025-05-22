@@ -78,7 +78,7 @@ resource "aws_api_gateway_deployment" "convertr_deployment" {
 resource "aws_api_gateway_stage" "convertr_stage" {
   deployment_id = aws_api_gateway_deployment.convertr_deployment.id
   rest_api_id   = aws_api_gateway_rest_api.convertr_api.id
-  stage_name    = "demo"
+  stage_name    = var.stage_name
 
   depends_on = [aws_api_gateway_deployment.convertr_deployment]
 }

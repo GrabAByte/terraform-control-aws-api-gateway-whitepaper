@@ -56,3 +56,7 @@ variable "passthrough_behaviour" {
   default     = "WHEN_NO_MATCH"
 }
 
+variable "stage_name" {
+  type        = string
+  description = "The stage name for API resource"
+}
