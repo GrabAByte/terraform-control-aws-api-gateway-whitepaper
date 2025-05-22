@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.3.0] - (22-05-2025)
+feat: (b78b3d3) open additional attributes for achitecture (#10)
+
 ## [0.2.0] - (21-05-2025)
 feat: (d52458f) Add terraform destroy and lambda ARN lookup (#9)
 
