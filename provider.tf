@@ -3,3 +3,5 @@ provider "aws" {
 }
 
 provider "archive" {}
+
+provider "time" {}

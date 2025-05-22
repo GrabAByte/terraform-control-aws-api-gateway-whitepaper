@@ -43,34 +43,36 @@ jobs:
       terraformPath: .
       workspace: ${{ matrix.workspaces }}
     needs: [lint,validate,scan]
-  apply:
-    if: github.ref == 'refs/heads/main'
-    strategy:
-      matrix:
-        workspaces: [development]
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@0.13.0
-    secrets:
-      account: ${{ secrets.AWS_ACCOUNT }}
-      role: ${{ secrets.AWS_ROLE }}
-    with:
-      region: eu-west-2
-      terraformPath: .
-      workspace: ${{ matrix.workspaces }}
-    needs: [lint,validate,scan,plan]
-  destroy:
-    if: github.ref == 'refs/heads/main'
-    strategy:
-      matrix:
-        workspaces: [development]
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestroy.yml@0.13.0
-    secrets:
-      account: ${{ secrets.AWS_ACCOUNT }}
-      role: ${{ secrets.AWS_ROLE }}
-    with:
-      region: eu-west-2
-      terraformPath: .
-      workspace: ${{ matrix.workspaces }}
-    needs: [lint,validate,scan,plan,apply]
+
+  ## temporarily disable functionality
+  #apply:
+  #  if: github.ref == 'refs/heads/main'
+  #  strategy:
+  #    matrix:
+  #      workspaces: [development]
+  #  uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@0.13.0
+  #  secrets:
+  #    account: ${{ secrets.AWS_ACCOUNT }}
+  #    role: ${{ secrets.AWS_ROLE }}
+  #  with:
+  #    region: eu-west-2
+  #    terraformPath: .
+  #    workspace: ${{ matrix.workspaces }}
+  #  needs: [lint,validate,scan,plan]
+  #destroy:
+  #  if: github.ref == 'refs/heads/main'
+  #  strategy:
+  #    matrix:
+  #      workspaces: [development]
+  #  uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestroy.yml@0.13.0
+  #  secrets:
+  #    account: ${{ secrets.AWS_ACCOUNT }}
+  #    role: ${{ secrets.AWS_ROLE }}
+  #  with:
+  #    region: eu-west-2
+  #    terraformPath: .
+  #    workspace: ${{ matrix.workspaces }}
+  #  needs: [lint,validate,scan,plan,apply]
   update-version:
     if: github.ref == 'refs/heads/main'
     uses: GrabAByte/github-devops-workflows/.github/workflows/updateVersion.yml@0.13.0
@@ -79,4 +81,4 @@ jobs:
       gitEmail: 'grababyte@github.com'
       metadataFile: 'metadata.json'
       metadataPath: .
-    needs: [lint,validate,scan,plan,apply]
+    needs: [lint,validate,scan,plan]
