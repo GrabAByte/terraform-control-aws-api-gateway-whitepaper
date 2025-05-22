@@ -13,14 +13,14 @@ module "convertr_api_gateway" {
 module "convertr_lambda" {
   source = "./modules/convertr_lambda"
 
-  bucket_arn     = module.convertr_s3.bucket_arn
-  iam_role_name  = "convertr_lambda"
-  archive_source = "convertr_lambda.py"
-  archive_output = "convertr_lambda_function.zip"
-  function_name  = "convertr_lambda_function"
-  handler        = "convertr_lambda.lambda_handler"
+  bucket_arn                = module.convertr_s3.bucket_arn
+  iam_role_name             = "convertr_lambda"
+  archive_source            = "convertr_lambda.py"
+  archive_output            = "convertr_lambda_function.zip"
+  function_name             = "convertr_lambda_function"
+  handler                   = "convertr_lambda.lambda_handler"
   api_gateway_execution_arn = module.convertr_api_gateway.api_gateway_execution_arn
-  runtime        = "python3.13"
+  runtime                   = "python3.13"
   environment_variables = {
     bucket = module.convertr_s3.bucket_name
   }

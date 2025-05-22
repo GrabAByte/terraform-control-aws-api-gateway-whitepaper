@@ -1,5 +1,5 @@
 variable "api_gateway_execution_arn" {
-  type = string
+  type        = string
   description = "The Execution AEN of the API Gateway"
 }
 

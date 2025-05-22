@@ -34,7 +34,6 @@ resource "aws_iam_role_policy" "convertr_lambda_s3_policy" {
   })
 }
 
-
 data "archive_file" "convertr_lambda_archive" {
   type        = var.archive_type
   source_file = var.archive_source
