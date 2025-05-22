@@ -10,7 +10,7 @@ data "aws_availability_zones" "available" {
 resource "aws_vpc" "convertr" {
   cidr_block = var.cidr_block
 
-  tags       = var.tags
+  tags = var.tags
 }
 
 resource "aws_default_security_group" "convertr_security_group" {
@@ -21,5 +21,5 @@ resource "aws_subnet" "convertr_subnet" {
   count             = 3
   vpc_id            = aws_vpc.convertr.id
   cidr_block        = "10.0.${count.index}.0/24"
-  availability_zone  = data.aws_availability_zones.available.names[count.index]
+  availability_zone = data.aws_availability_zones.available.names[count.index]
 }

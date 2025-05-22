@@ -1,6 +1,6 @@
 resource "aws_api_gateway_rest_api" "convertr_api" {
-  name              = var.api_name
-  description       = "My ${var.api_name} API Gateway"
+  name               = var.api_name
+  description        = "My ${var.api_name} API Gateway"
   binary_media_types = var.binary_media_types
 
   endpoint_configuration {
@@ -36,7 +36,7 @@ resource "aws_api_gateway_integration" "convertr_integration" {
 # resource "null_resource" "previous" {}
 
 resource "time_sleep" "wait_30_seconds" {
-# depends_on = [null_resource.previous]
+  # depends_on = [null_resource.previous]
 
   create_duration = "30s"
 }
