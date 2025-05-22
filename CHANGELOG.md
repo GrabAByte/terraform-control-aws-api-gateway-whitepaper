@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.3.2] - (22-05-2025)
+fix: (60a6cb1) subtle uncleaniness in the code (#13)
+
 ## [0.3.1] - (22-05-2025)
 chore: (a9a8be4) format terraform module code (#12)
 
