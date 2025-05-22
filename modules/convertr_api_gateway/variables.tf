@@ -29,7 +29,7 @@ variable "binary_media_types" {
 variable "content_handling" {
   type        = string
   description = "The behaviour when handling content"
-  default     = "CONVERT_TO_TEXT"
+  default     = "PASSTHROUGH"
 }
 
 variable "endpoint_configuration_types" {

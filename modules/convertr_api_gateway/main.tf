@@ -21,15 +21,42 @@ resource "aws_api_gateway_method" "convertr_method" {
   authorization = var.api_authorization_method
 }
 
+resource "aws_api_gateway_method_response" "convertr_response" {
+  rest_api_id = aws_api_gateway_rest_api.convertr_api.id
+  resource_id = aws_api_gateway_resource.convertr_path.id
+  http_method = aws_api_gateway_method.convertr_method.http_method
+  status_code = "200"
+  response_models     = {
+    "application/json" = "Empty"
+  }
+}
+
 resource "aws_api_gateway_integration" "convertr_integration" {
   rest_api_id             = aws_api_gateway_rest_api.convertr_api.id
   resource_id             = aws_api_gateway_resource.convertr_path.id
   integration_http_method = var.integration_http_method
   http_method             = aws_api_gateway_method.convertr_method.http_method
   passthrough_behavior    = var.passthrough_behaviour
-  content_handling        = var.content_handling
+  # content_handling        = var.content_handling
   type                    = var.integration_type
   uri                     = var.lambda_invoke_arn
+  request_templates       = {
+    "application/pdf" = jsonencode({
+      content = "$input.body"
+    })
+  }
+}
+
+resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
+  rest_api_id = aws_api_gateway_rest_api.convertr_api.id
+  resource_id = aws_api_gateway_resource.convertr_path.id
+  http_method = aws_api_gateway_method.convertr_method.http_method
+  status_code = aws_api_gateway_method_response.convertr_response.status_code
+
+  # Transforms the backend JSON response to XML
+  response_templates = {
+    "application/json" = ""
+  }
 }
 
 resource "time_sleep" "wait_30_seconds" {
