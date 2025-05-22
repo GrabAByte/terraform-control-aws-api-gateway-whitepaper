@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.3.1] - (22-05-2025)
+chore: (a9a8be4) format terraform module code (#12)
+
 ## [0.3.0] - (22-05-2025)
 feat: (b78b3d3) open additional attributes for achitecture (#10)
 
