@@ -57,6 +57,7 @@ resource "aws_api_gateway_integration_response" "convertr_integration_response" 
   resource_id = aws_api_gateway_resource.convertr_path.id
   http_method = aws_api_gateway_method.convertr_method.http_method
   status_code = aws_api_gateway_method_response.convertr_response.status_code
+  
   depends_on = [time_sleep.wait_120_seconds]
 }
 
