@@ -1,6 +1,6 @@
 variable "api_gateway_execution_arn" {
   type        = string
-  description = "The Execution AEN of the API Gateway"
+  description = "The Execution ARN of the API Gateway"
 }
 
 variable "archive_output" {
