@@ -14,3 +14,10 @@
 #  Ignore CLI configuration files
 .terraformrc
 terraform*
+
+# lambda binaries
+*.zip
+
+# editing fils
+*.swp
+**/.swp

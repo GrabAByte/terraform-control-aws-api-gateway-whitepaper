@@ -16,6 +16,24 @@ resource "aws_iam_role" "convertr_lambda_role" {
   assume_role_policy = data.aws_iam_policy_document.convertr_lambda_policy.json
 }
 
+resource "aws_iam_role_policy" "convertr_lambda_s3_policy" {
+  name = "convertr_lambda_s3_policy"
+  role = aws_iam_role.convertr_lambda_role.name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject"
+        ]
+        Effect = "Allow"
+        Resource = "${var.bucket_arn}/${var.bucket_object}"
+      },
+    ]
+  })
+}
+
 data "archive_file" "convertr_lambda_archive" {
   type        = var.archive_type
   source_file = var.archive_source
@@ -23,11 +41,11 @@ data "archive_file" "convertr_lambda_archive" {
 }
 
 resource "aws_lambda_function" "convertr_lambda" {
-  filename      = var.archive_output
-  function_name = var.function_name
-  role          = aws_iam_role.convertr_lambda_role.arn
-  handler       = var.handler
-  runtime       = var.runtime
+  filename         = var.archive_output
+  function_name    = var.function_name
+  role             = aws_iam_role.convertr_lambda_role.arn
+  handler          = var.handler
+  runtime          = var.runtime
   source_code_hash = data.archive_file.convertr_lambda_archive.output_base64sha256
 
   # vpc_config {
