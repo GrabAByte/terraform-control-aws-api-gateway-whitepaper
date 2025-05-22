@@ -97,7 +97,7 @@ terraform destroy
 
 ## Troubleshooting & FAQ
 
-At present when terraform provisions the convertr_api_gateway module, postman returns a 500 internal server error, when setting up the api gateway in AWS through ClickOps and integrating with other deployed resouces deployed with Terraform it works with the clean 200 status code.
+At present when terraform provisions the convertr_api_gateway module, postman returns a 500 internal server error, when setting up the api gateway in AWS through ClickOps and integrating with other resources deployed with Terraform it works with the clean 200 status code.
 
 ## Maintainers
 
