@@ -4,7 +4,7 @@ variable "api_name" {
 }
 
 variable "endpoint_configuration_types" {
-  type    = list
+  type = list(any)
   default = [
     "REGIONAL"
   ]
@@ -37,6 +37,6 @@ variable "integration_type" {
 }
 
 variable "lambda_invoke_arn" {
-  type = string
+  type        = string
   description = "The URI to the Lambda integration"
 }

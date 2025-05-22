@@ -23,11 +23,11 @@ data "archive_file" "convertr_lambda_archive" {
 }
 
 resource "aws_lambda_function" "convertr_lambda" {
-  filename      = var.archive_output
-  function_name = var.function_name
-  role          = aws_iam_role.convertr_lambda_role.arn
-  handler       = var.handler
-  runtime       = var.runtime
+  filename         = var.archive_output
+  function_name    = var.function_name
+  role             = aws_iam_role.convertr_lambda_role.arn
+  handler          = var.handler
+  runtime          = var.runtime
   source_code_hash = data.archive_file.convertr_lambda_archive.output_base64sha256
 
   # vpc_config {

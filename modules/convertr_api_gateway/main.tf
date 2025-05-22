@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "convertr_api" {
-  name = var.api_name
+  name        = var.api_name
   description = "My ${var.api_name} API Gateway"
 
   endpoint_configuration {
