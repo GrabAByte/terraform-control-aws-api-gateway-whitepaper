@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.6.0] - (22-05-2025)
+feat: (81a323f) Add README.md (#17)
+
 ## [0.5.0] - (22-05-2025)
 feat: (5d40754) extra sec hardening (#16)
 
