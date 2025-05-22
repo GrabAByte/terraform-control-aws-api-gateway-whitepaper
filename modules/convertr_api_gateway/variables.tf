@@ -26,12 +26,6 @@ variable "binary_media_types" {
   ]
 }
 
-variable "content_handling" {
-  type        = string
-  description = "The behaviour when handling content"
-  default     = "CONVERT_TO_TEXT"
-}
-
 variable "endpoint_configuration_types" {
   type = list(any)
   default = [
@@ -62,3 +56,7 @@ variable "passthrough_behaviour" {
   default     = "WHEN_NO_MATCH"
 }
 
+variable "stage_name" {
+  type        = string
+  description = "The stage name for API resource"
+}
