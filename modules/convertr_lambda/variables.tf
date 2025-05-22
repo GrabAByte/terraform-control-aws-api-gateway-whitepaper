@@ -54,3 +54,8 @@ variable "runtime" {
   type        = string
   description = "The lambda runtime"
 }
+
+variable "vpc_id" {
+  type = string
+  description = "The VPC to create an endpoint from"
+}

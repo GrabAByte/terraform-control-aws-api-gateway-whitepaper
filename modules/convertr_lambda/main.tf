@@ -34,6 +34,13 @@ resource "aws_iam_role_policy" "convertr_lambda_s3_policy" {
   })
 }
 
+resource "aws_vpc_endpoint" "lambda_endpoint" {
+  vpc_id       = var.vpc_id
+  service_name = "com.amazonaws.${var.aws_region}.lambda"
+
+  tags = var.tags
+}
+
 data "archive_file" "convertr_lambda_archive" {
   type        = var.archive_type
   source_file = var.archive_source

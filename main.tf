@@ -22,6 +22,7 @@ module "convertr_lambda" {
   handler                   = "convertr_lambda.lambda_handler"
   api_gateway_execution_arn = module.convertr_api_gateway.api_gateway_execution_arn
   runtime                   = "python3.13"
+  vpc_id                    = module.convertr_vpc.vpc_id
   environment_variables = {
     bucket = module.convertr_s3.bucket_name
   }
