@@ -1,3 +1,9 @@
+variable "aws_region" {
+  type        = string
+  description = "The AWS region in which to deploy"
+  default     = "eu-west-2"
+}
+
 variable "api_gateway_execution_arn" {
   type        = string
   description = "The Execution ARN of the API Gateway"

@@ -48,11 +48,16 @@ resource "aws_api_gateway_integration" "convertr_integration" {
   }
 }
 
+resource "time_sleep" "wait_120_seconds" {
+  create_duration = "120s"
+}
+
 resource "aws_api_gateway_integration_response" "convertr_integration_response" {
   rest_api_id = aws_api_gateway_rest_api.convertr_api.id
   resource_id = aws_api_gateway_resource.convertr_path.id
   http_method = aws_api_gateway_method.convertr_method.http_method
   status_code = aws_api_gateway_method_response.convertr_response.status_code
+  depends_on = [time_sleep.wait_120_seconds]
 }
 
 resource "aws_api_gateway_deployment" "convertr_deployment" {
@@ -65,10 +70,14 @@ resource "aws_api_gateway_deployment" "convertr_deployment" {
   lifecycle {
     create_before_destroy = true
   }
+
+  depends_on = [time_sleep.wait_120_seconds]
 }
 
 resource "aws_api_gateway_stage" "convertr_stage" {
   deployment_id = aws_api_gateway_deployment.convertr_deployment.id
   rest_api_id   = aws_api_gateway_rest_api.convertr_api.id
   stage_name    = var.stage_name
+
+  depends_on = [time_sleep.wait_120_seconds]
 }
