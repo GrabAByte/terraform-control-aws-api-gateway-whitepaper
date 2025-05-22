@@ -21,7 +21,7 @@ module "convertr_lambda" {
   handler        = "index.handler"
   runtime        = "python3.13"
   environment_variables = {
-    bucket = "convertr-bucket"
+    bucket = module.convertr_s3.bucket_name
   }
 }
 

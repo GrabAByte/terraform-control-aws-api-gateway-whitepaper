@@ -48,7 +48,6 @@ resource "aws_api_gateway_deployment" "convertr_deployment" {
   }
 
   depends_on = [time_sleep.wait_30_seconds]
-
 }
 
 resource "aws_api_gateway_stage" "convertr_stage" {

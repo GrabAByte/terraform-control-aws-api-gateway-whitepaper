@@ -49,8 +49,8 @@ resource "aws_lambda_function" "convertr_lambda" {
   source_code_hash = data.archive_file.convertr_lambda_archive.output_base64sha256
 
   # vpc_config {
-  #   subnet_ids         = [aws_subnet.subnet_private.id]
-  #   security_group_ids = [aws_default_security_group.default_security_group.id]
+  #   subnet_ids         = [var.vpc_subnets]
+  #   security_group_ids = [var.security_groups]
   # }
 
   environment {

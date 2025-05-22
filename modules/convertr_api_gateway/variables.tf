@@ -3,11 +3,19 @@ variable "api_name" {
   description = "The name of the API"
 }
 
-variable "endpoint_configuration_types" {
-  type = list(any)
-  default = [
-    "REGIONAL"
-  ]
+variable "api_authorization_method" {
+  type        = string
+  description = "The API Authroization Method"
+}
+
+variable "api_http_method" {
+  type        = string
+  description = "The API HTTP Method"
+}
+
+variable "api_path_part" {
+  type        = string
+  description = "The API path part"
 }
 
 variable "binary_media_types" {
@@ -18,31 +26,17 @@ variable "binary_media_types" {
   ]
 }
 
-variable "passthrough_behaviour" {
-  type        = string
-  description = "The passthrough behaviour for requests"
-  default     = "WHEN_NO_MATCH"
-}
-
 variable "content_handling" {
   type        = string
   description = "The behaviour when handling content"
   default     = "CONVERT_TO_TEXT"
 }
 
-variable "api_path_part" {
-  type        = string
-  description = "The API path part"
-}
-
-variable "api_http_method" {
-  type        = string
-  description = "The API HTTP Method"
-}
-
-variable "api_authorization_method" {
-  type        = string
-  description = "The API Authroization Method"
+variable "endpoint_configuration_types" {
+  type = list(any)
+  default = [
+    "REGIONAL"
+  ]
 }
 
 variable "integration_http_method" {
@@ -61,3 +55,10 @@ variable "lambda_invoke_arn" {
   type        = string
   description = "The URI to the Lambda integration"
 }
+
+variable "passthrough_behaviour" {
+  type        = string
+  description = "The passthrough behaviour for requests"
+  default     = "WHEN_NO_MATCH"
+}
+

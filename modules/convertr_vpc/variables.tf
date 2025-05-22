@@ -8,6 +8,6 @@ variable "tags" {
   type        = map(any)
   description = "The projects tags"
   default = {
-    project = "convertr"
+    project = "convertr-demo"
   }
 }
