@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.4.0] - (22-05-2025)
+feat: (ebe8ed1) apply hardening configuation (#15)
+
 ## [0.3.2] - (22-05-2025)
 fix: (60a6cb1) subtle uncleaniness in the code (#13)
 
