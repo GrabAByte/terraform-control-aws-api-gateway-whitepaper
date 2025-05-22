@@ -17,15 +17,15 @@ resource "aws_api_gateway_resource" "convertr_path" {
 resource "aws_api_gateway_method" "convertr_method" {
   rest_api_id   = aws_api_gateway_rest_api.convertr_api.id
   resource_id   = aws_api_gateway_resource.convertr_path.id
-  http_method   = var.api_http_method
+  http_method   = "PUT"
   authorization = var.api_authorization_method
 }
 
 resource "aws_api_gateway_method_response" "convertr_response" {
   rest_api_id = aws_api_gateway_rest_api.convertr_api.id
   resource_id = aws_api_gateway_resource.convertr_path.id
-  http_method = aws_api_gateway_method.convertr_method.http_method
-  status_code = "200"
+  http_method = "PUT"
+  status_code = 200
   response_models     = {
     "application/json" = "Empty"
   }
@@ -35,9 +35,8 @@ resource "aws_api_gateway_integration" "convertr_integration" {
   rest_api_id             = aws_api_gateway_rest_api.convertr_api.id
   resource_id             = aws_api_gateway_resource.convertr_path.id
   integration_http_method = var.integration_http_method
-  http_method             = aws_api_gateway_method.convertr_method.http_method
+  http_method             = "PUT"
   passthrough_behavior    = var.passthrough_behaviour
-  # content_handling        = var.content_handling
   type                    = var.integration_type
   uri                     = var.lambda_invoke_arn
   request_templates       = {
@@ -47,10 +46,10 @@ resource "aws_api_gateway_integration" "convertr_integration" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
+resource "aws_api_gateway_integration_response" "convertr_integration_response" {
   rest_api_id = aws_api_gateway_rest_api.convertr_api.id
   resource_id = aws_api_gateway_resource.convertr_path.id
-  http_method = aws_api_gateway_method.convertr_method.http_method
+  http_method = "PUT"
   status_code = aws_api_gateway_method_response.convertr_response.status_code
 
   # Transforms the backend JSON response to XML
