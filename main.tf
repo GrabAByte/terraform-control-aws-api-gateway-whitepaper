@@ -18,7 +18,7 @@ module "convertr_lambda" {
   archive_source = "convertr_lambda.py"
   archive_output = "convertr_lambda_function.zip"
   function_name  = "convertr_lambda_function"
-  handler        = "lambda_function.lambda_handler"
+  handler        = "convertr_lambda.lambda_handler"
   runtime        = "python3.13"
   environment_variables = {
     bucket = module.convertr_s3.bucket_name
