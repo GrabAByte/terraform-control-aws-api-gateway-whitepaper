@@ -3,7 +3,7 @@ module "convertr_api_gateway" {
 
   api_name                 = "convertr"
   api_path_part            = "convertr"
-  api_http_method          = "POST"
+  api_http_method          = "PUT"
   api_authorization_method = "NONE"
   integration_http_method  = "POST"
   integration_type         = "AWS"
@@ -20,7 +20,7 @@ module "convertr_lambda" {
   handler        = "index.handler"
   runtime        = "python3.13"
   environment_variables = {
-    foo = "bar"
+    bucket = "convertr-bucket"
   }
 }
 
