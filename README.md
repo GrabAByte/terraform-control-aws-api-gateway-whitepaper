@@ -85,7 +85,7 @@ terraform plan
 terraform apply
 
 # if ready to destroy infrastructure
-terraform destory
+terraform destroy
 ```
 
 ## Configuration
