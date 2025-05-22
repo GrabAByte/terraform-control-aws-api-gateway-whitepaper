@@ -27,7 +27,7 @@ resource "aws_iam_role_policy" "convertr_lambda_s3_policy" {
           "s3:GetObject",
           "s3:PutObject"
         ]
-        Effect = "Allow"
+        Effect   = "Allow"
         Resource = "${var.bucket_arn}/${var.bucket_object}"
       },
     ]

@@ -4,14 +4,14 @@ variable "api_name" {
 }
 
 variable "endpoint_configuration_types" {
-  type    = list
+  type = list(any)
   default = [
     "REGIONAL"
   ]
 }
 
 variable "binary_media_types" {
-  type = list
+  type        = list(any)
   description = "The applicable binary media types to accept"
   default = [
     "*/*"
@@ -19,15 +19,15 @@ variable "binary_media_types" {
 }
 
 variable "passthrough_behaviour" {
-  type = string
+  type        = string
   description = "The passthrough behaviour for requests"
-  default = "WHEN_NO_MATCH"
+  default     = "WHEN_NO_MATCH"
 }
 
 variable "content_handling" {
-  type = string
+  type        = string
   description = "The behaviour when handling content"
-  default = "CONVERT_TO_TEXT"
+  default     = "CONVERT_TO_TEXT"
 }
 
 variable "api_path_part" {
@@ -58,6 +58,6 @@ variable "integration_type" {
 }
 
 variable "lambda_invoke_arn" {
-  type = string
+  type        = string
   description = "The URI to the Lambda integration"
 }
