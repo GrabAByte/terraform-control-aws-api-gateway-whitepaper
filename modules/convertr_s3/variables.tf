@@ -5,5 +5,5 @@ variable "bucket_name" {
 
 variable "tags" {
   type        = map(any)
-  description = "The tags associated to the cloud resource"
+  description = "The project tags"
 }

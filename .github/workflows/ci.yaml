@@ -73,6 +73,7 @@ jobs:
   #    terraformPath: .
   #    workspace: ${{ matrix.workspaces }}
   #  needs: [lint,validate,scan,plan,apply]
+
   update-version:
     if: github.ref == 'refs/heads/main'
     uses: GrabAByte/github-devops-workflows/.github/workflows/updateVersion.yml@0.13.0
