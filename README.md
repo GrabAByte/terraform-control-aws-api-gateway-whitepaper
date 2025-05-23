@@ -1,9 +1,9 @@
 # terraform-aws-convertr-demo
 
 ## Project name and introduction
-Grababyte projects look to follow the same naming pattern on <technology>-<provider>-<project>
+Grababyte projects look to follow the naming pattern of "<technology>-<provider>-<project>"
 
-The following project looks to accomplish the following cloud architecture -
+The project looks to accomplish the following cloud architecture -
 
 ### Objectives
 
@@ -30,13 +30,14 @@ endpoint, with the processing logic running in a Lambda function within a privat
 ## repository structure
 
 ```
-├── backends - environment specific configuration
-├── modules  - modules in use for the architecture
+.github/workflows - CI CD pipeline for terraform automation
+├── backends      - environment specific configuration
+├── modules       - modules in use for the architecture
 │   ├── convertr_api_gateway
 │   ├── convertr_lambda
 │   ├── convertr_s3
 │   └── convertr_vpc
-└── test    - forked python test script for regression testing secruity hardening
+└── test         - forked python test script for regression testing secruity hardening
 ```
 
 ## Table of contents
@@ -51,11 +52,11 @@ endpoint, with the processing logic running in a Lambda function within a privat
 
 ## Requirements
 
-The following will need to be install in order to run this project -
+The following will need to be installed to run this project -
 
-- An AWS account to deply into 
-- Setup of AWS credentials configuration within local environment
-- terraform for running the Infrastrucure-as-Code
+- an AWS account to deploy into 
+- setup of AWS credentials configuration within local environment
+- terraform for running the Infrastructure-as-Code
 - python3 for developing and testing the lambda
 - postman for testing the API gateway
 
@@ -63,7 +64,7 @@ The following will need to be install in order to run this project -
 
 Modules can be found in the following directory -
 
-- ./modules/<module>/ (terraform)
+- ./modules/module/ (terraform)
 - python modules are handled by the lambda functionality and no requirements.txt is required
 
 ## Installation

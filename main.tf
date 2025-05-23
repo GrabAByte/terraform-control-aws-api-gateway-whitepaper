@@ -8,7 +8,9 @@ module "convertr_api_gateway" {
   integration_http_method  = "POST"
   integration_type         = "AWS"
   lambda_invoke_arn        = module.convertr_lambda.lambda_arn
-  stage_name               = "v1beta"
+  stage_name               = "v1beta1"
+
+  tags = local.tags
 }
 
 module "convertr_lambda" {
@@ -26,17 +28,22 @@ module "convertr_lambda" {
   environment_variables = {
     bucket = module.convertr_s3.bucket_name
   }
+
+  tags = local.tags
 }
 
 module "convertr_s3" {
   source = "./modules/convertr_s3"
 
   bucket_name = "convertr-bucket"
-  tags        = merge(local.tags, { project = "convertr-demo" })
+
+  tags = local.tags
 }
 
 module "convertr_vpc" {
   source = "./modules/convertr_vpc"
 
   cidr_block = "10.0.0.0/16"
+
+  tags = local.tags
 }

@@ -6,6 +6,8 @@ resource "aws_api_gateway_rest_api" "convertr_api" {
   endpoint_configuration {
     types = var.endpoint_configuration_types
   }
+
+  tags = var.tags
 }
 
 resource "aws_api_gateway_resource" "convertr_path" {
@@ -48,8 +50,8 @@ resource "aws_api_gateway_integration" "convertr_integration" {
   }
 }
 
-resource "time_sleep" "wait_120_seconds" {
-  create_duration = "120s"
+resource "time_sleep" "wait_150_seconds" {
+  create_duration = "150s"
 }
 
 resource "aws_api_gateway_integration_response" "convertr_integration_response" {
@@ -58,7 +60,7 @@ resource "aws_api_gateway_integration_response" "convertr_integration_response" 
   http_method = aws_api_gateway_method.convertr_method.http_method
   status_code = aws_api_gateway_method_response.convertr_response.status_code
 
-  depends_on = [time_sleep.wait_120_seconds]
+  depends_on = [time_sleep.wait_150_seconds]
 }
 
 resource "aws_api_gateway_deployment" "convertr_deployment" {
@@ -72,7 +74,7 @@ resource "aws_api_gateway_deployment" "convertr_deployment" {
     create_before_destroy = true
   }
 
-  depends_on = [time_sleep.wait_120_seconds]
+  depends_on = [time_sleep.wait_150_seconds]
 }
 
 resource "aws_api_gateway_stage" "convertr_stage" {
@@ -80,5 +82,6 @@ resource "aws_api_gateway_stage" "convertr_stage" {
   rest_api_id   = aws_api_gateway_rest_api.convertr_api.id
   stage_name    = var.stage_name
 
-  depends_on = [time_sleep.wait_120_seconds]
+  tags       = var.tags
+  depends_on = [time_sleep.wait_150_seconds]
 }

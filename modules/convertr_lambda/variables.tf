@@ -61,7 +61,18 @@ variable "runtime" {
   description = "The lambda runtime"
 }
 
+variable "tags" {
+  type        = map(any)
+  description = "The project tags"
+}
+
 variable "vpc_id" {
   type        = string
   description = "The VPC to create an endpoint from"
+}
+
+variable "vpc_type" {
+  type        = string
+  description = "The type of VPC endpoint [gateway,interface]"
+  default     = "Interface"
 }
