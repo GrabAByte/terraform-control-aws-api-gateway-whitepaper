@@ -21,8 +21,12 @@ jobs:
     with:
       terraformPath: .
   validate:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformValidate.yml@0.13.0
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformValidate.yml@fix/terraformValidate
+    secrets:
+      account: ${{ secrets.AWS_ACCOUNT }}
+      role: ${{ secrets.AWS_ROLE }}
     with:
+      region: eu-west-2
       terraformPath: .
     needs: [lint]
   scan:
