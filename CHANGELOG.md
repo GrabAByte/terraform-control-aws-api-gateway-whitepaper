@@ -5,9 +5,9 @@
 
 * semantic-release capability to update CHANGELOG.md ([2b6b1c0](https://github.com/GrabAByte/terraform-aws-convertr-demo/commit/2b6b1c04664d725717622da44595d7b8ef5cfc0b))
 
+###########################################################################################################
 
-## Custom Changelog generation stopped at 0.6.1 and was replaced at 1.0.0 by semantic-release, the changelog plugin was added for release 1.0.2 starting a new pattern above.
-# Changelog
+### Custom Changelog generation stopped at 0.6.1 having been replaced at 1.0.0 by semantic-release, the changelog plugin was added for release 1.0.2 starting the new pattern above.
 
 ## [0.6.1] - (23-05-2025)
 fix: (e098827) tidy up and variablize code (#18)
