@@ -1,7 +1,7 @@
 # terraform-aws-convertr-demo
 
 ## Project name and introduction
-Grababyte projects look to follow the naming pattern of "<technology>-<provider>-<project>"
+Grababyte projects look to follow the naming pattern of "$technology-$provider-$project"
 
 The project looks to accomplish the following cloud architecture -
 
@@ -30,14 +30,14 @@ endpoint, with the processing logic running in a Lambda function within a privat
 ## repository structure
 
 ```
-.github/workflows - CI CD pipeline for terraform automation
-├── backends      - environment specific configuration
-├── modules       - modules in use for the architecture
+.github/workflows             - CI CD pipeline for terraform automation
+├── backends                  - environment specific configuration
+├── modules                   - modules in use for the architecture
 │   ├── convertr_api_gateway
 │   ├── convertr_lambda
 │   ├── convertr_s3
 │   └── convertr_vpc
-└── test         - forked python test script for regression testing secruity hardening
+└── test                      - forked python test script for regression testing secruity hardening
 ```
 
 ## Table of contents
