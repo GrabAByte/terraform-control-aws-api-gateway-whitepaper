@@ -5,7 +5,7 @@ module "convertr_api_gateway" {
   api_path_part            = "upload"
   api_http_method          = "PUT"
   api_authorization_method = "NONE"
-  integration_http_method  = "POST"
+  integration_http_method  = "PUT"
   integration_type         = "AWS"
   lambda_invoke_arn        = module.convertr_lambda.lambda_arn
   stage_name               = "v1beta1"
