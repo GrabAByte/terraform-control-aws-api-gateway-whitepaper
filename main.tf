@@ -26,7 +26,9 @@ module "convertr_lambda" {
   function_name             = "convertr_lambda_function"
   handler                   = "convertr_lambda.lambda_handler"
   runtime                   = "python3.13"
-  vpc_id                    = module.convertr_vpc.vpc_id
+  vpc_subnets               = [module.convertr_vpc.subnet_ids]
+  vpc_security_groups       = [module.convertr_vpc.security_groups]
+  # vpc_id                  = module.convertr_vpc.vpc_id
   environment_variables = {
     bucket = module.convertr_s3.bucket_name
   }

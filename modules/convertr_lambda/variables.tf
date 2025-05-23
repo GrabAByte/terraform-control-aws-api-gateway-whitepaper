@@ -71,3 +71,13 @@ variable "vpc_type" {
   description = "The type of VPC endpoint [gateway,interface]"
   default     = "Interface"
 }
+
+variable "vpc_subnets" {
+  type = list
+  description = "The VPC subnets to place the service within"
+}
+
+variable "security_groups" {
+  type = list
+  description = "The security groups to places the services within"
+}

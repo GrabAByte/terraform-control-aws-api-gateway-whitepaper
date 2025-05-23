@@ -36,13 +36,13 @@ resource "aws_iam_role_policy" "convertr_lambda_s3_policy" {
   })
 }
 
-resource "aws_vpc_endpoint" "lambda_endpoint" {
-  vpc_id            = var.vpc_id
-  vpc_endpoint_type = var.vpc_type
-  service_name      = "com.amazonaws.${var.aws_region}.lambda"
+#resource "aws_vpc_endpoint" "lambda_endpoint" {
+#  vpc_id            = var.vpc_id
+#  vpc_endpoint_type = var.vpc_type
+#  service_name      = "com.amazonaws.${var.aws_region}.lambda"
 
-  tags = var.tags
-}
+# tags = var.tags
+#}
 
 data "archive_file" "convertr_lambda_archive" {
   type        = var.archive_type
@@ -59,10 +59,10 @@ resource "aws_lambda_function" "convertr_lambda" {
   source_code_hash = data.archive_file.convertr_lambda_archive.output_base64sha256
 
   # TODO: Move this lambda to a VPC with private subnets
-  # vpc_config {
-  #   subnet_ids         = [var.vpc_subnets]
-  #   security_group_ids = [var.security_groups]
-  # }
+  vpc_config {
+    subnet_ids         = [var.vpc_subnets]
+    security_group_ids = [var.security_groups]
+  }
 
   environment {
     variables = var.environment_variables
