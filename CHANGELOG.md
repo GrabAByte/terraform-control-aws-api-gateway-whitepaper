@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.6.1] - (23-05-2025)
+fix: (e098827) tidy up and variablize code (#18)
+
 ## [0.6.0] - (22-05-2025)
 feat: (81a323f) Add README.md (#17)
 
