@@ -30,7 +30,8 @@ endpoint, with the processing logic running in a Lambda function within a privat
 ## repository structure
 
 ```
-.github/workflows             - CI CD pipeline for terraform automation
+└── .github
+    └── workflows             - CI CD pipeline for terraform automation
 ├── backends                  - environment specific configuration
 ├── modules                   - modules in use for the architecture
 │   ├── convertr_api_gateway
