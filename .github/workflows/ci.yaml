@@ -82,6 +82,4 @@ jobs:
   update-version:
     #if: github.ref == 'refs/heads/main'
     uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@feat/semantic-release
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     needs: [lint,validate,scan,plan]
