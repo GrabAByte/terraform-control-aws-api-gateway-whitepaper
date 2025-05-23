@@ -70,11 +70,3 @@ resource "aws_lambda_function" "convertr_lambda" {
 
   tags = var.tags
 }
-
-resource "aws_lambda_permission" "api_gatewway" {
-  statement_id  = "AllowAPIGatewayInvoke"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.convertr_lambda.function_name
-  principal     = "apigateway.amazonaws.com"
-  source_arn    = "${var.api_gateway_execution_arn}/*/*"
-}

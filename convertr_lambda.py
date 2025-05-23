@@ -10,5 +10,5 @@ def lambda_handler(event, context):
 
     return {
         'statusCode': 200,
-        'body': json.dumps('The Object is Uploaded successfully!, URL:')
+        'body': json.dumps('The Object is Uploaded successfully!')
     }
