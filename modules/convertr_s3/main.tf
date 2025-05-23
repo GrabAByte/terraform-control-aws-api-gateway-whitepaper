@@ -22,10 +22,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "convertr_lifecycle" {
     id     = "delete_old_versions"
     status = "Enabled"
     filter {
-      tag {
-        key   = "project"
-        value = "convertr-demo"
-      }
+      prefix = "/"
     }
 
     noncurrent_version_expiration {
@@ -37,10 +34,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "convertr_lifecycle" {
     id     = "abort_incomplete_uploads"
     status = "Enabled"
     filter {
-      tag {
-        key   = "project"
-        value = "convertr-demo"
-      }
+      prefix = "/"
     }
 
     abort_incomplete_multipart_upload {
@@ -52,10 +46,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "convertr_lifecycle" {
     id     = "expire_delete_markers"
     status = "Enabled"
     filter {
-      tag {
-        key   = "project"
-        value = "convertr-demo"
-      }
+      prefix = "/"
     }
 
     expiration {
