@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix:
         workspaces: [development, pre-production, production]
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@0.13.1
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@fix/backends
     secrets:
       account: ${{ secrets.AWS_ACCOUNT }}
       role: ${{ secrets.AWS_ROLE }}
