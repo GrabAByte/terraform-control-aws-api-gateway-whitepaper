@@ -64,7 +64,7 @@ The following will need to be installed to run this project -
 
 Modules can be found in the following directory -
 
-- ./modules/module/ (terraform)
+- ./modules/$module/ (terraform)
 - python modules are handled by the lambda functionality and no requirements.txt is required
 
 ## Installation
