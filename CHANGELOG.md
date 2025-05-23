@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.0.1...v1.0.2) (2025-05-23)
+
+
+### Bug Fixes
+
+* semantic-release capability to update CHANGELOG.md ([2b6b1c0](https://github.com/GrabAByte/terraform-aws-convertr-demo/commit/2b6b1c04664d725717622da44595d7b8ef5cfc0b))
+
 # Changelog
 
 ## [0.6.1] - (23-05-2025)
