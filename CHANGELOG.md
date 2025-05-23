@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.0.2...v1.0.3) (2025-05-23)
+
+
+### Bug Fixes
+
+* terraform commands in README.md ([06a2ed2](https://github.com/GrabAByte/terraform-aws-convertr-demo/commit/06a2ed2e618bd700fd195c9c27af5ee1b476af83))
+
 ## [1.0.2](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.0.1...v1.0.2) (2025-05-23)
 
 
