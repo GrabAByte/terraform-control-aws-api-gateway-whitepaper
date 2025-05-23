@@ -12,16 +12,16 @@ permissions:
 
 jobs:
   get-version:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/getVersion.yml@0.13.2
+    uses: GrabAByte/github-devops-workflows/.github/workflows/getVersion.yml@0.13.3
     with:
       metadataFile: 'metadata.json'
       metadataPath: .
   lint:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformLint.yml@0.13.2
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformLint.yml@0.13.3
     with:
       terraformPath: .
   validate:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformValidate.yml@0.13.2
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformValidate.yml@0.13.3
     secrets:
       account: ${{ secrets.AWS_ACCOUNT }}
       role: ${{ secrets.AWS_ROLE }}
@@ -30,7 +30,7 @@ jobs:
       terraformPath: .
     needs: [lint]
   scan:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformScan.yml@0.13.2
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformScan.yml@0.13.3
     with:
       terraformPath: .
     needs: [lint,validate]
@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix:
         workspaces: [development, pre-production, production]
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@fix/workspace
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@0.13.3
     secrets:
       account: ${{ secrets.AWS_ACCOUNT }}
       role: ${{ secrets.AWS_ROLE }}
@@ -54,7 +54,7 @@ jobs:
   #  strategy:
   #    matrix:
   #      workspaces: [development]
-  #  uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@0.13.2
+  #  uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@0.13.3
   #  secrets:
   #    account: ${{ secrets.AWS_ACCOUNT }}
   #    role: ${{ secrets.AWS_ROLE }}
@@ -68,7 +68,7 @@ jobs:
   #  strategy:
   #    matrix:
   #      workspaces: [development]
-  #  uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestroy.yml@0.13.2
+  #  uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestroy.yml@0.13.3
   #  secrets:
   #    account: ${{ secrets.AWS_ACCOUNT }}
   #    role: ${{ secrets.AWS_ROLE }}
@@ -80,7 +80,7 @@ jobs:
 
   update-version:
     if: github.ref == 'refs/heads/main'
-    uses: GrabAByte/github-devops-workflows/.github/workflows/updateVersion.yml@0.13.2
+    uses: GrabAByte/github-devops-workflows/.github/workflows/updateVersion.yml@0.13.3
     with:
       gitUsername: 'grababyte'
       gitEmail: 'grababyte@github.com'
