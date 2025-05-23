@@ -79,11 +79,8 @@ jobs:
   #  needs: [lint,validate,scan,plan,apply]
 
   update-version:
-    if: github.ref == 'refs/heads/main'
-    uses: GrabAByte/github-devops-workflows/.github/workflows/updateVersion.yml@0.13.3
-    with:
-      gitUsername: 'grababyte'
-      gitEmail: 'grababyte@github.com'
-      metadataFile: 'metadata.json'
-      metadataPath: .
+    #if: github.ref == 'refs/heads/main'
+    uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@feat/semantic-release
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     needs: [lint,validate,scan,plan]
