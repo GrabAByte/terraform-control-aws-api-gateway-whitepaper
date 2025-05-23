@@ -75,11 +75,16 @@ The following commands can be ran to initialize and deploy the code
 ```
 # ensure you have changed directory into the repository
 
-terraform init
+tflint || docker run --rm -v $(pwd):/data -t ghcr.io/terraform-linters/tflint
+
+# where $environment is the environment you want to use
+terraform init -backend-config=backends/$environment.tf && \
+  terraform workspace new $environment || \
+  terraform workspace select $environment
 
 terraform validate
 
-tfsec
+tfsec || docker run --rm -v $(pwd):/src aquasec/tfsec /src
 
 terraform plan
 
