@@ -60,3 +60,8 @@ variable "stage_name" {
   type        = string
   description = "The stage name for API resource"
 }
+
+variable "tags" {
+  type        = map(any)
+  description = "The project tags"
+}

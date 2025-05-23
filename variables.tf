@@ -18,5 +18,6 @@ locals {
   environment = lookup(var.environment_map, terraform.workspace, "development")
   tags = {
     environment = local.environment
+    project     = "convertr-demo"
   }
 }

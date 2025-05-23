@@ -21,27 +21,45 @@ resource "aws_s3_bucket_lifecycle_configuration" "convertr_lifecycle" {
   rule {
     id     = "delete_old_versions"
     status = "Enabled"
+    filter {
+      tag {
+        key   = "project"
+        value = "convertr-demo"
+      }
+    }
 
     noncurrent_version_expiration {
-      noncurrent_days = 90
+      noncurrent_days = var.bucket_version_expiry
     }
   }
 
   rule {
     id     = "abort_incomplete_uploads"
     status = "Enabled"
+    filter {
+      tag {
+        key   = "project"
+        value = "convertr-demo"
+      }
+    }
 
     abort_incomplete_multipart_upload {
-      days_after_initiation = 7
+      days_after_initiation = var.bucket_incomplete_expiry
     }
   }
 
   rule {
     id     = "expire_delete_markers"
     status = "Enabled"
+    filter {
+      tag {
+        key   = "project"
+        value = "convertr-demo"
+      }
+    }
 
     expiration {
-      expired_object_delete_marker = true
+      expired_object_delete_marker = var.bucket_delete_markers
     }
   }
 }
@@ -105,8 +123,10 @@ resource "aws_kms_key_policy" "convert_key_policy" {
 
 resource "aws_kms_key" "convertr_key" {
   description             = "KMS Key for SSE-KMS"
-  enable_key_rotation     = true
-  deletion_window_in_days = 20
+  enable_key_rotation     = var.kms_enable_rotation
+  deletion_window_in_days = var.kms_deletion_window_days
+
+  tags = var.tags
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "convertr_encrypt" {
@@ -115,7 +135,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "convertr_encrypt"
   rule {
     apply_server_side_encryption_by_default {
       kms_master_key_id = aws_kms_key.convertr_key.arn
-      sse_algorithm     = "aws:kms"
+      sse_algorithm     = var.kms_sse_algorithm
     }
   }
 }
@@ -123,6 +143,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "convertr_encrypt"
 resource "aws_s3_bucket_public_access_block" "convertr_block" {
   bucket = aws_s3_bucket.convertr.id
 
+  # no need to variablize these
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true

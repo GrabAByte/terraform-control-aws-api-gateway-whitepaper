@@ -15,18 +15,15 @@ resource "aws_vpc" "convertr" {
 
 resource "aws_default_security_group" "convertr_security_group" {
   vpc_id = aws_vpc.convertr.id
+
+  tags = var.tags
 }
 
 resource "aws_subnet" "convertr_subnet" {
-  count             = 3
+  count             = 2
   vpc_id            = aws_vpc.convertr.id
   cidr_block        = "10.0.${count.index}.0/24"
   availability_zone = data.aws_availability_zones.available.names[count.index]
+
+  tags = var.tags
 }
-
-#resource "aws_vpc_endpoint" "api_gateway_endpoint" {
-#  vpc_id       = aws_vpc.convertr.id
-#  service_name = "com.amazonaws.${var.aws_region}.execute-api"
-
-#  tags = var.tags
-#}
