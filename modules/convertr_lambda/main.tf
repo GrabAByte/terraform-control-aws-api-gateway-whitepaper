@@ -11,13 +11,6 @@ resource "aws_iam_role" "lambda_exec_role" {
   })
 }
 
-# replace
-# resource "aws_iam_role_policy_attachment" "lambda_s3" {
-#   role       = aws_iam_role.lambda_exec_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
-# }
-
-# try
 resource "aws_iam_role_policy" "convertr_lambda_s3_policy" {
   name = "convertr_lambda_s3_policy"
   role = aws_iam_role.lambda_exec_role.name
@@ -55,7 +48,7 @@ resource "aws_lambda_function" "image_lambda" {
 
   environment {
     variables = {
-      BUCKET = var.bucket_name # s3 ouput
+      BUCKET = var.bucket_name
     }
   }
 }
@@ -74,6 +67,3 @@ resource "aws_lambda_permission" "auth_api_gateway" {
   function_name = aws_lambda_function.auth_lambda.function_name
   principal     = "apigateway.amazonaws.com"
 }
-
-# diff
-# missing AWSLambdaBasicExecutionRole and AllowAPIGatewayInvoke which may be in API Gateway manifest instead
