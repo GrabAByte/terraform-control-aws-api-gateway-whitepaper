@@ -3,11 +3,11 @@
 # example usage: bash -x api-call.sh https://<API_ID>.execute-api.eu-west-2.amazonaws.com/v1beta1/upload tom-richards.jpg
 
 usage () {
-  echo "Usage: bash -x api-call.sh   https://<API_ID>.execute-api.<REGION>.amazonaws.com/<STAGE>/<PATH>  tom-richards.jpg"
+  echo "Error: Arguments are required to run this script, exiting."
+  echo "Usage: ./api-call.sh https://<API_ID>.execute-api.<REGION>.amazonaws.com/<STAGE>/<PATH> tom-richards.jpg"
 }
 
 if [ -z ${1+x} ] && [ -z ${2+x} ]; then
-  echo "Arguments are required to run scrip, exiting"
   usage
   exit 1
 else
