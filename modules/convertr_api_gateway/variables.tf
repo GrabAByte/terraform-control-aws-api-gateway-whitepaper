@@ -1,36 +1,6 @@
-variable "lambda_auth_invoke_arn" {
-  type = string
-}
-
-variable "lambda_invoke_arn" {
-  type = string
-}
-
-variable "lambda_name" {
-  type = string
-}
-
-variable "stage_name" {
+variable "api_name" {
   type        = string
-  description = "The stage name for API resource"
-  default     = "v1beta1"
-}
-
-variable "tags" {
-  type        = map(any)
-  description = "The project tags"
-}
-
-variable "integration_http_method" {
-  type        = string
-  description = "The Integration HTTP Method"
-  default     = "POST"
-}
-
-variable "integration_type" {
-  type        = string
-  description = "The Integration platform provider"
-  default     = "AWS_PROXY"
+  description = "The name of the API"
 }
 
 variable "api_authorization_method" {
@@ -54,14 +24,41 @@ variable "api_path_part" {
 variable "binary_media_types" {
   type        = list(any)
   description = "The applicable binary media types to accept"
-  default = [
-    "image/jpeg",
-    "image/png"
-  ]
 }
 
-variable "api_name" {
+variable "integration_http_method" {
   type        = string
-  description = "The name of the API"
-  default     = "converter_api"
+  description = "The Integration HTTP Method"
+  default     = "POST"
+}
+
+variable "integration_type" {
+  type        = string
+  description = "The Integration platform provider"
+  default     = "AWS_PROXY"
+}
+
+variable "lambda_auth_invoke_arn" {
+  type        = string
+  description = "The ARN for invoking the Authenticating Lambda function"
+}
+
+variable "lambda_invoke_arn" {
+  type        = string
+  description = "The ARN for invoking the Main lambda function"
+}
+
+variable "lambda_name" {
+  type        = string
+  description = "The name of the main lambda function"
+}
+
+variable "stage_name" {
+  type        = string
+  description = "The stage name for API resource"
+}
+
+variable "tags" {
+  type        = map(any)
+  description = "The project tags"
 }

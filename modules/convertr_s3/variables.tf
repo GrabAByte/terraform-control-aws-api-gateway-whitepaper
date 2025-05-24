@@ -9,7 +9,6 @@ variable "bucket_delete_markers" {
   default     = true
 }
 
-
 variable "bucket_incomplete_expiry" {
   type        = number
   description = "number of days before deleting incomplete uploads"
@@ -38,6 +37,12 @@ variable "kms_sse_algorithm" {
   type        = string
   description = "the algorithm to encrpyt with"
   default     = "aws:kms"
+}
+
+variable "log_bucket_name" {
+  type        = string
+  description = "The bucket log events within"
+  default     = "convertr-log-bucket"
 }
 
 variable "tags" {

@@ -1,11 +1,37 @@
+data "aws_caller_identity" "current" {}
+
 resource "aws_s3_bucket" "image_bucket" {
   bucket        = var.bucket_name
-  force_destroy = true
+  force_destroy = false
   tags          = var.tags
 }
 
-## new config ##
-data "aws_caller_identity" "current" {}
+resource "aws_s3_bucket_ownership_controls" "image_bucket" {
+  bucket = aws_s3_bucket.image_bucket.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket" "log_bucket" {
+  bucket        = var.log_bucket_name
+  force_destroy = false
+  tags          = var.tags
+}
+
+resource "aws_s3_bucket_ownership_controls" "log_bucket" {
+  bucket = aws_s3_bucket.log_bucket.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_logging" "logging" {
+  bucket = aws_s3_bucket.image_bucket.id
+
+  target_bucket = aws_s3_bucket.log_bucket.id
+  target_prefix = "/"
+}
 
 resource "aws_s3_bucket_versioning" "versioning" {
   bucket = aws_s3_bucket.image_bucket.id
@@ -121,6 +147,17 @@ resource "aws_kms_key" "key" {
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt" {
   bucket = aws_s3_bucket.image_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.key.arn
+      sse_algorithm     = var.kms_sse_algorithm
+    }
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt_logs" {
+  bucket = aws_s3_bucket.log_bucket.id
 
   rule {
     apply_server_side_encryption_by_default {
