@@ -4,16 +4,24 @@ variable "region" {
   default     = "eu-west-2"
 }
 
-variable "cidr_block" {
+variable "vpc_cidr_block" {
   type        = string
   description = "The CIDR block range to allocate to the VPC"
   default     = "10.0.0.0/16"
 }
 
+variable "subnet_cidr_block" {
+  type        = string
+  description = "The CIDR block range to allocate to the VPC"
+  default     = "10.0.0.0/16"
+}
+
+variable "vpc_endpoint_type" {
+  type = string
+  default = "Gateway"
+}
+
 variable "tags" {
   type        = map(any)
   description = "The projects tags"
-  default = {
-    project = "convertr-demo"
-  }
 }

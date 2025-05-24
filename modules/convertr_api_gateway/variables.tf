@@ -13,6 +13,7 @@ variable "lambda_name" {
 variable "stage_name" {
   type        = string
   description = "The stage name for API resource"
+  default = "v1beta1"
 }
 
 variable "tags" {
@@ -35,16 +36,19 @@ variable "integration_type" {
 variable "api_authorization_method" {
   type        = string
   description = "The API Authroization Method"
+  default     = "CUSTOM"
 }
 
 variable "api_http_method" {
   type        = string
   description = "The API HTTP Method"
+  default     = "POST"
 }
 
 variable "api_path_part" {
   type        = string
   description = "The API path part"
+  default     = "upload"
 }
 
 variable "binary_media_types" {
@@ -59,4 +63,5 @@ variable "binary_media_types" {
 variable "api_name" {
   type        = string
   description = "The name of the API"
+  default = "converter_api"
 }

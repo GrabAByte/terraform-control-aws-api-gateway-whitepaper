@@ -1,7 +1,7 @@
 module "vpc" {
   source = "./modules/convertr_vpc"
 
-  # tags = local.tags
+  tags = local.tags
 }
 
 module "s3" {
@@ -19,7 +19,7 @@ module "lambda" {
   subnet      = module.vpc.subnet
   sg          = module.vpc.sg
 
-  # tags = local.tags
+  tags = local.tags
 }
 
 module "api_gateway" {
@@ -29,5 +29,5 @@ module "api_gateway" {
   lambda_invoke_arn      = module.lambda.invoke_arn
   lambda_name            = module.lambda.name
 
-  # tags = local.tags
+  tags = local.tags
 }
