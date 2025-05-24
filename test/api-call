@@ -1,0 +1,5 @@
+curl -X POST \
+  https://qi72gwc6ej.execute-api.us-east-1.amazonaws.com/prod/upload \
+  -H "Authorization: Bearer secret123" \
+  -H "Content-Type: image/jpeg" \
+  --data-binary "@tom-richards.jpg"

@@ -70,7 +70,7 @@ resource "aws_lambda_function" "convertr_lambda" {
 resource "aws_lambda_function" "convertr_auth_lambda" { # I: Function does not have tracing enabled.
   function_name = "converter_auth_lambda"
   role          = aws_iam_role.convertr_lambda_role.arn
-  handler       = "converter_auth_lambda.lambda_handler"
+  handler       = "convertr_auth_lambda.lambda_handler"
   runtime       = var.runtime
   filename      = "convertr_auth_lambda.zip"
 }
