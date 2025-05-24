@@ -17,11 +17,6 @@ resource "aws_subnet" "private_subnet_1" {
   availability_zone = data.aws_availability_zones.available.names[1]
 }
 
-# resource "aws_subnet" "private_subnet" {
-#  vpc_id     = aws_vpc.main.id
-#  cidr_block = var.subnet_cidr_block
-#}
-
 resource "aws_vpc_endpoint" "s3" {
   vpc_id            = aws_vpc.main.id
   service_name      = "com.amazonaws.${var.region}.s3"

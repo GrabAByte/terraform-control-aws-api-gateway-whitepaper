@@ -59,6 +59,18 @@ resource "aws_lambda_function" "auth_lambda" {
   handler       = var.auth_handler
   runtime       = var.auth_runtime
   filename      = var.auth_lambda_filename
+
+  vpc_config {
+    subnet_ids         = [var.vpc_subnet_0, var.vpc_subnet_1]
+    security_group_ids = [var.security_groups]
+  }
+
+  # TODO: Retrieve $TOKEN AWS secret for Auth Lambda to determine if Bearer Token is accurate
+  environment {
+    variables = {
+      TOKEN = "convertr_api_token"
+    }
+  }
 }
 
 resource "aws_lambda_permission" "auth_api_gateway" {

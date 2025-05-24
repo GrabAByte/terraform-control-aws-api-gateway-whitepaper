@@ -39,6 +39,12 @@ variable "kms_sse_algorithm" {
   default     = "aws:kms"
 }
 
+variable "log_bucket_name" {
+  type        = string
+  description = "The bucket log events within"
+  default     = "convertr-log-bucket"
+}
+
 variable "tags" {
   type        = map(any)
   description = "The project tags"
