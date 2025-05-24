@@ -46,7 +46,7 @@ variable "runtime" {
 variable "lambda_filename" {
   type = string
   description = "The lambda filename"
-  default = "lambda_function_payload.zip"
+  default = "lambda_function.zip"
 }
 
 variable "tags" {
@@ -75,5 +75,5 @@ variable "auth_runtime" {
 variable "auth_lambda_filename" {
   type = string
   description = "The lambda filename"
-  default = "auth_function_payload.zip"
+  default = "auth_function.zip"
 }
