@@ -13,7 +13,7 @@ variable "vpc_cidr_block" {
 variable "subnet_cidr_block" {
   type        = string
   description = "The CIDR block range to allocate to the VPC"
-  default     = "10.0.0.0/16"
+  default     = "10.0.1.0/24"
 }
 
 variable "vpc_endpoint_type" {
