@@ -1,22 +1,21 @@
-data "aws_caller_identity" "current" {}
-
-resource "aws_s3_bucket" "convertr" {
-  bucket = var.bucket_name
-  # for terraforms sake
+resource "aws_s3_bucket" "image_bucket" {
+  bucket        = var.bucket_name
   force_destroy = true
-
-  tags = var.tags
+  tags          = var.tags
 }
 
-resource "aws_s3_bucket_versioning" "convertr_versioning" {
-  bucket = aws_s3_bucket.convertr.id
+## new config ##
+data "aws_caller_identity" "current" {}
+
+resource "aws_s3_bucket_versioning" "versioning" {
+  bucket = aws_s3_bucket.image_bucket.id
   versioning_configuration {
     status = "Enabled"
   }
 }
 
-resource "aws_s3_bucket_lifecycle_configuration" "convertr_lifecycle" {
-  bucket = aws_s3_bucket.convertr.id
+resource "aws_s3_bucket_lifecycle_configuration" "lifecycle" {
+  bucket = aws_s3_bucket.image_bucket.id
 
   rule {
     id     = "delete_old_versions"
@@ -55,8 +54,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "convertr_lifecycle" {
   }
 }
 
-resource "aws_kms_key_policy" "convert_key_policy" {
-  key_id = aws_kms_key.convertr_key.id
+resource "aws_kms_key_policy" "key_policy" {
+  key_id = aws_kms_key.key.id
   policy = jsonencode({
     Id = "key"
     Statement = [
@@ -112,7 +111,7 @@ resource "aws_kms_key_policy" "convert_key_policy" {
   })
 }
 
-resource "aws_kms_key" "convertr_key" {
+resource "aws_kms_key" "key" {
   description             = "KMS Key for SSE-KMS"
   enable_key_rotation     = var.kms_enable_rotation
   deletion_window_in_days = var.kms_deletion_window_days
@@ -120,19 +119,19 @@ resource "aws_kms_key" "convertr_key" {
   tags = var.tags
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "convertr_encrypt" {
-  bucket = aws_s3_bucket.convertr.id
+resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt" {
+  bucket = aws_s3_bucket.image_bucket.id
 
   rule {
     apply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.convertr_key.arn
+      kms_master_key_id = aws_kms_key.key.arn
       sse_algorithm     = var.kms_sse_algorithm
     }
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "convertr_block" {
-  bucket = aws_s3_bucket.convertr.id
+resource "aws_s3_bucket_public_access_block" "block_public" {
+  bucket = aws_s3_bucket.image_bucket.id
 
   # no need to variablize these
   block_public_acls       = true
@@ -142,7 +141,7 @@ resource "aws_s3_bucket_public_access_block" "convertr_block" {
 }
 
 resource "aws_s3_bucket_policy" "https_only" {
-  bucket = aws_s3_bucket.convertr.id
+  bucket = aws_s3_bucket.image_bucket.id
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -153,8 +152,8 @@ resource "aws_s3_bucket_policy" "https_only" {
         Principal = "*"
         Action    = "s3:*"
         Resource = [
-          "${aws_s3_bucket.convertr.arn}/*",
-          aws_s3_bucket.convertr.arn
+          "${aws_s3_bucket.image_bucket.arn}/*",
+          aws_s3_bucket.image_bucket.arn
         ]
         Condition = {
           Bool = {

@@ -58,8 +58,8 @@ The following will need to be installed to run this project -
 - an AWS account to deploy into 
 - setup of AWS credentials configuration within local environment
 - terraform for running the Infrastructure-as-Code
-- python3 for developing and testing the lambda
 - postman for testing the API gateway
+- python3 for developing and testing the lambda
 
 ## Recommended modules
 

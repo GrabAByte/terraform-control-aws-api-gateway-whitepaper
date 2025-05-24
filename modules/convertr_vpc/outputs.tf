@@ -1,3 +1,7 @@
-output "vpc_id" {
-  value = aws_vpc.convertr.id
+output "subnet" {
+  value = aws_subnet.private_subnet.id
+}
+
+output "sg" {
+  value = aws_security_group.lambda_sg.id
 }
