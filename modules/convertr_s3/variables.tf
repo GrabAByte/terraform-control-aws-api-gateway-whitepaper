@@ -9,7 +9,6 @@ variable "bucket_delete_markers" {
   default     = true
 }
 
-
 variable "bucket_incomplete_expiry" {
   type        = number
   description = "number of days before deleting incomplete uploads"
