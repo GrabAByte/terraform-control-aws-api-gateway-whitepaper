@@ -29,8 +29,8 @@ resource "aws_lambda_function" "image_lambda" {
   filename      = "lambda_function_payload.zip"
 
   vpc_config {
-    subnet_ids         = [var.subnet] # vpc subnet output
-    security_group_ids = [var.sg]     # vpc sg output
+    subnet_ids         = [var.subnet]
+    security_group_ids = [var.sg]
   }
 
   environment {
