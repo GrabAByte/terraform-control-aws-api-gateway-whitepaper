@@ -113,6 +113,8 @@ cd ./test
 ./api-call.sh https://${API_ID}.execute-api.eu-west-2.amazonaws.com/v1beta1/upload ${UPLOAD_IMAGE_FILE}
 ```
 
+Functionality to upload an image as base64 encoded and the lambda to return a pre-signed URL is currently WIP
+
 ## Maintainers
 
 This repository is maintained by GrabAByte.
