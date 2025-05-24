@@ -11,9 +11,22 @@ resource "aws_iam_role" "lambda_exec_role" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_s3" {
-  role       = aws_iam_role.lambda_exec_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+resource "aws_iam_role_policy" "convertr_lambda_s3_policy" {
+  name = "convertr_lambda_s3_policy"
+  role = aws_iam_role.lambda_exec_role.name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject"
+        ]
+        Effect   = "Allow"
+        Resource = "${var.bucket_arn}/*"
+      },
+    ]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "vpc_exec" {
@@ -35,7 +48,7 @@ resource "aws_lambda_function" "image_lambda" {
 
   environment {
     variables = {
-      BUCKET = var.bucket_name # s3 ouput
+      BUCKET = var.bucket_name
     }
   }
 }
