@@ -15,9 +15,7 @@
 .terraformrc
 terraform*
 
-# lambda binaries
-*.zip
-
-# editing fils
+# editing files
+*.py
 *.swp
 **/.swp
