@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# example usage: bash -x api-call.sh https://<API_ID>.execute-api.eu-west-2.amazonaws.com/v1beta1/upload tom-richards.jpg
+
 if [ -z ${1+x} ] && [ -z ${2+x} ]; then
   echo "Arguments are required to run scripting, exiting"
   exit 1
