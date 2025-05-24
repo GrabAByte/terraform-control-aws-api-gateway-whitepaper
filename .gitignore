@@ -15,7 +15,7 @@
 .terraformrc
 terraform*
 
-# editing fils
+# editing files
 *.py
 *.swp
 **/.swp
