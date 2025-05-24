@@ -10,6 +10,15 @@ resource "aws_api_gateway_rest_api" "convertr_api" {
   tags = var.tags
 }
 
+resource "aws_api_gateway_authorizer" "lambda_auth" {
+  name                             = "LambdaTokenAuthorizer"
+  rest_api_id                      = aws_api_gateway_rest_api.convertr_api.id
+  authorizer_uri                   = var.lambda_auth_invoke_arn
+  authorizer_result_ttl_in_seconds = 300
+  type                             = "TOKEN"
+  identity_source                  = "method.request.header.Authorization"
+}
+
 resource "aws_api_gateway_resource" "convertr_path" {
   rest_api_id = aws_api_gateway_rest_api.convertr_api.id
   parent_id   = aws_api_gateway_rest_api.convertr_api.root_resource_id
@@ -21,63 +30,22 @@ resource "aws_api_gateway_method" "convertr_method" {
   resource_id   = aws_api_gateway_resource.convertr_path.id
   http_method   = var.api_http_method
   authorization = var.api_authorization_method
-}
-
-resource "aws_api_gateway_method_response" "convertr_response" {
-  rest_api_id = aws_api_gateway_rest_api.convertr_api.id
-  resource_id = aws_api_gateway_resource.convertr_path.id
-  http_method = aws_api_gateway_method.convertr_method.http_method
-  status_code = 200
-  response_models = {
-    "application/json" = "Empty"
-  }
+  authorizer_id = aws_api_gateway_authorizer.lambda_auth.id
 }
 
 resource "aws_api_gateway_integration" "convertr_integration" {
   rest_api_id             = aws_api_gateway_rest_api.convertr_api.id
   resource_id             = aws_api_gateway_resource.convertr_path.id
   integration_http_method = var.integration_http_method
-  http_method             = aws_api_gateway_method.convertr_method.http_method
-  passthrough_behavior    = var.passthrough_behaviour
+  http_method             = var.api_http_method
   type                    = var.integration_type
   uri                     = var.lambda_invoke_arn
-  request_templates = {
-    "application/pdf" = jsonencode({
-
-      content = "$input.body"
-
-    })
-  }
-}
-
-resource "time_sleep" "wait_150_seconds" {
-  create_duration = "150s"
-}
-
-resource "aws_api_gateway_integration_response" "convertr_integration_response" {
-  rest_api_id = aws_api_gateway_rest_api.convertr_api.id
-  resource_id = aws_api_gateway_resource.convertr_path.id
-  http_method = aws_api_gateway_method.convertr_method.http_method
-  status_code = aws_api_gateway_method_response.convertr_response.status_code
-  response_templates  = {
-    "application/json" = ""
-  }
-
-  depends_on = [time_sleep.wait_150_seconds]
 }
 
 resource "aws_api_gateway_deployment" "convertr_deployment" {
   rest_api_id = aws_api_gateway_rest_api.convertr_api.id
 
-  triggers = {
-    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.convertr_api.body))
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-
-  depends_on = [time_sleep.wait_150_seconds]
+  depends_on = [aws_api_gateway_integration.convertr_integration]
 }
 
 resource "aws_api_gateway_stage" "convertr_stage" {
@@ -86,5 +54,5 @@ resource "aws_api_gateway_stage" "convertr_stage" {
   stage_name    = var.stage_name
 
   tags       = var.tags
-  depends_on = [time_sleep.wait_150_seconds]
+  depends_on = [aws_api_gateway_deployment.convertr_deployment]
 }

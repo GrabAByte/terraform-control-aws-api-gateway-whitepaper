@@ -36,13 +36,10 @@ resource "aws_iam_role_policy" "convertr_lambda_s3_policy" {
   })
 }
 
-#resource "aws_vpc_endpoint" "lambda_endpoint" {
-#  vpc_id            = var.vpc_id
-#  vpc_endpoint_type = var.vpc_type
-#  service_name      = "com.amazonaws.${var.aws_region}.lambda"
-
-# tags = var.tags
-#}
+resource "aws_iam_role_policy_attachment" "convertr_vpc_exec" {
+  role       = aws_iam_role.convertr_lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+}
 
 data "archive_file" "convertr_lambda_archive" {
   type        = var.archive_type
@@ -58,11 +55,10 @@ resource "aws_lambda_function" "convertr_lambda" {
   runtime          = var.runtime
   source_code_hash = data.archive_file.convertr_lambda_archive.output_base64sha256
 
-  # TODO: Move this lambda to a VPC with private subnets
-  #vpc_config {
-  #  subnet_ids         = [var.vpc_subnets]
-  #  security_group_ids = [var.security_groups]
-  #}
+  vpc_config {
+    subnet_ids         = [var.vpc_subnet]
+    security_group_ids = [var.security_group]
+  }
 
   environment {
     variables = var.environment_variables
@@ -71,15 +67,30 @@ resource "aws_lambda_function" "convertr_lambda" {
   tags = var.tags
 }
 
+resource "aws_lambda_function" "convertr_auth_lambda" { # I: Function does not have tracing enabled.
+  function_name = "converter_auth_lambda"
+  role          = aws_iam_role.convertr_lambda_role.arn
+  handler       = "converter_auth_lambda.lambda_handler"
+  runtime       = var.runtime
+  filename      = "convertr_auth_lambda.zip"
+}
+
+resource "aws_lambda_permission" "auth_api_gateway" { # E: Lambda permission lacks source ARN for *.amazonaws.com principal.
+  statement_id  = "AllowExecutionFromAPIGatewayAuth"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.convertr_auth_lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+}
+
 resource "aws_iam_role_policy_attachment" "lambda_basic" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   role       = aws_iam_role.convertr_lambda_role.name
 }
 
-resource "aws_lambda_permission" "api_gatewway" {
+resource "aws_lambda_permission" "api_gateway" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.convertr_lambda.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${var.api_gateway_execution_arn}/*/*/*"
+  source_arn    = "${var.api_gateway_execution_arn}/*/*"
 }

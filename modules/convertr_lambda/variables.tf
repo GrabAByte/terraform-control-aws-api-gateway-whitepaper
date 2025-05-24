@@ -77,12 +77,12 @@ variable "tags" {
 #  default     = "Interface"
 #}
 
-#variable "vpc_subnets" {
-#  type = list
-#  description = "The VPC subnets to place the service within"
-#}
+variable "vpc_subnet" {
+  type = string
+  description = "The VPC subnets to place the service within"
+}
 
-#variable "security_groups" {
-#  type = list
-#  description = "The security groups to places the services within"
-#}
+variable "security_group" {
+  type = string
+  description = "The security groups to places the services within"
+}
