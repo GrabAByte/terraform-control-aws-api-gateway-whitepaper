@@ -8,7 +8,7 @@ module "s3" {
   source      = "./modules/convertr_s3"
   bucket_name = "convertr-upload-bucket"
 
-  tags        = local.tags
+  tags = local.tags
 }
 
 module "lambda" {

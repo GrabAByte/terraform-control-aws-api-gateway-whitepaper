@@ -13,7 +13,7 @@ variable "lambda_name" {
 variable "stage_name" {
   type        = string
   description = "The stage name for API resource"
-  default = "v1beta1"
+  default     = "v1beta1"
 }
 
 variable "tags" {
@@ -63,5 +63,5 @@ variable "binary_media_types" {
 variable "api_name" {
   type        = string
   description = "The name of the API"
-  default = "converter_api"
+  default     = "converter_api"
 }

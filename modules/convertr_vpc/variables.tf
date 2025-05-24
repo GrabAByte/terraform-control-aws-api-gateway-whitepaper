@@ -17,7 +17,7 @@ variable "subnet_cidr_block" {
 }
 
 variable "vpc_endpoint_type" {
-  type = string
+  type    = string
   default = "Gateway"
 }
 

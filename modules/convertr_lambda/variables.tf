@@ -1,5 +1,5 @@
 variable "region" {
-  type = string
+  type    = string
   default = "eu-west-2"
 }
 
@@ -34,7 +34,7 @@ variable "handler" {
 variable "iam_role_name" {
   type        = string
   description = "The name of the IAM Role to assign the policy to"
-  default = "lambda_exec_role"
+  default     = "lambda_exec_role"
 }
 
 variable "runtime" {
@@ -44,9 +44,9 @@ variable "runtime" {
 }
 
 variable "lambda_filename" {
-  type = string
+  type        = string
   description = "The lambda filename"
-  default = "lambda_function.zip"
+  default     = "lambda_function.zip"
 }
 
 variable "tags" {
@@ -73,7 +73,7 @@ variable "auth_runtime" {
 }
 
 variable "auth_lambda_filename" {
-  type = string
+  type        = string
   description = "The lambda filename"
-  default = "auth_function.zip"
+  default     = "auth_function.zip"
 }
