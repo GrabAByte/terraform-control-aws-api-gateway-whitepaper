@@ -1,7 +1,17 @@
-API_URL="$1"
+#!/bin/bash
+
+if [ -z ${1+x} ] && [ -z ${2+x} ]; then
+  echo "Arguments are required to run scripting, exiting"
+  exit 1
+else
+  API_URL="$1"
+  IMAGE_FILE="$2"
+fi
+
+BEARER_TOKEN=$(cat < ~/.bearer | base64 -d)
 
 curl -X POST \
   "${API_URL}" \
-  -H "Authorization: Bearer secret123" \
+  -H "Authorization: Bearer ${BEARER_TOKEN}" \
   -H "Content-Type: image/jpeg" \
-  --data-binary "@tom-richards.jpg"
+  --data-binary "@${IMAGE_FILE}"
