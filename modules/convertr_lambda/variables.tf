@@ -4,6 +4,11 @@ variable "aws_region" {
   default     = "eu-west-2"
 }
 
+variable "api_gateway_execution_arn" {
+  type        = string
+  description = "The Execution ARN of the API Gateway"
+}
+
 variable "archive_output" {
   type        = string
   description = "The output archive file nme"
@@ -61,23 +66,23 @@ variable "tags" {
   description = "The project tags"
 }
 
-variable "vpc_id" {
-  type        = string
-  description = "The VPC to create an endpoint from"
-}
+#variable "vpc_id" {
+#  type        = string
+#  description = "The VPC to create an endpoint from"
+#}
 
-variable "vpc_type" {
-  type        = string
-  description = "The type of VPC endpoint [gateway,interface]"
-  default     = "Interface"
-}
+#variable "vpc_type" {
+#  type        = string
+#  description = "The type of VPC endpoint [gateway,interface]"
+#  default     = "Interface"
+#}
 
-variable "vpc_subnets" {
-  type = list
-  description = "The VPC subnets to place the service within"
-}
+#variable "vpc_subnets" {
+#  type = list
+#  description = "The VPC subnets to place the service within"
+#}
 
-variable "security_groups" {
-  type = list
-  description = "The security groups to places the services within"
-}
+#variable "security_groups" {
+#  type = list
+#  description = "The security groups to places the services within"
+#}

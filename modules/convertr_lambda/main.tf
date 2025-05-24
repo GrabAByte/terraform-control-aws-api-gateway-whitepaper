@@ -59,14 +59,27 @@ resource "aws_lambda_function" "convertr_lambda" {
   source_code_hash = data.archive_file.convertr_lambda_archive.output_base64sha256
 
   # TODO: Move this lambda to a VPC with private subnets
-  vpc_config {
-    subnet_ids         = [var.vpc_subnets]
-    security_group_ids = [var.security_groups]
-  }
+  #vpc_config {
+  #  subnet_ids         = [var.vpc_subnets]
+  #  security_group_ids = [var.security_groups]
+  #}
 
   environment {
     variables = var.environment_variables
   }
 
   tags = var.tags
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_basic" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  role       = aws_iam_role.convertr_lambda_role.name
+}
+
+resource "aws_lambda_permission" "api_gatewway" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.convertr_lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${var.api_gateway_execution_arn}/*/*/*"
 }

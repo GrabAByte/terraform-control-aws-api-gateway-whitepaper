@@ -11,10 +11,8 @@ module "convertr_s3" {
 
   bucket_name = "convertr-bucket"
 
-  depends_on = [module.convertr_vpc]
   tags = local.tags
 }
-
 
 module "convertr_lambda" {
   source = "./modules/convertr_lambda"
@@ -26,14 +24,11 @@ module "convertr_lambda" {
   function_name             = "convertr_lambda_function"
   handler                   = "convertr_lambda.lambda_handler"
   runtime                   = "python3.13"
-  vpc_subnets               = [module.convertr_vpc.subnet_ids]
-  vpc_security_groups       = [module.convertr_vpc.security_groups]
-  # vpc_id                  = module.convertr_vpc.vpc_id
+  api_gateway_execution_arn = module.convertr_api_gateway.api_gateway_execution_arn
   environment_variables = {
     bucket = module.convertr_s3.bucket_name
   }
 
-  depends_on = [module.convertr_s3]
   tags = local.tags
 }
 
@@ -44,11 +39,10 @@ module "convertr_api_gateway" {
   api_path_part            = "upload"
   api_http_method          = "PUT"
   api_authorization_method = "NONE"
-  integration_http_method  = "PUT"
+  integration_http_method  = "POST"
   integration_type         = "AWS"
   lambda_invoke_arn        = module.convertr_lambda.lambda_arn
   stage_name               = "v1beta1"
 
-  depends_on               = [module.convertr_lambda]
   tags = local.tags
 }
