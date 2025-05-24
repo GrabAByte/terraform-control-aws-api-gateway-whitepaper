@@ -25,7 +25,8 @@ module "lambda" {
 
   bucket_name     = module.s3.bucket_name
   bucket_arn      = module.s3.bucket_arn
-  vpc_subnets     = module.vpc.vpc_subnets
+  vpc_subnet_0    = module.vpc.vpc_subnet_0
+  vpc_subnet_1    = module.vpc.vpc_subnet_1
   security_groups = module.vpc.security_groups
 
   tags = local.tags

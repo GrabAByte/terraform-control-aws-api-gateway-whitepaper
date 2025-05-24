@@ -70,7 +70,12 @@ variable "tags" {
   description = "The project tags"
 }
 
-variable "vpc_subnets" {
+variable "vpc_subnet_0" {
+  type        = string
+  description = "The VPC subnet(s) to deploy the lambda into"
+}
+
+variable "vpc_subnet_1" {
   type        = string
   description = "The VPC subnet(s) to deploy the lambda into"
 }

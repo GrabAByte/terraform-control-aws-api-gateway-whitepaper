@@ -2,10 +2,25 @@ resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr_block
 }
 
-resource "aws_subnet" "private_subnet" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.subnet_cidr_block
+data "aws_availability_zones" "available" {}
+
+# TO DO: Iterate over a List
+resource "aws_subnet" "private_subnet_0" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.0.0/24"
+  availability_zone = data.aws_availability_zones.available.names[0]
 }
+
+resource "aws_subnet" "private_subnet_1" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.1.0/24"
+  availability_zone = data.aws_availability_zones.available.names[1]
+}
+
+# resource "aws_subnet" "private_subnet" {
+#  vpc_id     = aws_vpc.main.id
+#  cidr_block = var.subnet_cidr_block
+#}
 
 resource "aws_vpc_endpoint" "s3" {
   vpc_id            = aws_vpc.main.id
@@ -14,8 +29,8 @@ resource "aws_vpc_endpoint" "s3" {
   route_table_ids   = [aws_vpc.main.main_route_table_id]
 }
 
-resource "aws_security_group" "lambda_sg" {
-  name   = "lambda_sg"
+resource "aws_security_group" "security_group" {
+  name   = "shared_security_group"
   vpc_id = aws_vpc.main.id
 
   egress {
@@ -28,7 +43,7 @@ resource "aws_security_group" "lambda_sg" {
 
 resource "aws_network_acl" "private_nacl" {
   vpc_id     = aws_vpc.main.id
-  subnet_ids = [aws_subnet.private_subnet.id]
+  subnet_ids = [aws_subnet.private_subnet_0.id, aws_subnet.private_subnet_1.id]
 
   egress {
     rule_no    = 100

@@ -42,7 +42,7 @@ resource "aws_lambda_function" "image_lambda" {
   filename      = var.lambda_filename
 
   vpc_config {
-    subnet_ids         = [var.vpc_subnets]
+    subnet_ids         = [var.vpc_subnet_0, var.vpc_subnet_1]
     security_group_ids = [var.security_groups]
   }
 
