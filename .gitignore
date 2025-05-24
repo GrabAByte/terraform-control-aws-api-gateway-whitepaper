@@ -19,5 +19,6 @@ terraform*
 *.zip
 
 # editing fils
+*.py
 *.swp
 **/.swp

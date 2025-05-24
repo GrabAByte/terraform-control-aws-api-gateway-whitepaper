@@ -39,14 +39,14 @@ resource "aws_network_acl" "private_nacl" {
     to_port    = 443
   }
 
-  # egress {
-  #   rule_no    = 110
-  #   protocol   = "6"
-  #   action     = "allow"
-  #   cidr_block = "0.0.0.0/0"
-  #   from_port  = 1024
-  #   to_port    = 65535
-  # }
+  egress {
+    rule_no    = 110
+    protocol   = "6"
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 1024
+    to_port    = 65535
+  }
 
   ingress {
     rule_no    = 100
@@ -57,14 +57,14 @@ resource "aws_network_acl" "private_nacl" {
     to_port    = 443
   }
 
-  # ingress {
-  #   rule_no    = 110
-  #   protocol   = "6"
-  #   action     = "allow"
-  #   cidr_block = "0.0.0.0/0"
-  #   from_port  = 1024
-  #   to_port    = 65535
-  # }
+  ingress {
+    rule_no    = 110
+    protocol   = "6"
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 1024
+    to_port    = 65535
+  }
 
   # Deny everything else
   ingress {
