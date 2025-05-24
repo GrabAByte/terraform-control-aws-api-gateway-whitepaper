@@ -1,3 +1,12 @@
+# [1.1.0](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.0.3...v1.1.0) (2025-05-24)
+
+
+### Features
+
+* add variables for module inputs ([#25](https://github.com/GrabAByte/terraform-aws-convertr-demo/issues/25)) ([5e06ad2](https://github.com/GrabAByte/terraform-aws-convertr-demo/commit/5e06ad2c5592888aedd30f8bf37375ac9560ac62))
+* reintegrate extra configurations into working solution ([#24](https://github.com/GrabAByte/terraform-aws-convertr-demo/issues/24)) ([246d2a2](https://github.com/GrabAByte/terraform-aws-convertr-demo/commit/246d2a2763f425f86102c783849ae8555301885b))
+* stripped back working solution ([#23](https://github.com/GrabAByte/terraform-aws-convertr-demo/issues/23)) ([9bca8f5](https://github.com/GrabAByte/terraform-aws-convertr-demo/commit/9bca8f55c894488f9b304d8c5c337635af9f2c9c))
+
 ## [1.0.3](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.0.2...v1.0.3) (2025-05-23)
 
 
