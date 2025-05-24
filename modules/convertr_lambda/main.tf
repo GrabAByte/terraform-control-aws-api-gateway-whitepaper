@@ -43,7 +43,7 @@ resource "aws_lambda_function" "image_lambda" {
 
   vpc_config {
     subnet_ids         = [var.vpc_subnets]
-    security_group_ids = [var.security_group]
+    security_group_ids = [var.security_groups]
   }
 
   environment {

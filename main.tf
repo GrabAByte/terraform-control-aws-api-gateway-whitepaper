@@ -23,10 +23,10 @@ module "lambda" {
   iam_role_name        = "lambda_exec_role"
   runtime              = "python3.13"
 
-  bucket_name    = module.s3.bucket_name
-  bucket_arn     = module.s3.bucket_arn
-  vpc_subnets    = module.vpc.subnet
-  security_group = module.vpc.sg
+  bucket_name     = module.s3.bucket_name
+  bucket_arn      = module.s3.bucket_arn
+  vpc_subnets     = module.vpc.vpc_subnets
+  security_groups = module.vpc.security_groups
 
   tags = local.tags
 }

@@ -60,9 +60,9 @@ variable "runtime" {
   description = "The lambda runtime"
 }
 
-variable "security_group" {
+variable "security_groups" {
   type        = string
-  description = "The security group to attach the lambda to"
+  description = "The security group(s) to attach the lambda to"
 }
 
 variable "tags" {
