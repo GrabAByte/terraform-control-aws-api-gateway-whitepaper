@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# example usage: bash -x api-call.sh https://<API_ID>.execute-api.eu-west-2.amazonaws.com/v1beta1/upload tom-richards.jpg
-
 usage () {
   echo "Error: Arguments are required to run this script, exiting."
   echo "Usage: ./api-call.sh https://<API_ID>.execute-api.<REGION>.amazonaws.com/<STAGE>/<PATH> tom-richards.jpg"
