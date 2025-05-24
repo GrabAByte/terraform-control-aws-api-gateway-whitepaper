@@ -5,9 +5,9 @@ module "vpc" {
 }
 
 module "s3" {
-  source = "./modules/convertr_s3"
-
-  #  tags = local.tags
+  source      = "./modules/convertr_s3"
+  bucket_name = "convertr-upload-bucket"
+  tags        = local.tags
 }
 
 module "lambda" {
