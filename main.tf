@@ -15,6 +15,7 @@ module "lambda" {
   source = "./modules/convertr_lambda"
 
   bucket_name = module.s3.bucket_name
+  bucket_arn  = module.s3.bucket_arn
   subnet      = module.vpc.subnet
   sg          = module.vpc.sg
 
