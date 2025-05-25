@@ -2,8 +2,7 @@ def lambda_handler(event, context):
     token = event.get("authorizationToken", "")
     method_arn = event["methodArn"]
 
-    # TODO: purely for purpose of demonstrating auth lambda, this would need to be much more secure
-    if token == "Bearer gcmqsoqgaggdjauczjfvdmmsgjrhfdgq":
+    if token == "Bearer secret123":
         return {
             "principalId": "user123",
             "policyDocument": {
