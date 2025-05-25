@@ -4,7 +4,8 @@ resource "aws_vpc" "main" {
 
 data "aws_availability_zones" "available" {}
 
-# TO DO: Iterate over a List
+# TO DO: Reduce hackiness / Iterate over a List
+# Higher availability
 resource "aws_subnet" "private_subnet_0" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.0.0/24"
@@ -36,6 +37,7 @@ resource "aws_security_group" "security_group" {
   }
 }
 
+# restrict access to only required ports
 resource "aws_network_acl" "private_nacl" {
   vpc_id     = aws_vpc.main.id
   subnet_ids = [aws_subnet.private_subnet_0.id, aws_subnet.private_subnet_1.id]

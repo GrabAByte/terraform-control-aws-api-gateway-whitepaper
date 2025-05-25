@@ -9,7 +9,7 @@ resource "aws_api_gateway_resource" "upload" {
   path_part   = var.api_path_part
 }
 
-# Lambda Authorizer
+# authentication (time-bound implementation)
 resource "aws_api_gateway_authorizer" "lambda_auth" {
   name                             = "LambdaTokenAuthorizer"
   rest_api_id                      = aws_api_gateway_rest_api.api.id
@@ -55,6 +55,8 @@ resource "aws_api_gateway_method_settings" "all" {
   stage_name  = var.stage_name
   method_path = "*/*"
 
+  # observability
+  # hardening: basic example of controlling number of requests
   settings {
     metrics_enabled = true
     # logging_level   = "ERROR"

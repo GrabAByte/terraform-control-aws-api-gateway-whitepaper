@@ -45,6 +45,12 @@ variable "log_bucket_name" {
   default     = "convertr-log-bucket"
 }
 
+variable "region" {
+  type        = string
+  description = "The AWS Region to deploy into"
+  default     = "eu-west-2"
+}
+
 variable "tags" {
   type        = map(any)
   description = "The project tags"
