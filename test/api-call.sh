@@ -14,7 +14,7 @@ else
 fi
 
 ## hardcoded for purposes of demonstrating lambda authorization
-BEARER_TOKEN=$(cat < ~/.bearer | base64 -d)
+BEARER_TOKEN=$(cat < ~/.bearer_token | base64 -d)
 
 curl -X POST \
   "${API_URL}" \

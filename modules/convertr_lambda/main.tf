@@ -92,6 +92,7 @@ resource "aws_lambda_function" "auth_lambda" {
 
   # ensure fingerprint of code
   source_code_hash = data.archive_file.auth_lambda.output_base64sha256
+
   # observability options
   logging_config {
     log_format       = "JSON"

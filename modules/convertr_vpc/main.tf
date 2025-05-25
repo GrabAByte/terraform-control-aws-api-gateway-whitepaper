@@ -4,8 +4,8 @@ resource "aws_vpc" "main" {
 
 data "aws_availability_zones" "available" {}
 
-# TO DO: Reduce hackiness / Iterate over a List
-# Higher availability
+# TO DO: reduce hackiness / iterate over a List
+# higher availability
 resource "aws_subnet" "private_subnet_0" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.0.0/24"
