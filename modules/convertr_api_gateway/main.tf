@@ -63,4 +63,6 @@ resource "aws_api_gateway_method_settings" "all" {
     throttling_burst_limit = 10
     throttling_rate_limit  = 1
   }
+
+  depends_on = [aws_api_gateway_deployment.deployment]
 }

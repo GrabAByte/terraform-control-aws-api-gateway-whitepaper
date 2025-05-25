@@ -15,6 +15,9 @@
 .terraformrc
 terraform*
 
+# binaries
+*.zip
+
 # editing files
 *.swp
 **/.swp
