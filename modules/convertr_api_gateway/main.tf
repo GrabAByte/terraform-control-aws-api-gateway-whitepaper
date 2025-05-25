@@ -58,8 +58,9 @@ resource "aws_api_gateway_method_settings" "all" {
   # observability
   # hardening: basic example of controlling number of requests
   settings {
-    metrics_enabled = true
-    # logging_level   = "ERROR"
+    data_trace_eanbled     = true
+    metrics_enabled        = true
+    logging_level          = "ERROR"
     throttling_burst_limit = 10
     throttling_rate_limit  = 1
   }
