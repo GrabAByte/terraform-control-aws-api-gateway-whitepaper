@@ -83,6 +83,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "lifecycle" {
   }
 }
 
+# TODO: investigate least privilege in policy
 # encryption
 resource "aws_kms_key_policy" "key_policy" {
   key_id = aws_kms_key.key.id
@@ -90,34 +91,13 @@ resource "aws_kms_key_policy" "key_policy" {
     Id = "key"
     Statement = [
       {
-        Sid    = "Enable IAM User Permissions"
+        Sid    = "Allow administration of the key"
         Effect = "Allow"
         Principal = {
           AWS = "*"
         }
-        Action   = "kms:*"
-        Resource = "*"
-      },
-      {
-        Sid    = "Allow administration of the key"
-        Effect = "Allow"
-        Principal = {
-          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/grababyte"
-        }
         Action = [
-          "kms:ReplicateKey",
-          "kms:Create*",
-          "kms:Describe*",
-          "kms:Enable*",
-          "kms:List*",
-          "kms:Put*",
-          "kms:Update*",
-          "kms:Revoke*",
-          "kms:Disable*",
-          "kms:Get*",
-          "kms:Delete*",
-          "kms:ScheduleKeyDeletion",
-          "kms:CancelKeyDeletion"
+          "kms:*",
         ]
         Resource = "*"
       }
