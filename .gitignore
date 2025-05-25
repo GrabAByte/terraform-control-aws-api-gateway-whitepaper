@@ -16,6 +16,5 @@
 terraform*
 
 # editing files
-*.py
 *.swp
 **/.swp
