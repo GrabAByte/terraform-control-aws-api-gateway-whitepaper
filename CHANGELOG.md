@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.1.0...v1.2.0) (2025-05-25)
+
+
+### Features
+
+* add annotations and final opportunities for security enhancement ([#27](https://github.com/GrabAByte/terraform-aws-convertr-demo/issues/27)) ([593159a](https://github.com/GrabAByte/terraform-aws-convertr-demo/commit/593159a0effe41a825347c3ce99feff998e52c93))
+
 # [1.1.0](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.0.3...v1.1.0) (2025-05-24)
 
 
