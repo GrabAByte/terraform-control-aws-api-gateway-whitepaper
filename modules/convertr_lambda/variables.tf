@@ -13,6 +13,12 @@ variable "auth_runtime" {
   description = "The lambda runtime"
 }
 
+variable "auth_lambda_source" {
+  type        = string
+  description = "The source file for the auth lambda function"
+}
+
+
 variable "auth_lambda_filename" {
   type        = string
   description = "The lambda filename"
@@ -41,6 +47,11 @@ variable "handler" {
 variable "iam_role_name" {
   type        = string
   description = "The name of the IAM Role to assign the policy to"
+}
+
+variable "lambda_source" {
+  type        = string
+  description = "The source file for the lambda function"
 }
 
 variable "lambda_filename" {

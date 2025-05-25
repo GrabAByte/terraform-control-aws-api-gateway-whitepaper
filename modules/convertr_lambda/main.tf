@@ -35,6 +35,13 @@ resource "aws_iam_role_policy_attachment" "vpc_exec" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
 }
 
+# ensure fingerprint of code 1
+data "archive_file" "lambda" {
+  type        = "zip"
+  source_file = var.lambda_source
+  output_path = var.lambda_filename
+}
+
 # using latest runtime: python3.13
 resource "aws_lambda_function" "image_lambda" {
   function_name = var.function_name
@@ -42,6 +49,9 @@ resource "aws_lambda_function" "image_lambda" {
   handler       = var.handler
   runtime       = var.runtime
   filename      = var.lambda_filename
+
+  # ensure fingerprint of code 2
+  source_code_hash = data.archive_file.lambda.output_base64sha256
 
   # observability options
   logging_config {
@@ -67,6 +77,13 @@ resource "aws_lambda_function" "image_lambda" {
   }
 }
 
+# ensure fingerprint of code 1
+data "archive_file" "auth_lambda" {
+  type        = "zip"
+  source_file = var.auth_lambda_source
+  output_path = var.auth_lambda_filename
+}
+
 # using latest runtime: python3.13
 resource "aws_lambda_function" "auth_lambda" {
   function_name = var.auth_function_name
@@ -75,6 +92,8 @@ resource "aws_lambda_function" "auth_lambda" {
   runtime       = var.auth_runtime
   filename      = var.auth_lambda_filename
 
+  # ensure fingerprint of code 2
+  source_code_hash = data.archive_file.auth_lambda.output_base64sha256
   # observability options
   logging_config {
     log_format       = "JSON"
