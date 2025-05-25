@@ -84,44 +84,45 @@ resource "aws_s3_bucket_lifecycle_configuration" "lifecycle" {
 }
 
 # encryption
-resource "aws_kms_key" "s3_encryption_key" {
-  description             = "KMS key for S3 bucket encryption"
-  enable_key_rotation     = true
-  deletion_window_in_days = 10
-
+resource "aws_kms_key_policy" "key_policy" {
+  key_id = aws_kms_key.key.id
   policy = jsonencode({
-    Version = "2012-10-17",
-    Id      = "s3-kms-policy",
-    Statement : [
+    Id = "key"
+    Statement = [
       {
-        Sid : "AllowS3UseOfTheKey",
-        Effect : "Allow",
-        Principal : {
-          Service : "s3.amazonaws.com"
-        },
-        Action : [
-          "kms:Encrypt",
-          "kms:Decrypt",
-          "kms:ReEncrypt*",
-          "kms:GenerateDataKey*"
-        ],
-        Resource : "*",
-        Condition : {
-          StringEquals : {
-            "kms:ViaService" : "s3.${var.region}.amazonaws.com"
-          }
+        Sid    = "Enable IAM User Permissions"
+        Effect = "Allow"
+        Principal = {
+          AWS = "*"
         }
+        Action   = "kms:*"
+        Resource = "*"
       },
       {
-        Sid : "AllowAdminAccess",
-        Effect : "Allow",
-        Principal : {
-          AWS : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
-        },
-        Action : "kms:*",
-        Resource : "*"
+        Sid    = "Allow administration of the key"
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/grababyte"
+        }
+        Action = [
+          "kms:ReplicateKey",
+          "kms:Create*",
+          "kms:Describe*",
+          "kms:Enable*",
+          "kms:List*",
+          "kms:Put*",
+          "kms:Update*",
+          "kms:Revoke*",
+          "kms:Disable*",
+          "kms:Get*",
+          "kms:Delete*",
+          "kms:ScheduleKeyDeletion",
+          "kms:CancelKeyDeletion"
+        ]
+        Resource = "*"
       }
     ]
+    Version = "2012-10-17"
   })
 }
 
