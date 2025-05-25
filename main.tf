@@ -23,8 +23,7 @@ module "lambda" {
   handler              = "lambda_function.lambda_handler"
   iam_role_name        = "lambda_exec_role"
   lambda_source        = "lambda_function.py"
-
-  runtime = "python3.13"
+  runtime              = "python3.13"
 
   bucket_name     = module.s3.bucket_name
   bucket_arn      = module.s3.bucket_arn
