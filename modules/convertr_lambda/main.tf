@@ -11,6 +11,7 @@ resource "aws_iam_role" "lambda_exec_role" {
   })
 }
 
+# least privilege iam
 resource "aws_iam_role_policy" "convertr_lambda_s3_policy" {
   name = "convertr_lambda_s3_policy"
   role = aws_iam_role.lambda_exec_role.name
@@ -34,6 +35,13 @@ resource "aws_iam_role_policy_attachment" "vpc_exec" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
 }
 
+data "archive_file" "lambda" {
+  type        = "zip"
+  source_file = var.lambda_source
+  output_path = var.lambda_filename
+}
+
+# using latest runtime: python3.13
 resource "aws_lambda_function" "image_lambda" {
   function_name = var.function_name
   role          = aws_iam_role.lambda_exec_role.arn
@@ -41,6 +49,21 @@ resource "aws_lambda_function" "image_lambda" {
   runtime       = var.runtime
   filename      = var.lambda_filename
 
+  # ensure fingerprint of code
+  source_code_hash = data.archive_file.lambda.output_base64sha256
+
+  # observability options
+  logging_config {
+    log_format       = "JSON"
+    system_log_level = "DEBUG"
+  }
+
+  tracing_config {
+    mode = "Active"
+  }
+
+  # higher availability over multiple availability zones
+  # port restriction through security group
   vpc_config {
     subnet_ids         = [var.vpc_subnet_0, var.vpc_subnet_1]
     security_group_ids = [var.security_groups]
@@ -53,6 +76,13 @@ resource "aws_lambda_function" "image_lambda" {
   }
 }
 
+data "archive_file" "auth_lambda" {
+  type        = "zip"
+  source_file = var.auth_lambda_source
+  output_path = var.auth_lambda_filename
+}
+
+# using latest runtime: python3.13
 resource "aws_lambda_function" "auth_lambda" {
   function_name = var.auth_function_name
   role          = aws_iam_role.lambda_exec_role.arn
@@ -60,6 +90,21 @@ resource "aws_lambda_function" "auth_lambda" {
   runtime       = var.auth_runtime
   filename      = var.auth_lambda_filename
 
+  # ensure fingerprint of code
+  source_code_hash = data.archive_file.auth_lambda.output_base64sha256
+
+  # observability options
+  logging_config {
+    log_format       = "JSON"
+    system_log_level = "DEBUG"
+  }
+
+  tracing_config {
+    mode = "Active"
+  }
+
+  # higher availability over multiple availability zones
+  # port restriction through security group
   vpc_config {
     subnet_ids         = [var.vpc_subnet_0, var.vpc_subnet_1]
     security_group_ids = [var.security_groups]

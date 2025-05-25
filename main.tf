@@ -17,10 +17,12 @@ module "lambda" {
   auth_function_name   = "auth_lambda"
   auth_handler         = "auth_function.lambda_handler"
   auth_runtime         = "python3.13"
+  auth_lambda_source   = "auth_function.py"
   auth_lambda_filename = "auth_function.zip"
   function_name        = "image_uploader"
   handler              = "lambda_function.lambda_handler"
   iam_role_name        = "lambda_exec_role"
+  lambda_source        = "lambda_function.py"
   runtime              = "python3.13"
 
   bucket_name     = module.s3.bucket_name

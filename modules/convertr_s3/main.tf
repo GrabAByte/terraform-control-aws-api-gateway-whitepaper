@@ -6,17 +6,17 @@ resource "aws_s3_bucket" "image_bucket" {
   tags          = var.tags
 }
 
+resource "aws_s3_bucket" "log_bucket" {
+  bucket        = var.log_bucket_name
+  force_destroy = false
+  tags          = var.tags
+}
+
 resource "aws_s3_bucket_ownership_controls" "image_bucket" {
   bucket = aws_s3_bucket.image_bucket.id
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
-}
-
-resource "aws_s3_bucket" "log_bucket" {
-  bucket        = var.log_bucket_name
-  force_destroy = false
-  tags          = var.tags
 }
 
 resource "aws_s3_bucket_ownership_controls" "log_bucket" {
@@ -26,6 +26,7 @@ resource "aws_s3_bucket_ownership_controls" "log_bucket" {
   }
 }
 
+# monitoring
 resource "aws_s3_bucket_logging" "logging" {
   bucket = aws_s3_bucket.image_bucket.id
 
@@ -33,6 +34,7 @@ resource "aws_s3_bucket_logging" "logging" {
   target_prefix = "/"
 }
 
+# retention
 resource "aws_s3_bucket_versioning" "versioning" {
   bucket = aws_s3_bucket.image_bucket.id
   versioning_configuration {
@@ -40,6 +42,7 @@ resource "aws_s3_bucket_versioning" "versioning" {
   }
 }
 
+# housekeeping
 resource "aws_s3_bucket_lifecycle_configuration" "lifecycle" {
   bucket = aws_s3_bucket.image_bucket.id
 
@@ -80,55 +83,21 @@ resource "aws_s3_bucket_lifecycle_configuration" "lifecycle" {
   }
 }
 
+# TODO: investigate least privilege in policy
+# encryption
 resource "aws_kms_key_policy" "key_policy" {
   key_id = aws_kms_key.key.id
   policy = jsonencode({
     Id = "key"
     Statement = [
       {
-        Sid    = "Enable IAM User Permissions"
-        Effect = "Allow"
-        Principal = {
-          AWS = "*"
-        }
-        Action   = "kms:*"
-        Resource = "*"
-      },
-      {
-        Sid    = "Allow use of the key"
-        Effect = "Allow"
-        Principal = {
-          AWS = "*"
-        }
-        Action = [
-          "kms:Encrypt",
-          "kms:Decrypt",
-          "kms:ReEncrypt*",
-          "kms:GenerateDataKey*",
-          "kms:DescribeKey"
-        ]
-        Resource = "*"
-      },
-      {
         Sid    = "Allow administration of the key"
         Effect = "Allow"
         Principal = {
-          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/grababyte"
+          AWS = "*"
         }
         Action = [
-          "kms:ReplicateKey",
-          "kms:Create*",
-          "kms:Describe*",
-          "kms:Enable*",
-          "kms:List*",
-          "kms:Put*",
-          "kms:Update*",
-          "kms:Revoke*",
-          "kms:Disable*",
-          "kms:Get*",
-          "kms:Delete*",
-          "kms:ScheduleKeyDeletion",
-          "kms:CancelKeyDeletion"
+          "kms:*",
         ]
         Resource = "*"
       }
@@ -167,6 +136,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "encrypt_logs" {
   }
 }
 
+# network access
 resource "aws_s3_bucket_public_access_block" "block_public" {
   bucket = aws_s3_bucket.image_bucket.id
 
@@ -176,6 +146,16 @@ resource "aws_s3_bucket_public_access_block" "block_public" {
   restrict_public_buckets = true
 }
 
+resource "aws_s3_bucket_public_access_block" "block_public_logs" {
+  bucket = aws_s3_bucket.log_bucket.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+# encrypted traffic
 resource "aws_s3_bucket_policy" "https_only" {
   bucket = aws_s3_bucket.image_bucket.id
 
