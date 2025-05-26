@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.2.0...v1.2.1) (2025-05-26)
+
+
+### Bug Fixes
+
+* harden the bearer logic ([#28](https://github.com/GrabAByte/terraform-aws-convertr-demo/issues/28)) ([4622a35](https://github.com/GrabAByte/terraform-aws-convertr-demo/commit/4622a3593d24f2e1e3cde4d216cd8e74fd6c4c95))
+
 # [1.2.0](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.1.0...v1.2.0) (2025-05-25)
 
 
