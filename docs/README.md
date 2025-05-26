@@ -33,5 +33,7 @@ No resources.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_invoke_url"></a> [invoke\_url](#output\_invoke\_url) | n/a |
 <!-- END_TF_DOCS -->
