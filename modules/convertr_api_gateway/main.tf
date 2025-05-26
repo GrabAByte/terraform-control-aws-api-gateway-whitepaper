@@ -45,9 +45,15 @@ resource "aws_lambda_permission" "upload_api_gateway" {
 }
 
 resource "aws_api_gateway_deployment" "deployment" {
-  depends_on  = [aws_api_gateway_integration.upload_lambda]
   rest_api_id = aws_api_gateway_rest_api.api.id
-  stage_name  = var.stage_name
+
+  depends_on = [aws_api_gateway_integration.upload_lambda]
+}
+
+resource "aws_api_gateway_stage" "stage" {
+  deployment_id = aws_api_gateway_deployment.deployment.id
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  stage_name    = var.stage_name
 }
 
 resource "aws_api_gateway_method_settings" "all" {
@@ -65,5 +71,5 @@ resource "aws_api_gateway_method_settings" "all" {
     throttling_rate_limit  = 1
   }
 
-  depends_on = [aws_api_gateway_deployment.deployment]
+  depends_on = [aws_api_gateway_stage.stage]
 }
