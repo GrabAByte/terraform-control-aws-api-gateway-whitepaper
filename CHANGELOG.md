@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.2.1...v1.2.2) (2025-05-26)
+
+
+### Bug Fixes
+
+* resolve api gateway deployment deprecated reference to stage_name [#29](https://github.com/GrabAByte/terraform-aws-convertr-demo/issues/29) ([5cc46ac](https://github.com/GrabAByte/terraform-aws-convertr-demo/commit/5cc46ac6b87a318a6889fa6f17957558e1fea290))
+
 ## [1.2.1](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.2.0...v1.2.1) (2025-05-26)
 
 
