@@ -75,6 +75,7 @@ jobs:
   test:
     if: github.ref == 'refs/heads/main'
     name: test API
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v4
