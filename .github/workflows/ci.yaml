@@ -72,6 +72,20 @@ jobs:
   #   needs: [lint,validate,scan,plan,apply]
   ##
 
+  test:
+    if: github.ref == 'refs/heads/main'
+    name: test API
+      steps:
+        - name: Check out the codebase.
+          uses: actions/checkout@v4
+
+        - name: Test API
+          run: |
+            API_URl=$(terraform output -raw invoke_url)
+            cd test && \
+            api-call.sh "${API_URl}" tom-richards.jpg
+    needs: [lint,validate,scan,plan,apply]
+
   semantic-release:
     uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@0.14.0
-    needs: [lint,validate,scan,plan,apply]
+    needs: [lint,validate,scan,plan,apply,test]
