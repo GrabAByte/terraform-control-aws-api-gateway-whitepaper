@@ -75,15 +75,15 @@ jobs:
   test:
     if: github.ref == 'refs/heads/main'
     name: test API
-      steps:
-        - name: Check out the codebase.
-          uses: actions/checkout@v4
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v4
 
-        - name: Test API
-          run: |
-            API_URl=$(terraform output -raw invoke_url)
-            cd test && \
-            api-call.sh "${API_URl}" tom-richards.jpg
+      - name: Test API
+        run: |
+          API_URl=$(terraform output -raw invoke_url)
+          cd test && \
+          api-call.sh "${API_URl}" tom-richards.jpg
     needs: [lint,validate,scan,plan,apply]
 
   semantic-release:
