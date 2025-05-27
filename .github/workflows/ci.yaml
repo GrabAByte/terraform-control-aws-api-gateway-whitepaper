@@ -84,9 +84,7 @@ jobs:
       - name: Test
         run: |
           # initialize
-          terraform init -backend-config=backends/${{ inputs.workspace }}.tf && \
-          terraform workspace new ${{ inputs.workspace }} || \
-          terraform workspace select ${{ inputs.workspace }} && \
+          terraform init && \
           API_URl=$(terraform output -raw invoke_url)
 
           # smoke test
