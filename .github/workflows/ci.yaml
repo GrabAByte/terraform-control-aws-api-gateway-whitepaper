@@ -72,15 +72,16 @@ jobs:
   #   needs: [lint,validate,scan,plan,apply]
   ##
 
+  # not a reusable framework so declaring as a standard job in main workflow
   test:
-    if: github.ref == 'refs/heads/main'
-    name: test API
+    # if: github.ref == 'refs/heads/main'
+    name: test
     runs-on: ubuntu-22.04
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v4
 
-      - name: Test API
+      - name: Test
         run: |
           API_URl=$(terraform output -raw invoke_url)
           cd test && \
