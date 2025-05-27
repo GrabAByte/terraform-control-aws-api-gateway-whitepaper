@@ -83,7 +83,13 @@ jobs:
 
       - name: Test
         run: |
+          # initialize
+          terraform init -backend-config=backends/${{ inputs.workspace }}.tf && \
+          terraform workspace new ${{ inputs.workspace }} || \
+          terraform workspace select ${{ inputs.workspace }} && \
           API_URl=$(terraform output -raw invoke_url)
+
+          # smoke test
           cd test && \
           api-call.sh "${API_URl}" tom-richards.jpg
     needs: [lint,validate,scan,plan]
