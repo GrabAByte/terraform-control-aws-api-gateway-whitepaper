@@ -98,7 +98,8 @@ jobs:
           # smoke test
           cd ./test && \
           BEARER_TOKEN=$(shuf -er -n16  {a..z} {0..9} | tr -d '\n')
-          ./api-call.sh "${API_URL}" tom-richards.jpg "${BEARER_TOKEN}"
+          ./api-call.sh "${API_URL}" tom-richards.jpg "${BEARER_TOKEN}" && \
+          echo "${API_URL} Tested Successfully"
 
     needs: [lint,validate,scan,plan]
 
