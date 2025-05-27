@@ -74,7 +74,7 @@ jobs:
 
   # not a reusable framework so declaring as a standard job in main workflow
   test:
-    # if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     name: Test
     runs-on: ubuntu-22.04
     steps:
@@ -102,7 +102,7 @@ jobs:
           cd ./test && \
           ./api-call.sh "${API_URL}" "${IMAGE_FILE}" "${BEARER_TOKEN}"
 
-    needs: [lint,validate,scan,plan]
+    needs: [lint,validate,scan,plan,apply]
 
   semantic-release:
     uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@0.14.0
