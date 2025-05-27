@@ -93,13 +93,14 @@ jobs:
           # initialize
           terraform init -backend-config=backends/development.tf && \
           terraform workspace select development && \
-          API_URL=$(terraform output -raw invoke_url)
 
           # smoke test
+          API_URL=$(terraform output -raw invoke_url)
+          IMAGE_FILE="tom-richards.jpg"
+          BEARER_TOKEN=$(shuf -er -n16 {a..z} {0..9} | tr -d '\n')
+
           cd ./test && \
-          BEARER_TOKEN=$(shuf -er -n16  {a..z} {0..9} | tr -d '\n')
-          ./api-call.sh "${API_URL}" tom-richards.jpg "${BEARER_TOKEN}" && \
-          echo "${API_URL} Tested Successfully"
+          ./api-call.sh "${API_URL}" "${IMAGE_FILE}" "${BEARER_TOKEN}"
 
     needs: [lint,validate,scan,plan]
 
