@@ -97,8 +97,8 @@ jobs:
 
           # smoke test
           cd ./test && \
-          find . -type f && \
-          ./api-call.sh "${API_URL}" tom-richards.jpg
+          BEARER_TOKEN=$(shuf -er -n16  {a..z} {0..9} | tr -d '\n')
+          ./api-call.sh "${API_URL}" tom-richards.jpg "${BEARER_TOKEN}"
 
     needs: [lint,validate,scan,plan]
 
