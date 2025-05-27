@@ -95,8 +95,9 @@ jobs:
           API_URL=$(terraform output -raw invoke_url)
 
           # smoke test
-          cd test && \
-          api-call.sh "${API_URL}" tom-richards.jpg
+          cd ./test && \
+          find . -type f && \
+          ./api-call.sh "${API_URL}" tom-richards.jpg
 
     needs: [lint,validate,scan,plan]
 
