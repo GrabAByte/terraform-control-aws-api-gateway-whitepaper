@@ -75,7 +75,7 @@ jobs:
   # not a reusable framework so declaring as a standard job in main workflow
   test:
     # if: github.ref == 'refs/heads/main'
-    name: test
+    name: Test
     runs-on: ubuntu-22.04
     steps:
       - name: Check out the codebase.
@@ -86,7 +86,7 @@ jobs:
           API_URl=$(terraform output -raw invoke_url)
           cd test && \
           api-call.sh "${API_URl}" tom-richards.jpg
-    needs: [lint,validate,scan,plan,apply]
+    needs: [lint,validate,scan,plan]
 
   semantic-release:
     uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@0.14.0
