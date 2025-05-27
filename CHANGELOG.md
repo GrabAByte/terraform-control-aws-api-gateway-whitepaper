@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.2.2...v1.3.0) (2025-05-27)
+
+
+### Features
+
+* Add smoke test for API ([#30](https://github.com/GrabAByte/terraform-aws-convertr-demo/issues/30)) ([044f1d5](https://github.com/GrabAByte/terraform-aws-convertr-demo/commit/044f1d56f926e2dc90c4b9c8fa1a1ab5a40315dd))
+
 ## [1.2.2](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.2.1...v1.2.2) (2025-05-26)
 
 
