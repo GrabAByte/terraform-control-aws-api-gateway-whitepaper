@@ -91,7 +91,7 @@ jobs:
         run: |
 
           # initialize
-          terraform init -backend-config=backends/${{ inputs.workspace }}.tf && \
+          terraform init -backend-config=backends/development.tf && \
           terraform workspace select development && \
           API_URL=$(terraform output -raw invoke_url)
 
