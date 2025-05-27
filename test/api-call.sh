@@ -13,8 +13,11 @@ else
   IMAGE_FILE="$2"
 fi
 
-## hardcoded for purposes of demonstrating lambda authorization
-BEARER_TOKEN=$(cat < ~/.bearer | base64 -d)
+if [ -z ${3+x} ]; then
+  BEARER_TOKEN=$(cat < ~/.bearer | base64 -d)
+else
+  BEARER_TOKEN="$3"
+fi
 
 curl -X POST \
   "${API_URL}" \
