@@ -38,7 +38,7 @@ endpoint, with the processing logic running in a Lambda function within a privat
 │   ├── convertr_lambda
 │   ├── convertr_s3
 │   └── convertr_vpc
-└── test                      - forked python test script for regression testing secruity hardening
+└── test                      - bash script to smoke test API after provisioning, scaffolding for bats test framework of security hardening.
 ```
 
 ## Table of contents
