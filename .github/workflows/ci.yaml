@@ -81,15 +81,23 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v4
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.account }}:role/${{ secrets.role }}
+          aws-region: 'eu-west-2'
+
       - name: Test
         run: |
+
           # initialize
           terraform init && \
-          API_URl=$(terraform output -raw invoke_url)
+          API_URL=$(terraform output -raw invoke_url)
 
           # smoke test
           cd test && \
-          api-call.sh "${API_URl}" tom-richards.jpg
+          api-call.sh "${API_URL}" tom-richards.jpg
+
     needs: [lint,validate,scan,plan]
 
   semantic-release:
