@@ -91,7 +91,8 @@ jobs:
         run: |
 
           # initialize
-          terraform init && \
+          terraform init -backend-config=backends/${{ inputs.workspace }}.tf && \
+          terraform workspace select development && \
           API_URL=$(terraform output -raw invoke_url)
 
           # smoke test
