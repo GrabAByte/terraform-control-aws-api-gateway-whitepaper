@@ -15,10 +15,10 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_api_gateway"></a> [api\_gateway](#module\_api\_gateway) | ./modules/convertr_api_gateway | n/a |
-| <a name="module_lambda"></a> [lambda](#module\_lambda) | ./modules/convertr_lambda | n/a |
-| <a name="module_s3"></a> [s3](#module\_s3) | ./modules/convertr_s3 | n/a |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | ./modules/convertr_vpc | n/a |
+| <a name="module_api_gateway"></a> [api\_gateway](#module\_api\_gateway) | github.com/GrabAByte/terraform-module-aws-api-gateway | v1.0.1 |
+| <a name="module_lambda"></a> [lambda](#module\_lambda) | github.com/GrabAByte/terraform-module-aws-lambda | v1.0.0 |
+| <a name="module_s3"></a> [s3](#module\_s3) | github.com/GrabAByte/terraform-module-aws-s3 | v1.0.1 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/GrabAByte/terraform-module-aws-vpc | v1.0.0 |
 
 ## Resources
 
