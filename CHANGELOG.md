@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.3.0...v1.4.0) (2025-05-30)
+
+
+### Features
+
+* abandon module monorepo structure for decoupled module approach ([#31](https://github.com/GrabAByte/terraform-aws-convertr-demo/issues/31)) ([5961d5e](https://github.com/GrabAByte/terraform-aws-convertr-demo/commit/5961d5edbcf8449b0c53adb09d7d13c89eb253f3))
+
 # [1.3.0](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.2.2...v1.3.0) (2025-05-27)
 
 
