@@ -15,9 +15,9 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_api_gateway"></a> [api\_gateway](#module\_api\_gateway) | github.com/GrabAByte/terraform-module-aws-api-gateway | v1.0.1 |
-| <a name="module_lambda"></a> [lambda](#module\_lambda) | github.com/GrabAByte/terraform-module-aws-lambda | v1.0.0 |
-| <a name="module_s3"></a> [s3](#module\_s3) | github.com/GrabAByte/terraform-module-aws-s3 | v1.0.1 |
+| <a name="module_api_gateway"></a> [api\_gateway](#module\_api\_gateway) | github.com/GrabAByte/terraform-module-aws-api-gateway | 1.0.2 |
+| <a name="module_lambda"></a> [lambda](#module\_lambda) | github.com/GrabAByte/terraform-module-aws-lambda | 1.0.1 |
+| <a name="module_s3"></a> [s3](#module\_s3) | github.com/GrabAByte/terraform-module-aws-s3 | 1.0.2 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/GrabAByte/terraform-module-aws-vpc | v1.0.0 |
 
 ## Resources

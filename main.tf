@@ -3,14 +3,14 @@ module "vpc" {
 }
 
 module "s3" {
-  source      = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.0.1"
+  source      = "github.com/GrabAByte/terraform-module-aws-s3?ref=1.0.2"
   bucket_name = "convertr-upload-bucket"
 
   tags = local.tags
 }
 
 module "lambda" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.0.0"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=1.0.1"
 
   auth_function_name   = "auth_lambda"
   auth_handler         = "auth_function.lambda_handler"
@@ -33,7 +33,7 @@ module "lambda" {
 }
 
 module "api_gateway" {
-  source = "github.com/GrabAByte/terraform-module-aws-api-gateway?ref=v1.0.1"
+  source = "github.com/GrabAByte/terraform-module-aws-api-gateway?ref=1.0.2"
 
   api_name      = "converter_api"
   api_path_part = "upload"
