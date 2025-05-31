@@ -3,8 +3,9 @@ module "vpc" {
 }
 
 module "s3" {
-  source      = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.0.2"
-  bucket_name = "convertr-upload-bucket"
+  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.0.2"
+  bucket_name     = "grababyte-upload-bucket"
+  log_bucket_name = "grababyte-log-bucket"
 
   tags = local.tags
 }

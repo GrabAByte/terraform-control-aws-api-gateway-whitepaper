@@ -18,6 +18,6 @@ locals {
   environment = lookup(var.environment_map, terraform.workspace, "development")
   tags = {
     environment = local.environment
-    project     = "convertr-demo"
+    project     = "api-lambda-trigger-to-s3"
   }
 }

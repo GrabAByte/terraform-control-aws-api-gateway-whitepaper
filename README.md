@@ -1,4 +1,4 @@
-# terraform-aws-convertr-demo
+# terraform-control-aws-api-lambda-trigger-to-s3
 
 ## Project name and introduction
 Grababyte projects look to follow the naming pattern of "$technology-$provider-$project"
@@ -30,15 +30,13 @@ endpoint, with the processing logic running in a Lambda function within a privat
 ## repository structure
 
 ```
-└── .github
-    └── workflows             - CI CD pipeline for terraform automation
-├── backends                  - environment specific configuration
-├── modules                   - modules in use for the architecture
-│   ├── convertr_api_gateway
-│   ├── convertr_lambda
-│   ├── convertr_s3
-│   └── convertr_vpc
-└── test                      - bash script to smoke test API after provisioning, scaffolding for bats test framework of security hardening.
+├── .github
+│   └── workflows
+├── backends
+├── docs
+└── test
+    └── bats
+        └── api
 ```
 
 ## Table of contents
@@ -63,10 +61,14 @@ The following will need to be installed to run this project -
 
 ## Recommended modules
 
-Modules can be found in the following directory -
+The following modules will be installed when running `terraform init` -
 
-- ./modules/$module/ (terraform)
-- python modules are handled by the lambda functionality and no requirements.txt is required
+```
+https://github.com/GrabAByte/terraform-module-aws-lambda
+https://github.com/GrabAByte/terraform-module-aws-api-gateway
+https://github.com/GrabAByte/terraform-module-aws-vpc
+https://github.com/GrabAByte/terraform-module-aws-s3
+```
 
 ## Installation
 
@@ -78,14 +80,18 @@ The following commands can be ran to initialize and deploy the code
 tflint || docker run --rm -v $(pwd):/data -t ghcr.io/terraform-linters/tflint
 
 # where $environment is the environment you want to use
+# install providers and dependencies
 terraform init -backend-config=backends/$environment.tf && \
   terraform workspace new $environment || \
   terraform workspace select $environment
 
+# validate the code is syntactically correct
 terraform validate
 
+# (optional) perform a security posture scan of terraform code
 tfsec || docker run --rm -v $(pwd):/src aquasec/tfsec /src
 
+# plan terraform
 terraform plan
 
 # if ready to deploy infrastructure

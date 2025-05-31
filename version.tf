@@ -12,7 +12,7 @@ terraform {
 
   backend "s3" {
     bucket  = "grababyte-tfstate"
-    key     = "convertr/convertr.tfstate"
+    key     = "whitepapers/development/api-lambda-trigger-to-s3.tfstate"
     region  = "eu-west-2"
     encrypt = true
   }
