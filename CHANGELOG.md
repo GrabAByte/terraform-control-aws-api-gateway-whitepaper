@@ -1,3 +1,11 @@
+## [1.4.1](https://github.com/GrabAByte/terraform-control-aws-api-lambda-trigger-to-s3/compare/v1.4.0...v1.4.1) (2025-05-31)
+
+
+### Bug Fixes
+
+* make technical task and generic repository now ([4d33b6d](https://github.com/GrabAByte/terraform-control-aws-api-lambda-trigger-to-s3/commit/4d33b6d279c974774acab58ffc1d7f7542865e5d))
+* set defaults for module names ([#32](https://github.com/GrabAByte/terraform-control-aws-api-lambda-trigger-to-s3/issues/32)) ([03ea104](https://github.com/GrabAByte/terraform-control-aws-api-lambda-trigger-to-s3/commit/03ea104978de016d6352226e7a60f0727bc81c78))
+
 # [1.4.0](https://github.com/GrabAByte/terraform-aws-convertr-demo/compare/v1.3.0...v1.4.0) (2025-05-30)
 
 
