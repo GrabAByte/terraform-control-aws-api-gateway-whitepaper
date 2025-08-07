@@ -21,3 +21,16 @@ locals {
     project     = "api-lambda-trigger-to-s3"
   }
 }
+
+variable "nacl_rules" {
+  description = "List of ingress and egress NACL rules"
+  type = list(object({
+    rule_number = number
+    protocol    = string
+    rule_action = string
+    egress      = bool
+    cidr_block  = string
+    from_port   = number
+    to_port     = number
+  }))
+}

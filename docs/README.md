@@ -22,7 +22,7 @@ No providers.
 | <a name="module_s3_auth"></a> [s3\_auth](#module\_s3\_auth) | github.com/GrabAByte/terraform-module-aws-s3 | v1.0.2 |
 | <a name="module_s3_download"></a> [s3\_download](#module\_s3\_download) | github.com/GrabAByte/terraform-module-aws-s3 | v1.0.2 |
 | <a name="module_s3_upload"></a> [s3\_upload](#module\_s3\_upload) | github.com/GrabAByte/terraform-module-aws-s3 | v1.0.2 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/GrabAByte/terraform-module-aws-vpc | v1.0.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/GrabAByte/terraform-module-aws-vpc | feat/extend |
 
 ## Resources
 
@@ -33,6 +33,7 @@ No resources.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_environment_map"></a> [environment\_map](#input\_environment\_map) | The environment lookup for each workspace | `map(any)` | <pre>{<br/>  "development": "development",<br/>  "pre-production": "pre-production",<br/>  "production": "production"<br/>}</pre> | no |
+| <a name="input_nacl_rules"></a> [nacl\_rules](#input\_nacl\_rules) | List of ingress and egress NACL rules | <pre>list(object({<br/>    rule_number = number<br/>    protocol    = string<br/>    rule_action = string<br/>    egress      = bool<br/>    cidr_block  = string<br/>    from_port   = number<br/>    to_port     = number<br/>  }))</pre> | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The AWS region in which to deploy | `string` | `"eu-west-2"` | no |
 
 ## Outputs

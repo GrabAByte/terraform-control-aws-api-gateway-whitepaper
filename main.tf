@@ -1,5 +1,6 @@
 module "vpc" {
-  source = "github.com/GrabAByte/terraform-module-aws-vpc?ref=v1.0.0"
+  source     = "github.com/GrabAByte/terraform-module-aws-vpc?ref=feat/extend"
+  nacl_rules = var.nacl_rules
 }
 
 module "s3_auth" {
