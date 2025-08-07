@@ -50,7 +50,7 @@ module "lambda_upload" {
   function_name = "image_uploader"
   handler       = "lambda_function.lambda_handler"
   iam_role_name = "lambda_exec_role"
-  lambda_source = "lambda_function.py"
+  lambda_source = "upload_function.py"
   runtime       = "python3.13"
 
   bucket_name     = module.s3_upload.bucket_name
@@ -68,7 +68,8 @@ module "lambda-download" {
   function_name = "image_downloader"
   handler       = "lambda_function.lambda_handler"
   iam_role_name = "lambda_exec_role"
-  lambda_source = "lambda_function.py"
+  # TODO: create actualy function in file
+  lambda_source = "download_function.py"
   runtime       = "python3.13"
 
   bucket_name     = module.s3_download.bucket_name
@@ -83,28 +84,26 @@ module "lambda-download" {
 module "api_gateway" {
   source = "github.com/GrabAByte/terraform-module-aws-api-gateway?ref=feat/extend"
 
-  api_name               = "image"
-  lambda_auth_invoke_arn = module.lambda_upload.auth_invoke_arn
+  api_name = "image"
+  binary_media_types = [
+    "image/jpeg",
+    "image/png"
+  ]
+
+  # TODO: look up of auth lambda / output invoke_arn in module
+  #lambda_auth_invoke_arn = module.lambda_auth.invoke_arn
 
   #api_routes = {
   #  "upload" = {
   #    api_path_part = "upload"
   #    stage_name    = "v1beta1"
   #    http_method   = "POST"
-  #   binary_media_types = [
-  #      "image/jpeg",
-  #      "image/png"
-  #    ]
   #    lambda_invoke_arn      = module.lambda_upload.invoke_arn
   #    lambda_name            = module.lambda_upload.name
   #  },
   #  "download" = {
   #    api_path_part = "download"
   #    stage_name    = "v1beta1"
-  #    binary_media_types = [
-  #      "image/jpeg",
-  #      "image/png"
-  #    ]
   #    lambda_auth_invoke_arn = module.lambda_download.auth_invoke_arn
   #    lambda_invoke_arn      = module.lambda_download.invoke_arn
   #    lambda_name            = module.lambda_download.name
