@@ -16,8 +16,8 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_api_gateway"></a> [api\_gateway](#module\_api\_gateway) | github.com/GrabAByte/terraform-module-aws-api-gateway | feat/extend |
-| <a name="module_lambda-download"></a> [lambda-download](#module\_lambda-download) | github.com/GrabAByte/terraform-module-aws-lambda | feat/extend |
 | <a name="module_lambda_auth"></a> [lambda\_auth](#module\_lambda\_auth) | github.com/GrabAByte/terraform-module-aws-lambda | feat/extend |
+| <a name="module_lambda_download"></a> [lambda\_download](#module\_lambda\_download) | github.com/GrabAByte/terraform-module-aws-lambda | feat/extend |
 | <a name="module_lambda_upload"></a> [lambda\_upload](#module\_lambda\_upload) | github.com/GrabAByte/terraform-module-aws-lambda | feat/extend |
 | <a name="module_s3_auth"></a> [s3\_auth](#module\_s3\_auth) | github.com/GrabAByte/terraform-module-aws-s3 | v1.0.2 |
 | <a name="module_s3_download"></a> [s3\_download](#module\_s3\_download) | github.com/GrabAByte/terraform-module-aws-s3 | v1.0.2 |

@@ -63,7 +63,7 @@ module "lambda_upload" {
   tags = local.tags
 }
 
-module "lambda-download" {
+module "lambda_download" {
   source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=feat/extend"
 
   function_name = "image_downloader"
@@ -97,18 +97,22 @@ module "api_gateway" {
 
   api_routes = {
     "upload" = {
-      http_method              = "POST"
       api_authorization_method = "CUSTOM"
+      http_method              = "POST"
+      integration_http_method  = "POST"
+      integration_type         = "AWS_PROXY"
+      lambda_invoke_arn        = module.lambda_upload.invoke_arn
       #    stage_name    = "v1beta1"
-      #    lambda_invoke_arn      = module.lambda_upload.invoke_arn
       #    lambda_name            = module.lambda_upload.name
     },
     "download" = {
       api_authorization_method = "CUSTOM"
       http_method              = "POST"
+      integration_http_method  = "POST"
+      integration_type         = "AWS_PROXY"
+      lambda_invoke_arn        = module.lambda_download.invoke_arn
       #    stage_name    = "v1beta1"
       #    lambda_auth_invoke_arn = module.lambda_download.auth_invoke_arn
-      #    lambda_invoke_arn      = module.lambda_download.invoke_arn
       #    lambda_name            = module.lambda_download.name
     }
   }
