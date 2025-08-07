@@ -31,7 +31,7 @@ module "lambda_auth" {
 
   function_name = "auth_lambda"
   handler       = "auth_function.lambda_handler"
-  iam_role_name = "lambda_exec_role"
+  iam_role_name = "lambda_auth_exec_role"
   runtime       = "python3.13"
   lambda_source = "auth_function.py"
 
@@ -49,7 +49,7 @@ module "lambda_upload" {
 
   function_name = "image_uploader"
   handler       = "lambda_function.lambda_handler"
-  iam_role_name = "lambda_exec_role"
+  iam_role_name = "lambda_upload_exec_role"
   lambda_source = "upload_function.py"
   runtime       = "python3.13"
 
@@ -67,7 +67,8 @@ module "lambda-download" {
 
   function_name = "image_downloader"
   handler       = "lambda_function.lambda_handler"
-  iam_role_name = "lambda_exec_role"
+  # TODO: does this need to be set for all
+  iam_role_name = "lambda_download_exec_role"
   # TODO: create actualy function in file
   lambda_source = "download_function.py"
   runtime       = "python3.13"
