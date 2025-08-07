@@ -70,7 +70,7 @@ module "lambda-download" {
   handler       = "lambda_function.lambda_handler"
   # TODO: does this need to be set for all
   iam_role_name = "lambda_download_exec_role"
-  # TODO: create actualy function in file
+  # TODO: create real function
   lambda_source = "download_function.py"
   runtime       = "python3.13"
 
@@ -93,23 +93,24 @@ module "api_gateway" {
   ]
 
   # TODO: look up of auth lambda / output invoke_arn in module
-  #lambda_auth_invoke_arn = module.lambda_auth.invoke_arn
+  lambda_auth_invoke_arn = module.lambda_auth.invoke_arn
 
-  #api_routes = {
-  #  "upload" = {
-  #    api_path_part = "upload"
-  #    stage_name    = "v1beta1"
-  #    http_method   = "POST"
-  #    lambda_invoke_arn      = module.lambda_upload.invoke_arn
-  #    lambda_name            = module.lambda_upload.name
-  #  },
-  #  "download" = {
-  #    api_path_part = "download"
-  #    stage_name    = "v1beta1"
-  #    lambda_auth_invoke_arn = module.lambda_download.auth_invoke_arn
-  #    lambda_invoke_arn      = module.lambda_download.invoke_arn
-  #    lambda_name            = module.lambda_download.name
-  #  }
-  #}
+  api_routes = {
+    "upload" = {
+      http_method              = "POST"
+      api_authorization_method = "CUSTOM"
+      #    stage_name    = "v1beta1"
+      #    lambda_invoke_arn      = module.lambda_upload.invoke_arn
+      #    lambda_name            = module.lambda_upload.name
+    },
+    "download" = {
+      api_authorization_method = "CUSTOM"
+      http_method              = "POST"
+      #    stage_name    = "v1beta1"
+      #    lambda_auth_invoke_arn = module.lambda_download.auth_invoke_arn
+      #    lambda_invoke_arn      = module.lambda_download.invoke_arn
+      #    lambda_name            = module.lambda_download.name
+    }
+  }
   tags = local.tags
 }
