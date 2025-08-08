@@ -32,13 +32,14 @@ module "s3_download" {
 module "lambda_auth" {
   source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=feat/extend"
 
-  function_name = "auth_lambda"
-  handler       = "auth_function.lambda_handler"
-  iam_role_name = "lambda_auth_exec_role"
-  runtime       = "python3.13"
-  lambda_source = "auth_function.py"
+  function_name   = "auth_lambda"
+  handler         = "auth_function.lambda_handler"
+  iam_role_name   = "lambda_auth_exec_role"
+  api_integration = true
+  runtime         = "python3.13"
+  lambda_source   = "auth_function.py"
 
-  bucket_name     = module.s3_auth.bucket_name
+  #bucket_name     = module.s3_auth.bucket_name
   bucket_arn      = module.s3_auth.bucket_arn
   vpc_subnet_0    = module.vpc.vpc_subnet_0
   vpc_subnet_1    = module.vpc.vpc_subnet_1
@@ -50,13 +51,16 @@ module "lambda_auth" {
 module "lambda_upload" {
   source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=feat/extend"
 
-  function_name = "image_uploader"
-  handler       = "lambda_function.lambda_handler"
-  iam_role_name = "lambda_upload_exec_role"
-  lambda_source = "upload_function.py"
-  runtime       = "python3.13"
+  function_name        = "image_uploader"
+  handler              = "lambda_function.lambda_handler"
+  iam_role_name        = "lambda_upload_exec_role"
+  s3_integration       = true
+  dynamodb_integration = true
+  lambda_source        = "upload_function.py"
+  runtime              = "python3.13"
+  dynamodb_table_arn   = ""
 
-  bucket_name     = module.s3_upload.bucket_name
+  #bucket_name     = module.s3_upload.bucket_name
   bucket_arn      = module.s3_upload.bucket_arn
   vpc_subnet_0    = module.vpc.vpc_subnet_0
   vpc_subnet_1    = module.vpc.vpc_subnet_1
@@ -68,18 +72,16 @@ module "lambda_upload" {
 module "lambda_download" {
   source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=feat/extend"
 
-  function_name = "image_downloader"
-  handler       = "lambda_function.lambda_handler"
+  function_name        = "image_downloader"
+  handler              = "lambda_function.lambda_handler"
+  iam_role_name        = "lambda_download_exec_role"
+  s3_integration       = true
+  dynamodb_integration = true
+  lambda_source        = "download_function.py"
+  dynamodb_table_arn   = ""
+  runtime              = "python3.13"
 
-  # TODO: does this need to be set for all
-  iam_role_name = "lambda_download_exec_role"
-
-  # TODO: create real function
-  lambda_source = "download_function.py"
-
-  runtime = "python3.13"
-
-  bucket_name     = module.s3_download.bucket_name
+  #bucket_name     = module.s3_download.bucket_name
   bucket_arn      = module.s3_download.bucket_arn
   vpc_subnet_0    = module.vpc.vpc_subnet_0
   vpc_subnet_1    = module.vpc.vpc_subnet_1
@@ -119,3 +121,30 @@ module "api_gateway" {
   }
   tags = local.tags
 }
+
+## TODO: Fix Terraform failing to update on table creation
+#module "dynamodb_upload" {
+#  source         = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=feat/extend"
+#  name           = "download"
+#  billing_mode   = "PAY_PER_REQUEST"
+#  hash_key       = "Timestamp"
+#  range_key      = "Object"
+#  attributes     = var.attributes
+#  ttl            = var.ttl
+#  gsi            = var.gsi
+
+#  tags = local.tags
+#}
+
+#module "dynamodb_download" {
+#  source         = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=feat/extend"
+#  name           = "download"
+#  billing_mode   = "PAY_PER_REQUEST"
+#  hash_key       = "Timestamp"
+#  range_key      = "Object"
+#  attributes     = var.attributes
+#  ttl            = var.ttl
+#  gsi            = var.gsi
+
+#  tags = local.tags
+#}
