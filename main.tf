@@ -97,8 +97,9 @@ module "api_gateway" {
     "image/png"
   ]
 
-  # TODO: look up of auth lambda / output invoke_arn in module
   lambda_auth_invoke_arn = module.lambda_auth.invoke_arn
+  lambda_names           = ["image_uploader", "image_downloader"]
+  stage_name             = "v1beta1"
 
   api_routes = {
     "upload" = {
@@ -107,8 +108,6 @@ module "api_gateway" {
       integration_http_method  = "POST"
       integration_type         = "AWS_PROXY"
       lambda_invoke_arn        = module.lambda_upload.invoke_arn
-      #    stage_name    = "v1beta1"
-      #    lambda_name            = module.lambda_upload.name
     },
     "download" = {
       api_authorization_method = "CUSTOM"
@@ -116,9 +115,6 @@ module "api_gateway" {
       integration_http_method  = "POST"
       integration_type         = "AWS_PROXY"
       lambda_invoke_arn        = module.lambda_download.invoke_arn
-      #    stage_name    = "v1beta1"
-      #    lambda_auth_invoke_arn = module.lambda_download.auth_invoke_arn
-      #    lambda_name            = module.lambda_download.name
     }
   }
   tags = local.tags

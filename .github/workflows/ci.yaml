@@ -40,6 +40,8 @@ jobs:
       terraformPath: .
       workspace: ${{ matrix.workspaces }}
     needs: [lint,validate,scan]
+
+  # unable to use workflow_dispatch with re-usable workflows so must auto-trigger on merge
   apply:
     if: github.ref == 'refs/heads/main'
     strategy:
