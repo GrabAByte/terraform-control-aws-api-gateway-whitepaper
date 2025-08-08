@@ -1,6 +1,5 @@
 # terraform-control-aws-api-lambda-trigger-to-s3
 
-
 ## Project name and introduction
 Grababyte projects look to follow the naming pattern of "$technology-$provider-$project"
 
