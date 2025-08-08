@@ -1,3 +1,19 @@
+# [1.5.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.4.0...v1.5.0) (2025-08-08)
+
+
+### Bug Fixes
+
+* correct tfstate bucket configuration once more ([bf03b34](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/bf03b34209f47bea7f5276e604890c6963e70449))
+* make technical task and generic repository now ([4d33b6d](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/4d33b6d279c974774acab58ffc1d7f7542865e5d))
+* set defaults for module names ([#32](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/32)) ([03ea104](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/03ea104978de016d6352226e7a60f0727bc81c78))
+* tfstate bucket implementation ([3625a96](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/3625a968b621e89585a9fcce739b59f5be9d7e7a))
+* tfstate bucket implementation ([684e340](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/684e3403789849c5e50b109fccb8355c786f0f95))
+
+
+### Features
+
+* add capability of multiple resources on single API gateway ([#34](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/34)) ([4d3e16b](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/4d3e16b1dc8c2073715aa176956a08c8b0e291e8))
+
 ## [1.4.1](https://github.com/GrabAByte/terraform-control-aws-api-lambda-trigger-to-s3/compare/v1.4.0...v1.4.1) (2025-05-31)
 
 
