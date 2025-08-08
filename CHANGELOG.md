@@ -1,3 +1,11 @@
+## [1.5.1](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.5.0...v1.5.1) (2025-08-08)
+
+
+### Bug Fixes
+
+* CI and CD workflow split ([#36](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/36)) ([95a11a7](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/95a11a705e55eb8f58ffa0716d29d3370b860ab9))
+* dynamo db provisioning ([#35](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/35)) ([971a939](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/971a93909949b5fdc630fcb5bad3718be9b6e2ff))
+
 # [1.5.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.4.0...v1.5.0) (2025-08-08)
 
 
