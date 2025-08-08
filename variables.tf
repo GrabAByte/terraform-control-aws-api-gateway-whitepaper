@@ -12,7 +12,7 @@ locals {
   environment = lookup(var.environment_map, terraform.workspace, "development")
   tags = {
     environment = local.environment
-    project     = "api-lambda-trigger-to-s3"
+    project     = "api-gateway-whitepaper"
   }
 }
 
@@ -33,12 +33,4 @@ variable "nacl_rules" {
     from_port   = number
     to_port     = number
   }))
-}
-
-variable "attributes" {
-  type = list(object({
-    name = string
-    type = string
-  }))
-  description = "List of DynamoDB table attributes"
 }
