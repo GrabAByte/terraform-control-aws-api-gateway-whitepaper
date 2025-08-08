@@ -31,13 +31,14 @@ jobs:
     strategy:
       matrix:
         workspaces: [development, pre-production, production]
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@0.14.0
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@feat/add_tfvars
     secrets:
       account: ${{ secrets.AWS_ACCOUNT }}
       role: ${{ secrets.AWS_ROLE }}
     with:
       region: eu-west-2
       terraformPath: .
+      terraformVars: environment/${{ matrix.workspaces }}/terraform.tfvars
       workspace: ${{ matrix.workspaces }}
     needs: [lint,validate,scan]
 
@@ -47,32 +48,32 @@ jobs:
     strategy:
       matrix:
         workspaces: [development]
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@0.14.0
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@feat/add_tfvars
     secrets:
       account: ${{ secrets.AWS_ACCOUNT }}
       role: ${{ secrets.AWS_ROLE }}
     with:
       region: eu-west-2
       terraformPath: .
+      terraformVars: environment/${{ matrix.workspaces }}/terraform.tfvars
       workspace: ${{ matrix.workspaces }}
     needs: [lint,validate,scan,plan]
 
-  ## keep resources alive
-  # destroy:
-  #   if: github.ref == 'refs/heads/main'
-  #   strategy:
-  #     matrix:
-  #       workspaces: [development]
-  #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestroy.yml@0.14.0
-  #   secrets:
-  #     account: ${{ secrets.AWS_ACCOUNT }}
-  #     role: ${{ secrets.AWS_ROLE }}
-  #   with:
-  #     region: eu-west-2
-  #     terraformPath: .
-  #     workspace: ${{ matrix.workspaces }}
-  #   needs: [lint,validate,scan,plan,apply]
-  ##
+  destroy:
+    if: github.ref == 'refs/heads/main'
+    strategy:
+      matrix:
+        workspaces: [development]
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestroy.yml@feat/add_tfvars
+    secrets:
+      account: ${{ secrets.AWS_ACCOUNT }}
+      role: ${{ secrets.AWS_ROLE }}
+    with:
+      region: eu-west-2
+      terraformPath: .
+      terraformVars: environment/${{ matrix.workspaces }}/terraform.tfvars
+      workspace: ${{ matrix.workspaces }}
+    needs: [lint,validate,scan,plan,apply]
 
   # not a reusable framework so declaring as a standard job in main workflow
   #test:

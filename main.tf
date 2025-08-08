@@ -1,10 +1,10 @@
 module "vpc" {
-  source     = "github.com/GrabAByte/terraform-module-aws-vpc?ref=feat/extend"
+  source     = "github.com/GrabAByte/terraform-module-aws-vpc?ref=v1.2.0"
   nacl_rules = var.nacl_rules
 }
 
 module "s3_auth" {
-  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=feat/extend"
+  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.2.0"
   bucket_name     = "grababyte-auth-bucket"
   log_bucket_name = "grababyte-auth-log-bucket"
 
@@ -12,7 +12,7 @@ module "s3_auth" {
 }
 
 module "s3_upload" {
-  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=feat/extend"
+  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.2.0"
   bucket_name     = "grababyte-upload-bucket"
   log_bucket_name = "grababyte-upload-log-bucket"
 
@@ -20,7 +20,7 @@ module "s3_upload" {
 }
 
 module "s3_download" {
-  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=feat/extend"
+  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.2.0"
   bucket_name     = "grababyte-download-bucket"
   log_bucket_name = "grababyte-download-log-bucket"
 
@@ -28,7 +28,7 @@ module "s3_download" {
 }
 
 module "lambda_auth" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=feat/extend"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.3.0"
 
   function_name   = "auth_lambda"
   handler         = "auth_function.lambda_handler"
@@ -47,7 +47,7 @@ module "lambda_auth" {
 }
 
 module "lambda_upload" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=feat/extend"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.3.0"
 
   function_name        = "image_uploader"
   handler              = "lambda_function.lambda_handler"
@@ -68,7 +68,7 @@ module "lambda_upload" {
 }
 
 module "lambda_download" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=feat/extend"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.3.0"
 
   function_name        = "image_downloader"
   handler              = "lambda_function.lambda_handler"
@@ -89,7 +89,7 @@ module "lambda_download" {
 }
 
 module "api_gateway" {
-  source = "github.com/GrabAByte/terraform-module-aws-api-gateway?ref=feat/extend"
+  source = "github.com/GrabAByte/terraform-module-aws-api-gateway?ref=v1.2.0"
 
   api_name = "image"
   api_routes = {
@@ -122,7 +122,7 @@ module "api_gateway" {
 
 ## TODO: Fix Terraform failing on table creation
 # module "dynamodb_upload" {
-#   source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=feat/extend"
+#   source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.0.0"
 #   name         = "download"
 #   billing_mode = "PAY_PER_REQUEST"
 #   hash_key     = "Timestamp"
@@ -133,7 +133,7 @@ module "api_gateway" {
 # }
 
 # module "dynamodb_download" {
-#   source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=feat/extend"
+#   source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.0.0"
 #   name         = "download"
 #   billing_mode = "PAY_PER_REQUEST"
 #   hash_key     = "Timestamp"
