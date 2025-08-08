@@ -1,5 +1,3 @@
-# boolean conditional: count = var.vpc_endpoints ? 1 : 0
-
 module "vpc" {
   source     = "github.com/GrabAByte/terraform-module-aws-vpc?ref=feat/extend"
   nacl_rules = var.nacl_rules
@@ -58,9 +56,8 @@ module "lambda_upload" {
   dynamodb_integration = true
   lambda_source        = "upload_function.py"
   runtime              = "python3.13"
-  dynamodb_table_arn   = ""
+  dynamodb_table_arn   = "*"
 
-  #bucket_name     = module.s3_upload.bucket_name
   bucket_arn      = module.s3_upload.bucket_arn
   vpc_subnet_0    = module.vpc.vpc_subnet_0
   vpc_subnet_1    = module.vpc.vpc_subnet_1
@@ -78,10 +75,9 @@ module "lambda_download" {
   s3_integration       = true
   dynamodb_integration = true
   lambda_source        = "download_function.py"
-  dynamodb_table_arn   = ""
+  dynamodb_table_arn   = "*"
   runtime              = "python3.13"
 
-  #bucket_name     = module.s3_download.bucket_name
   bucket_arn      = module.s3_download.bucket_arn
   vpc_subnet_0    = module.vpc.vpc_subnet_0
   vpc_subnet_1    = module.vpc.vpc_subnet_1
@@ -123,28 +119,24 @@ module "api_gateway" {
 }
 
 ## TODO: Fix Terraform failing to update on table creation
-#module "dynamodb_upload" {
-#  source         = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=feat/extend"
-#  name           = "download"
-#  billing_mode   = "PAY_PER_REQUEST"
-#  hash_key       = "Timestamp"
-#  range_key      = "Object"
-#  attributes     = var.attributes
-#  ttl            = var.ttl
-#  gsi            = var.gsi
+module "dynamodb_upload" {
+  source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=feat/extend"
+  name         = "download"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "Timestamp"
+  range_key    = "Object"
+  attributes   = var.attributes
 
-#  tags = local.tags
-#}
+  tags = local.tags
+}
 
-#module "dynamodb_download" {
-#  source         = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=feat/extend"
-#  name           = "download"
-#  billing_mode   = "PAY_PER_REQUEST"
-#  hash_key       = "Timestamp"
-#  range_key      = "Object"
-#  attributes     = var.attributes
-#  ttl            = var.ttl
-#  gsi            = var.gsi
+module "dynamodb_download" {
+  source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=feat/extend"
+  name         = "download"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "Timestamp"
+  range_key    = "Object"
+  attributes   = var.attributes
 
-#  tags = local.tags
-#}
+  tags = local.tags
+}

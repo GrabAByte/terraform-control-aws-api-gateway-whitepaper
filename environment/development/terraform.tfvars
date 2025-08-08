@@ -1,25 +1,4 @@
 # dynamoDB
-ttl = [
-  {
-    attribute_name = "ExpirationTime"
-    enabled        = true
-  }
-]
-
-gsi = [
-  {
-    name            = "ObjectIndex"
-    hash_key        = "Object"
-    projection_type = "ALL"
-  },
-  {
-    name            = "TimestampIndex"
-    hash_key        = "Timestamp"
-    range_key       = "Object"
-    projection_type = "ALL"
-  }
-]
-
 attributes = [
   {
     name = "Object"

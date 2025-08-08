@@ -17,6 +17,8 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_api_gateway"></a> [api\_gateway](#module\_api\_gateway) | github.com/GrabAByte/terraform-module-aws-api-gateway | feat/extend |
+| <a name="module_dynamodb_download"></a> [dynamodb\_download](#module\_dynamodb\_download) | github.com/GrabAByte/terraform-module-aws-dynamo-db | feat/extend |
+| <a name="module_dynamodb_upload"></a> [dynamodb\_upload](#module\_dynamodb\_upload) | github.com/GrabAByte/terraform-module-aws-dynamo-db | feat/extend |
 | <a name="module_lambda_auth"></a> [lambda\_auth](#module\_lambda\_auth) | github.com/GrabAByte/terraform-module-aws-lambda | feat/extend |
 | <a name="module_lambda_download"></a> [lambda\_download](#module\_lambda\_download) | github.com/GrabAByte/terraform-module-aws-lambda | feat/extend |
 | <a name="module_lambda_upload"></a> [lambda\_upload](#module\_lambda\_upload) | github.com/GrabAByte/terraform-module-aws-lambda | feat/extend |
@@ -35,10 +37,8 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | List of DynamoDB table attributes | <pre>list(object({<br/>    name = string<br/>    type = string<br/>  }))</pre> | n/a | yes |
 | <a name="input_environment_map"></a> [environment\_map](#input\_environment\_map) | The environment lookup for each workspace | `map(any)` | <pre>{<br/>  "development": "development",<br/>  "pre-production": "pre-production",<br/>  "production": "production"<br/>}</pre> | no |
-| <a name="input_gsi"></a> [gsi](#input\_gsi) | List of global secondary indexes for the DynamoDB table | <pre>list(object({<br/>    name               = string<br/>    hash_key           = string<br/>    range_key          = optional(string)<br/>    projection_type    = string<br/>    non_key_attributes = optional(list(string))<br/>    #read_capacity      = optional(number)<br/>    #write_capacity     = optional(number)<br/>  }))</pre> | n/a | yes |
 | <a name="input_nacl_rules"></a> [nacl\_rules](#input\_nacl\_rules) | List of ingress and egress NACL rules | <pre>list(object({<br/>    rule_number = number<br/>    protocol    = string<br/>    rule_action = string<br/>    egress      = bool<br/>    cidr_block  = string<br/>    from_port   = number<br/>    to_port     = number<br/>  }))</pre> | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The AWS region in which to deploy | `string` | `"eu-west-2"` | no |
-| <a name="input_ttl"></a> [ttl](#input\_ttl) | TTL attributes | <pre>list(object({<br/>    attribute_name = string<br/>    enabled        = bool<br/>  }))</pre> | n/a | yes |
 
 ## Outputs
 
