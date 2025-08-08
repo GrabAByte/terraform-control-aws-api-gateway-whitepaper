@@ -6,7 +6,7 @@ module "vpc" {
 }
 
 module "s3_auth" {
-  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.0.2"
+  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=feat/extend"
   bucket_name     = "grababyte-auth-bucket"
   log_bucket_name = "grababyte-auth-log-bucket"
 
@@ -14,7 +14,7 @@ module "s3_auth" {
 }
 
 module "s3_upload" {
-  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.0.2"
+  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=feat/extend"
   bucket_name     = "grababyte-upload-bucket"
   log_bucket_name = "grababyte-upload-log-bucket"
 
@@ -22,7 +22,7 @@ module "s3_upload" {
 }
 
 module "s3_download" {
-  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.0.2"
+  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=feat/extend"
   bucket_name     = "grababyte-download-bucket"
   log_bucket_name = "grababyte-download-log-bucket"
 
@@ -77,7 +77,7 @@ module "lambda_download" {
   # TODO: create real function
   lambda_source = "download_function.py"
 
-  runtime       = "python3.13"
+  runtime = "python3.13"
 
   bucket_name     = module.s3_download.bucket_name
   bucket_arn      = module.s3_download.bucket_arn

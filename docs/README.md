@@ -20,9 +20,9 @@ No providers.
 | <a name="module_lambda_auth"></a> [lambda\_auth](#module\_lambda\_auth) | github.com/GrabAByte/terraform-module-aws-lambda | feat/extend |
 | <a name="module_lambda_download"></a> [lambda\_download](#module\_lambda\_download) | github.com/GrabAByte/terraform-module-aws-lambda | feat/extend |
 | <a name="module_lambda_upload"></a> [lambda\_upload](#module\_lambda\_upload) | github.com/GrabAByte/terraform-module-aws-lambda | feat/extend |
-| <a name="module_s3_auth"></a> [s3\_auth](#module\_s3\_auth) | github.com/GrabAByte/terraform-module-aws-s3 | v1.0.2 |
-| <a name="module_s3_download"></a> [s3\_download](#module\_s3\_download) | github.com/GrabAByte/terraform-module-aws-s3 | v1.0.2 |
-| <a name="module_s3_upload"></a> [s3\_upload](#module\_s3\_upload) | github.com/GrabAByte/terraform-module-aws-s3 | v1.0.2 |
+| <a name="module_s3_auth"></a> [s3\_auth](#module\_s3\_auth) | github.com/GrabAByte/terraform-module-aws-s3 | feat/extend |
+| <a name="module_s3_download"></a> [s3\_download](#module\_s3\_download) | github.com/GrabAByte/terraform-module-aws-s3 | feat/extend |
+| <a name="module_s3_upload"></a> [s3\_upload](#module\_s3\_upload) | github.com/GrabAByte/terraform-module-aws-s3 | feat/extend |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/GrabAByte/terraform-module-aws-vpc | feat/extend |
 
 ## Resources
