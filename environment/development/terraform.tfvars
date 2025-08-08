@@ -1,3 +1,14 @@
+attributes = [
+  {
+    name = "Object"
+    type = "S"
+  },
+  {
+    name = "Timestamp"
+    type = "N"
+  }
+]
+
 # VPC
 nacl_rules = [
   {

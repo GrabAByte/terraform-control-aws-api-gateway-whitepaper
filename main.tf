@@ -120,25 +120,24 @@ module "api_gateway" {
   tags = local.tags
 }
 
-## TODO: Fix Terraform failing on table creation
-# module "dynamodb_upload" {
-#   source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.0.0"
-#   name         = "download"
-#   billing_mode = "PAY_PER_REQUEST"
-#   hash_key     = "Timestamp"
-#   range_key    = "Object"
-#   attributes   = var.attributes
+module "dynamodb_upload" {
+  source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.0.0"
+  name         = "upload"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "Timestamp"
+  range_key    = "Object"
+  attributes   = var.attributes
 
-#   tags = local.tags
-# }
+  tags = local.tags
+}
 
-# module "dynamodb_download" {
-#   source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.0.0"
-#   name         = "download"
-#   billing_mode = "PAY_PER_REQUEST"
-#   hash_key     = "Timestamp"
-#   range_key    = "Object"
-#   attributes   = var.attributes
+module "dynamodb_download" {
+  source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.0.0"
+  name         = "download"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "Timestamp"
+  range_key    = "Object"
+  attributes   = var.attributes
 
-#   tags = local.tags
-# }
+  tags = local.tags
+}

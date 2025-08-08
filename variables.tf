@@ -22,6 +22,14 @@ variable "region" {
   default     = "eu-west-2"
 }
 
+variable "attributes" {
+  type = list(object({
+    name = string
+    type = string
+  }))
+  description = "List of DynamoDB table attributes"
+}
+
 variable "nacl_rules" {
   description = "List of ingress and egress NACL rules"
   type = list(object({
