@@ -6,6 +6,8 @@ name: CI
     branches:
       - main
 
+permissions: write-all
+
 jobs:
   lint:
     uses: GrabAByte/github-devops-workflows/.github/workflows/terraformLint.yml@v1.1.0
