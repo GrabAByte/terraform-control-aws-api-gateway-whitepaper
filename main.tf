@@ -1,3 +1,5 @@
+# boolean conditional: count = var.vpc_endpoints ? 1 : 0
+
 module "vpc" {
   source     = "github.com/GrabAByte/terraform-module-aws-vpc?ref=feat/extend"
   nacl_rules = var.nacl_rules
@@ -68,10 +70,13 @@ module "lambda_download" {
 
   function_name = "image_downloader"
   handler       = "lambda_function.lambda_handler"
+
   # TODO: does this need to be set for all
   iam_role_name = "lambda_download_exec_role"
+
   # TODO: create real function
   lambda_source = "download_function.py"
+
   runtime       = "python3.13"
 
   bucket_name     = module.s3_download.bucket_name
