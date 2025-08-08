@@ -10,11 +10,11 @@ permissions: write-all
 
 jobs:
   lint:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformLint.yml@0.14.0
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformLint.yml@v1.1.0
     with:
       terraformPath: .
   validate:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformValidate.yml@0.14.0
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformValidate.yml@v1.1.0
     secrets:
       account: ${{ secrets.AWS_ACCOUNT }}
       role: ${{ secrets.AWS_ROLE }}
@@ -23,7 +23,7 @@ jobs:
       terraformPath: .
     needs: [lint]
   scan:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformScan.yml@0.14.0
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformScan.yml@v1.1.0
     with:
       terraformPath: .
     needs: [lint,validate]
@@ -31,7 +31,7 @@ jobs:
     strategy:
       matrix:
         workspaces: [development, pre-production, production]
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@feat/add_tfvars
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@v1.1.0
     secrets:
       account: ${{ secrets.AWS_ACCOUNT }}
       role: ${{ secrets.AWS_ROLE }}
@@ -41,72 +41,3 @@ jobs:
       terraformVars: environment/${{ matrix.workspaces }}/terraform.tfvars
       workspace: ${{ matrix.workspaces }}
     needs: [lint,validate,scan]
-
-  # unable to use workflow_dispatch with re-usable workflows so must auto-trigger on merge
-  apply:
-    if: github.ref == 'refs/heads/main'
-    strategy:
-      matrix:
-        workspaces: [development]
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@feat/add_tfvars
-    secrets:
-      account: ${{ secrets.AWS_ACCOUNT }}
-      role: ${{ secrets.AWS_ROLE }}
-    with:
-      region: eu-west-2
-      terraformPath: .
-      terraformVars: environment/${{ matrix.workspaces }}/terraform.tfvars
-      workspace: ${{ matrix.workspaces }}
-    needs: [lint,validate,scan,plan]
-
-  destroy:
-    if: github.ref == 'refs/heads/main'
-    strategy:
-      matrix:
-        workspaces: [development]
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestroy.yml@feat/add_tfvars
-    secrets:
-      account: ${{ secrets.AWS_ACCOUNT }}
-      role: ${{ secrets.AWS_ROLE }}
-    with:
-      region: eu-west-2
-      terraformPath: .
-      terraformVars: environment/${{ matrix.workspaces }}/terraform.tfvars
-      workspace: ${{ matrix.workspaces }}
-    needs: [lint,validate,scan,plan,apply]
-
-  # not a reusable framework so declaring as a standard job in main workflow
-  #test:
-  #  if: github.ref == 'refs/heads/main'
-  #  name: Test
-  #  runs-on: ubuntu-22.04
-  #  steps:
-  #    - name: Check out the codebase.
-  #      uses: actions/checkout@v4
-
-  #    - name: Configure AWS credentials
-  #      uses: aws-actions/configure-aws-credentials@v4
-  #      with:
-  #        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/${{ secrets.AWS_ROLE }}
-  #        aws-region: 'eu-west-2'
-
-  #   - name: Test
-  #     run: |
-
-  #       # initialize
-  #       terraform init -backend-config=backends/development.tf && \
-  #       terraform workspace select development && \
-
-  #       # smoke test
-  #       API_URL=$(terraform output -raw invoke_url)
-  #       IMAGE_FILE="tom-richards.jpg"
-  #       BEARER_TOKEN=$(shuf -er -n16 {a..z} {0..9} | tr -d '\n')
-
-  #       cd ./test && \
-  #       ./api-call.sh "${API_URL}" "${IMAGE_FILE}" "${BEARER_TOKEN}"
-
-  # needs: [lint,validate,scan,plan,apply]
-
-  semantic-release:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@0.14.0
-    needs: [lint,validate,scan,plan,apply]
