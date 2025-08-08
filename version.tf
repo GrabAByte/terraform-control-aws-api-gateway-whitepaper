@@ -8,10 +8,14 @@ terraform {
       source  = "hashicorp/archive"
       version = "~> 2.7"
     }
+    time = {
+      source  = "hashicorp/time"
+      version = "0.13.1"
+    }
   }
 
   backend "s3" {
-    bucket  = "grababyte-api-lambda-trigger-to-s3"
+    bucket  = "grababyte-api-gateway-whitepaper"
     key     = "tfstate"
     region  = "eu-west-2"
     encrypt = true
