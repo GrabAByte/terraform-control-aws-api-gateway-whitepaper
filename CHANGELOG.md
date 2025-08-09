@@ -1,3 +1,15 @@
+# [1.8.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.7.0...v1.8.0) (2025-08-09)
+
+
+### Bug Fixes
+
+* typo ([ba075cc](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/ba075cc259d858b9991b6c93925780443323ff8d))
+
+
+### Features
+
+* add apply branch pipeline functionality ([700dce3](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/700dce3289423491c99bbd0a0f7431887181df60))
+
 # [1.7.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.6.0...v1.7.0) (2025-08-09)
 
 
