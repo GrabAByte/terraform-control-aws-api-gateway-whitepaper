@@ -34,7 +34,7 @@ module "dynamodb_download" {
 }
 
 module "lambda_auth" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.4.1"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.4.2"
 
   api_integration = true
   function_name   = "auth_function"
@@ -52,7 +52,7 @@ module "lambda_auth" {
 }
 
 module "lambda_upload" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=fix/env"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.4.2"
 
   bucket_name          = "grababyte-api-whitepaper-bucket"
   dynamodb_integration = true
@@ -74,7 +74,7 @@ module "lambda_upload" {
 }
 
 module "lambda_download" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=fix/env"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.4.2"
 
   bucket_name          = "grababyte-api-whitepaper-bucket"
   dynamodb_integration = true
