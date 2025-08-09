@@ -37,9 +37,9 @@ module "lambda_auth" {
   source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.4.1"
 
   api_integration = true
-  function_name   = "auth_lambda"
+  function_name   = "auth_function"
   handler         = "auth_function.lambda_handler"
-  iam_role_name   = "lambda_auth_exec_role"
+  iam_role_name   = "auth_function_exec_role"
   lambda_source   = "auth_function.py"
   lambda_filename = "auth_function.zip"
   runtime         = "python3.13"
@@ -55,9 +55,9 @@ module "lambda_upload" {
   source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.4.1"
 
   dynamodb_integration = true
-  function_name        = "image_uploader"
+  function_name        = "upload_function"
   handler              = "upload_function.lambda_handler"
-  iam_role_name        = "lambda_upload_exec_role"
+  iam_role_name        = "upload_function_exec_role"
   lambda_source        = "upload_function.py"
   lambda_filename      = "upload_function.zip"
   s3_integration       = true
@@ -76,9 +76,9 @@ module "lambda_download" {
   source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.4.1"
 
   dynamodb_integration = true
-  function_name        = "image_downloader"
+  function_name        = "download_function"
   handler              = "download_function.lambda_handler"
-  iam_role_name        = "lambda_download_exec_role"
+  iam_role_name        = "download_function_exec_role"
   lambda_source        = "download_function.py"
   lambda_filename      = "download_function.zip"
   runtime              = "python3.13"
