@@ -5,7 +5,7 @@ import time
 s3_client = boto3.client("s3")
 ddb = boto3.resource("dynamodb")
 
-def handler(event, context):
+def lambda_handler(event, context):
     bucket_name = event.get("bucket") or os.environ.get("BUCKET_NAME")
     image_key   = event.get("key")
 

@@ -2,7 +2,7 @@
 
 usage () {
   echo "Error: Arguments are required to run this script, exiting."
-  echo "Usage: ./api-call.sh https://<API_ID>.execute-api.<REGION>.amazonaws.com/<STAGE>/<PATH> tom-richards.jpg"
+  echo "Usage: ./api-call.sh https://<API_ID>.execute-api.<REGION>.amazonaws.com tom-richards.jpg"
 }
 
 if [ -z ${1+x} ] && [ -z ${2+x} ]; then
@@ -14,22 +14,25 @@ else
 fi
 
 if [ -z ${3+x} ]; then
-  BEARER_TOKEN=$(cat < ~/.bearer | base64 -d)
+  BEARER_TOKEN=$(cat < ~/.bearer)
 else
   BEARER_TOKEN="$3"
 fi
 
-curl -v -X POST \
-  "${API_URL}" \
+## upload
+curl -X POST \
+  "${API_URL}/upload" \
   -H "Authorization: Bearer ${BEARER_TOKEN}" \
   -H "Content-Type: image/jpeg" \
   --data-binary "@${IMAGE_FILE}"
 
-curl -X POST \
-  "${API_URL}" \
-  -H "Authorization: Bearer ${BEARER_TOKEN}" \
-  -H "Content-Type: application/json" \
-  -d "{
-        \"bucket\": \"grababyte-api-whitepaper-bucket\",
-        \"key\": \"${IMAGE_FILE}\"
-      }" || true
+## download
+aws lambda invoke \
+  --function-name download_function \
+  --payload '{
+      "bucket":"grababyte-api-whitepaper-bucket",
+      "key":"upload-2025-08-09T13:00:47.924216.jpg"
+    }' \
+  --cli-binary-format raw-in-base64-out \
+  --region eu-west-2 \
+  response.json
