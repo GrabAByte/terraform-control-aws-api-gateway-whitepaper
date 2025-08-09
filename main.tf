@@ -5,8 +5,8 @@ module "vpc" {
 
 module "s3" {
   source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.2.0"
-  bucket_name     = "grababyte-api-whitepaper-bucket"
-  log_bucket_name = "grababyte-api-whitepaper-log-bucket"
+  bucket_name     = "grababyte-api-gateway-whitepaper-bucket"
+  log_bucket_name = "grababyte-api-gateway-whitepaper-log-bucket"
 
   tags = local.tags
 }
@@ -111,11 +111,10 @@ module "api_gateway" {
     },
     "download" = {
       api_authorization_method = "CUSTOM"
-      # though we are getting the file (GET) the body of the request is retained when using POST
-      http_method             = "POST"
-      integration_http_method = "POST"
-      integration_type        = "AWS_PROXY"
-      lambda_invoke_arn       = module.lambda_download.invoke_arn
+      http_method              = "POST"
+      integration_http_method  = "POST"
+      integration_type         = "AWS_PROXY"
+      lambda_invoke_arn        = module.lambda_download.invoke_arn
     }
   }
   binary_media_types = [

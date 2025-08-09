@@ -16,12 +16,6 @@ locals {
   }
 }
 
-variable "region" {
-  type        = string
-  description = "The AWS region in which to deploy"
-  default     = "eu-west-2"
-}
-
 variable "attributes" {
   type = list(object({
     name = string
@@ -41,4 +35,10 @@ variable "nacl_rules" {
     from_port   = number
     to_port     = number
   }))
+}
+
+variable "region" {
+  type        = string
+  description = "The AWS region in which to deploy"
+  default     = "eu-west-2"
 }

@@ -2,7 +2,7 @@
 
 ## Project name and introduction
 
-Grababyte projects look to follow the naming pattern of "$technology-$provider-$project"
+Grababyte projects look to follow the naming pattern of `"$technology-$provider-$project"`
 
 The project looks to accomplish the following cloud architecture -
 
@@ -10,15 +10,16 @@ The project looks to accomplish the following cloud architecture -
 
 Create an AWS infrastructure consisting of the following components:
 
-- Private VPC: To host the Lambda function securely.
+- Private VPC: To host the Lambda function securely using security groups and NACLs, and create endpoints for the business logic (Lambda) and data layer (S3/DynamoDB) to stay within the private network
 - AWS API Gateway: To act as the entry point for requests, which allows routes to one or more URIs
 - AWS S3 Bucket: To store data from the lambda function for upload or download purposes
 - AWS Lambda Function: To process requests and interact with the S3 bucket
 - AWS Dynamo DB: To store event metadata upon upload and download requests
-- (implicitly (AWS CloudWatch): Logging from the integrations sent to AWS CloudWatch Log Groups
+- (implicitly (AWS CloudWatch)): Logging and Metrics from the integrations sent to AWS CloudWatch Log Groups
 
 ### Requirements
 
+- API Gateway should have the capability to have 2 routes, ideally supporting an extensible amount of additional routes.
 - The Lambda function must be deployed within a private Virtual Private Cloud (VPC).
 - The API Gateway should trigger the Lambda function upon receiving requests.
 - The Lambda function should have the necessary permissions to read and write data to
@@ -27,7 +28,7 @@ the S3 bucket and DynamoDB using IAM RBAC.
 
 ### Expected Outcome
 
-A functional AWS infrastructure that allows interaction with an S3 bucket  and DynamoDB through an API
+A functional AWS infrastructure that allows interaction with an S3 bucket and DynamoDB through an API
 endpoint, with the processing logic running in a Lambda function within a private VPC.
 
 ## repository structure
@@ -63,6 +64,7 @@ The following will need to be installed to run this project -
 - terraform for running the Infrastructure-as-Code
 - postman for testing the API gateway
 - python3 for developing and testing the lambda
+- IAM permissions associated to terraform role of user to provision above listed infrastructure
 
 ## Recommended modules
 
@@ -78,7 +80,7 @@ https://github.com/GrabAByte/terraform-module-aws-dynamo-db
 
 ## Installation
 
-The following commands can be ran to initialize and deploy the code
+The following commands can be ran to validate, initialize and deploy the code
 
 ```
 # ensure you have changed directory into the repository
@@ -122,10 +124,8 @@ The API can be tested with the following command -
 # within the repository directory
 
 cd ./test
-./api-call.sh https://${API_ID}.execute-api.eu-west-2.amazonaws.com/v1beta1/upload ${UPLOAD_IMAGE_FILE}
+./api-call.sh https://${API_URL}.execute-api.eu-west-2.amazonaws.com/v1beta1 ${UPLOAD_IMAGE_FILE} ${BEARER_TOKEN}
 ```
-
-Functionality to upload an image as base64 encoded and the lambda to return a pre-signed URL is currently WIP
 
 ## Maintainers
 
