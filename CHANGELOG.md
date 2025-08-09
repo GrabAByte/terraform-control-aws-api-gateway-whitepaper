@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.6.0...v1.7.0) (2025-08-09)
+
+
+### Features
+
+* add destroy branch ([#38](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/38)) ([6ca4f4d](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/6ca4f4dc73832b0b77836af760926fd4bcc5ec50))
+
 # [1.6.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.5.1...v1.6.0) (2025-08-09)
 
 
