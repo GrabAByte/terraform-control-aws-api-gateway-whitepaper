@@ -9,31 +9,35 @@ The project looks to accomplish the following cloud architecture -
 
 Create an AWS infrastructure consisting of the following components:
 
-- AWS API Gateway: To act as the entry point for requests.
-- AWS S3 Bucket: To store data.
-- AWS Lambda Function: To process requests and interact with the S3 bucket.
 - Private VPC: To host the Lambda function securely.
+- AWS API Gateway: To act as the entry point for requests, which allows routes to one or more URIs
+- AWS S3 Bucket: To store data from the lambda function for upload or download purposes
+- AWS Lambda Function: To process requests and interact with the S3 bucket
+- AWS Dynamo DB: To store event metadata upon upload and download requests
+- (implicitly (AWS CloudWatch): Logging from the integrations sent to AWS CloudWatch Log Groups
 
 ### Requirements
 
 - The Lambda function must be deployed within a private Virtual Private Cloud (VPC).
 - The API Gateway should trigger the Lambda function upon receiving requests.
 - The Lambda function should have the necessary permissions to read and write data to
-the S3 bucket.
+the S3 bucket and DynamoDB using IAM RBAC.
 - All AWS resources must be deployed with terraform tool.
 
 ### Expected Outcome
 
-A functional AWS infrastructure that allows interaction with an S3 bucket through an API
+A functional AWS infrastructure that allows interaction with an S3 bucket  and DynamoDB through an API
 endpoint, with the processing logic running in a Lambda function within a private VPC.
 
 ## repository structure
 
 ```
-├── .github
-│   └── workflows
 ├── backends
 ├── docs
+├── environment
+│   ├── development
+│   ├── pre-production
+│   └── production
 └── test
     └── bats
         └── api
@@ -68,6 +72,7 @@ https://github.com/GrabAByte/terraform-module-aws-lambda
 https://github.com/GrabAByte/terraform-module-aws-api-gateway
 https://github.com/GrabAByte/terraform-module-aws-vpc
 https://github.com/GrabAByte/terraform-module-aws-s3
+https://github.com/GrabAByte/terraform-module-aws-dynamo-db
 ```
 
 ## Installation
@@ -92,13 +97,13 @@ terraform validate
 tfsec || docker run --rm -v $(pwd):/src aquasec/tfsec /src
 
 # plan terraform
-terraform plan
+terraform plan -var-file environment/$environment/terraform.tfvars
 
 # if ready to deploy infrastructure
-terraform apply
+terraform apply -var-file environment/$environment/terraform.tfvars
 
 # if ready to destroy infrastructure
-terraform destroy
+terraform destroy -var-file environment/$environment/terraform.tfvars
 ```
 
 ## Configuration
@@ -106,7 +111,7 @@ terraform destroy
 - AWS Access key and Access Key ID should be stored in ~/.aws/credentials, with the ini block header as [default]
 - Terraform can be installed with the following instructions - https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
 - Python binaries can be downloaded and installed from the following URL - https://www.python.org/downloads/
-~ Postman can be downloaded and install from the following URL - https://www.postman.com/downloads/
+- Postman can be downloaded and install from the following URL - https://www.postman.com/downloads/
 
 ## Troubleshooting & FAQ
 
