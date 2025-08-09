@@ -1,6 +1,7 @@
 # terraform-control-aws-api-gateway-whitepaper
 
 ## Project name and introduction
+
 Grababyte projects look to follow the naming pattern of "$technology-$provider-$project"
 
 The project looks to accomplish the following cloud architecture -
