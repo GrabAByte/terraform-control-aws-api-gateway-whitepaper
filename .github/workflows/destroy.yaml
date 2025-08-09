@@ -1,0 +1,23 @@
+---
+name: Destroy
+'on':
+  push:
+    branches:
+      - destroy
+
+permissions: write-all
+
+jobs:
+  destroy:
+    strategy:
+      matrix:
+        workspaces: [development]
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestroy.yml@v1.1.0
+    secrets:
+      account: ${{ secrets.AWS_ACCOUNT }}
+      role: ${{ secrets.AWS_ROLE }}
+    with:
+      region: eu-west-2
+      terraformPath: .
+      terraformVars: environment/${{ matrix.workspaces }}/terraform.tfvars
+      workspace: ${{ matrix.workspaces }}

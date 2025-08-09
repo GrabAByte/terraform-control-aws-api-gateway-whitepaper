@@ -23,21 +23,6 @@ jobs:
       terraformVars: environment/${{ matrix.workspaces }}/terraform.tfvars
       workspace: ${{ matrix.workspaces }}
 
-  destroy:
-    strategy:
-      matrix:
-        workspaces: [development]
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestroy.yml@v1.1.0
-    secrets:
-      account: ${{ secrets.AWS_ACCOUNT }}
-      role: ${{ secrets.AWS_ROLE }}
-    with:
-      region: eu-west-2
-      terraformPath: .
-      terraformVars: environment/${{ matrix.workspaces }}/terraform.tfvars
-      workspace: ${{ matrix.workspaces }}
-    needs: [apply]
-
   # not a reusable framework so declaring as a standard job in main workflow
   #test:
   #  name: Test
@@ -71,4 +56,4 @@ jobs:
 
   semantic-release:
     uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@v1.1.0
-    needs: [apply,destroy]
+    needs: [apply]
