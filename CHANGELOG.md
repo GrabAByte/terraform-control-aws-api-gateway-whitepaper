@@ -10,6 +10,21 @@
 
 ### Features
 
+* add api call verbosity ([#40](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/40)) ([6974730](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/69747302db0c63a171556c9251f42cb78a340eae))
+* add apply branch pipeline functionality ([700dce3](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/700dce3289423491c99bbd0a0f7431887181df60))
+
+# [1.8.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.7.0...v1.8.0) (2025-08-09)
+
+
+### Bug Fixes
+
+* align ([2800ac3](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/2800ac3c39cb58eeccf61a8194c7be897469f118))
+* align naming conventions for lambda  ([#39](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/39)) ([841b858](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/841b858c2ab4548e1f16be1fe2268bdc18fa0623))
+* typo ([ba075cc](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/ba075cc259d858b9991b6c93925780443323ff8d))
+
+
+### Features
+
 * add apply branch pipeline functionality ([700dce3](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/700dce3289423491c99bbd0a0f7431887181df60))
 
 # [1.8.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.7.0...v1.8.0) (2025-08-09)
