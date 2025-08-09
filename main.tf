@@ -77,7 +77,7 @@ module "lambda_download" {
 
   dynamodb_integration = true
   function_name        = "image_downloader"
-  handler              = "doownload_function.lambda_handler"
+  handler              = "download_function.lambda_handler"
   iam_role_name        = "lambda_download_exec_role"
   lambda_source        = "download_function.py"
   lambda_filename      = "download_function.zip"
