@@ -111,13 +111,15 @@ module "api_gateway" {
     },
     "download" = {
       api_authorization_method = "CUSTOM"
-      http_method              = "POST"
-      integration_http_method  = "POST"
-      integration_type         = "AWS_PROXY"
-      lambda_invoke_arn        = module.lambda_download.invoke_arn
+      # though we are getting the file (GET) the body of the request is retained when using POST
+      http_method             = "POST"
+      integration_http_method = "POST"
+      integration_type        = "AWS_PROXY"
+      lambda_invoke_arn       = module.lambda_download.invoke_arn
     }
   }
   binary_media_types = [
+    "application/json",
     "image/jpeg",
     "image/png"
   ]
