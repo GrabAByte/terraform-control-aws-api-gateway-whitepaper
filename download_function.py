@@ -7,7 +7,7 @@ ddb = boto3.resource("dynamodb")
 
 def handler(event, context):
     bucket_name = event.get("bucket") or os.environ.get("BUCKET_NAME")
-    image_key   = event.get("key") or "example.jpg"  # file name in S3
+    image_key   = event.get("key")
 
     if not bucket_name:
         return {"statusCode": 400, "body": "Bucket name not provided"}
@@ -15,7 +15,7 @@ def handler(event, context):
     download_path = f"/tmp/{os.path.basename(image_key)}"
 
     # DynamoDB table name from env var
-    download_table_name = os.environ.get("DOWNLOAD_DDB", "download")
+    download_table_name = os.environ.get("DDB")
     download_table = ddb.Table(download_table_name)
 
     try:
