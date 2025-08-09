@@ -19,7 +19,7 @@ else
   BEARER_TOKEN="$3"
 fi
 
-curl -X POST \
+curl -v -X POST \
   "${API_URL}" \
   -H "Authorization: Bearer ${BEARER_TOKEN}" \
   -H "Content-Type: image/jpeg" \
