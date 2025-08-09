@@ -16,15 +16,15 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_api_gateway"></a> [api\_gateway](#module\_api\_gateway) | github.com/GrabAByte/terraform-module-aws-api-gateway | v1.2.0 |
-| <a name="module_dynamodb_download"></a> [dynamodb\_download](#module\_dynamodb\_download) | github.com/GrabAByte/terraform-module-aws-dynamo-db | v1.0.0 |
-| <a name="module_dynamodb_upload"></a> [dynamodb\_upload](#module\_dynamodb\_upload) | github.com/GrabAByte/terraform-module-aws-dynamo-db | v1.0.0 |
+| <a name="module_api_gateway"></a> [api\_gateway](#module\_api\_gateway) | github.com/GrabAByte/terraform-module-aws-api-gateway | fix/outputs |
+| <a name="module_dynamodb_download"></a> [dynamodb\_download](#module\_dynamodb\_download) | github.com/GrabAByte/terraform-module-aws-dynamo-db | feat/outputs |
+| <a name="module_dynamodb_upload"></a> [dynamodb\_upload](#module\_dynamodb\_upload) | github.com/GrabAByte/terraform-module-aws-dynamo-db | feat/outputs |
 | <a name="module_lambda_auth"></a> [lambda\_auth](#module\_lambda\_auth) | github.com/GrabAByte/terraform-module-aws-lambda | v1.3.0 |
 | <a name="module_lambda_download"></a> [lambda\_download](#module\_lambda\_download) | github.com/GrabAByte/terraform-module-aws-lambda | v1.3.0 |
 | <a name="module_lambda_upload"></a> [lambda\_upload](#module\_lambda\_upload) | github.com/GrabAByte/terraform-module-aws-lambda | v1.3.0 |
-| <a name="module_s3_auth"></a> [s3\_auth](#module\_s3\_auth) | github.com/GrabAByte/terraform-module-aws-s3 | v1.2.0 |
-| <a name="module_s3_download"></a> [s3\_download](#module\_s3\_download) | github.com/GrabAByte/terraform-module-aws-s3 | v1.2.0 |
-| <a name="module_s3_upload"></a> [s3\_upload](#module\_s3\_upload) | github.com/GrabAByte/terraform-module-aws-s3 | v1.2.0 |
+| <a name="module_s3_auth"></a> [s3\_auth](#module\_s3\_auth) | github.com/GrabAByte/terraform-module-aws-s3 | feat/extend |
+| <a name="module_s3_download"></a> [s3\_download](#module\_s3\_download) | github.com/GrabAByte/terraform-module-aws-s3 | feat/extend |
+| <a name="module_s3_upload"></a> [s3\_upload](#module\_s3\_upload) | github.com/GrabAByte/terraform-module-aws-s3 | feat/extend |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/GrabAByte/terraform-module-aws-vpc | v1.2.0 |
 
 ## Resources
@@ -42,5 +42,8 @@ No resources.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_api_routes"></a> [api\_routes](#output\_api\_routes) | n/a |
+| <a name="output_api_url"></a> [api\_url](#output\_api\_url) | n/a |
 <!-- END_TF_DOCS -->

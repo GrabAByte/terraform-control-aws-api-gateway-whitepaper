@@ -81,9 +81,9 @@ module "lambda_upload" {
 
   bucket_arn         = module.s3_upload.bucket_arn
   dynamodb_table_arn = module.dynamodb_upload.table_arn
-  security_groups = module.vpc.security_groups
-  vpc_subnet_0    = module.vpc.vpc_subnet_0
-  vpc_subnet_1    = module.vpc.vpc_subnet_1
+  security_groups    = module.vpc.security_groups
+  vpc_subnet_0       = module.vpc.vpc_subnet_0
+  vpc_subnet_1       = module.vpc.vpc_subnet_1
 
   tags = local.tags
 }
@@ -100,11 +100,11 @@ module "lambda_download" {
   runtime              = "python3.13"
   s3_integration       = true
 
-  bucket_arn      = module.s3_download.bucket_arn
-  dynamodb_table_arn   = module.dynamodb_download.table_arn
-  security_groups = module.vpc.security_groups
-  vpc_subnet_0    = module.vpc.vpc_subnet_0
-  vpc_subnet_1    = module.vpc.vpc_subnet_1
+  bucket_arn         = module.s3_download.bucket_arn
+  dynamodb_table_arn = module.dynamodb_download.table_arn
+  security_groups    = module.vpc.security_groups
+  vpc_subnet_0       = module.vpc.vpc_subnet_0
+  vpc_subnet_1       = module.vpc.vpc_subnet_1
 
   tags = local.tags
 }
