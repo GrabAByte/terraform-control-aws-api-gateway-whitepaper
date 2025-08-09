@@ -2,6 +2,6 @@ output "api_url" {
   value = module.api_gateway.api_url
 }
 
-output "api_routes" {
+output "routes" {
   value = module.api_gateway.api_routes
 }
