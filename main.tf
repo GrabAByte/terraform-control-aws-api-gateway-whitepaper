@@ -119,7 +119,7 @@ module "api_gateway" {
   ]
 
   lambda_auth_invoke_arn = module.lambda_auth.invoke_arn
-  lambda_names           = ["image_uploader", "image_downloader"]
+  lambda_names           = ["upload_function", "download_function"]
   stage_name             = "v1beta1"
 
   tags = local.tags
