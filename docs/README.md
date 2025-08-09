@@ -20,8 +20,8 @@ No providers.
 | <a name="module_dynamodb_download"></a> [dynamodb\_download](#module\_dynamodb\_download) | github.com/GrabAByte/terraform-module-aws-dynamo-db | v1.1.0 |
 | <a name="module_dynamodb_upload"></a> [dynamodb\_upload](#module\_dynamodb\_upload) | github.com/GrabAByte/terraform-module-aws-dynamo-db | v1.1.0 |
 | <a name="module_lambda_auth"></a> [lambda\_auth](#module\_lambda\_auth) | github.com/GrabAByte/terraform-module-aws-lambda | v1.4.1 |
-| <a name="module_lambda_download"></a> [lambda\_download](#module\_lambda\_download) | github.com/GrabAByte/terraform-module-aws-lambda | v1.4.1 |
-| <a name="module_lambda_upload"></a> [lambda\_upload](#module\_lambda\_upload) | github.com/GrabAByte/terraform-module-aws-lambda | v1.4.1 |
+| <a name="module_lambda_download"></a> [lambda\_download](#module\_lambda\_download) | github.com/GrabAByte/terraform-module-aws-lambda | fix/env |
+| <a name="module_lambda_upload"></a> [lambda\_upload](#module\_lambda\_upload) | github.com/GrabAByte/terraform-module-aws-lambda | fix/env |
 | <a name="module_s3"></a> [s3](#module\_s3) | github.com/GrabAByte/terraform-module-aws-s3 | v1.2.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | github.com/GrabAByte/terraform-module-aws-vpc | v1.2.1 |
 
