@@ -1,3 +1,15 @@
+# [1.6.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.5.1...v1.6.0) (2025-08-09)
+
+
+### Bug Fixes
+
+* remove unnecessary IAM association ([a4105d1](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/a4105d11196cdbcdb203c5c002b8688906b499cd))
+
+
+### Features
+
+* make main.tf leaner removing unrequired resources ([#37](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/37)) ([3186cc4](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/3186cc47ab4ed1d1a9706a0083b3659e6db68d2c))
+
 ## [1.5.1](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.5.0...v1.5.1) (2025-08-08)
 
 
