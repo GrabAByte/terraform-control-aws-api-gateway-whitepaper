@@ -9,8 +9,8 @@ def lambda_handler(event, context):
     ddb = boto3.resource('dynamodb')
 
     bucket = os.environ['BUCKET']
-    table_name = os.environ['DDB']
-    table = ddb.Table(table_name)
+    upload_table_name = os.environ['DDB']  # Upload table from env var
+    upload_table = ddb.Table(upload_table_name)
 
     content_type = event["headers"].get(
         "Content-Type",
@@ -32,16 +32,22 @@ def lambda_handler(event, context):
     # Upload to S3
     s3.put_object(Bucket=bucket, Key=key, Body=body, ContentType=content_type)
 
-    # Store record in DynamoDB
+    # Epoch timestamp
     epoch_timestamp = int(time.time())
-    table.put_item(
-        Item={
-            "Object": key,
-            "Timestamp": epoch_timestamp
-        }
-    )
+
+    # Insert into upload table (fail silently)
+    try:
+        upload_table.put_item(
+            Item={
+                "Object": key,
+                "Timestamp": epoch_timestamp
+            }
+        )
+    except Exception as e:
+        print(f"Warning: Failed to insert into upload table: {e}")
 
     return {
         "statusCode": 200,
-        "body": f"Image uploaded successfully to {bucket}/{key} and recorded in DynamoDB"
+        "body": f"Image uploaded successfully to {bucket}/{key} and record stored in DynamoDB"
     }
+

@@ -75,7 +75,7 @@ module "lambda_upload" {
 }
 
 module "lambda_download" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.4.2"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=feat/dynamodb-pub"
 
   bucket_name          = "grababyte-api-whitepaper-bucket"
   dynamodb_integration = true
