@@ -27,12 +27,6 @@ curl -X POST \
   --data-binary "@${IMAGE_FILE}"
 
 ## download
-# curl -X GET \
-#   "${API_URL}/download" \
-#   -H "Authorization: Bearer abcfdefg12345678" \
-#   -H "Content-Type: application/json" \
-#   -d '{ "bucket": "grababyte-api-whitepaper-bucket", "key": "upload-2025-08-09T16:52:38.494038.jpg" }'
-
 aws lambda invoke \
   --function-name download_function \
   --payload '{
@@ -42,3 +36,10 @@ aws lambda invoke \
   --cli-binary-format raw-in-base64-out \
   --region eu-west-2 \
   response.json
+
+## TODO: Fix API wants payload base64 encoded
+# curl -X POST \
+#   "${API_URL}/download" \
+#   -H "Authorization: Bearer abcfdefg12345678" \
+#   -H "Content-Type: application/json" \
+#   -d '{ "bucket": "grababyte-api-whitepaper-bucket", "key": "upload-2025-08-09T16:52:38.494038.jpg" }'
