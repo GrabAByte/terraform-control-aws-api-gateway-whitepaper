@@ -24,3 +24,12 @@ curl -v -X POST \
   -H "Authorization: Bearer ${BEARER_TOKEN}" \
   -H "Content-Type: image/jpeg" \
   --data-binary "@${IMAGE_FILE}"
+
+curl -X POST \
+  "${API_URL}" \
+  -H "Authorization: Bearer ${BEARER_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d "{
+        \"bucket\": \"grababyte-api-whitepaper-bucket\",
+        \"key\": \"${IMAGE_FILE}\"
+      }" || true
