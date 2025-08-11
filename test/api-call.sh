@@ -20,18 +20,14 @@ else
 fi
 
 ## upload
-for i in $(seq 0 20); do
-  echo "API CALL #${i} for ${API_URL}/upload"
-  curl -X POST \
-    "${API_URL}/upload" \
-    -H "Authorization: Bearer ${BEARER_TOKEN}" \
-    -H "Content-Type: image/jpeg" \
-    --data-binary "@${IMAGE_FILE}"
-done
+UPLOAD_FILE=$(curl -X POST \
+  "${API_URL}/upload" \
+  -H "Authorization: Bearer ${BEARER_TOKEN}" \
+  -H "Content-Type: image/jpeg" \
+  --data-binary "@${IMAGE_FILE}")
 
 ## download
-#FILE=""
-#curl -X GET \
-#  "${API_URL}/download?file=${FILE}" \
-#  -H "Authorization: Bearer ${BEARER_TOKEN}" \
-#  -o "${FILE}"
+curl -X GET \
+  "${API_URL}/download?file=${UPLOAD_FILE}" \
+  -H "Authorization: Bearer ${BEARER_TOKEN}" \
+  -o "/tmp/${UPLOAD_FILE}"
