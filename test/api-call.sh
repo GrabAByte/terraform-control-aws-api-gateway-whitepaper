@@ -20,14 +20,17 @@ else
 fi
 
 ## upload
-UPLOAD_FILE=$(curl -X POST \
+UPLOAD_RESPONSE=$(curl -X POST \
   "${API_URL}/upload" \
   -H "Authorization: Bearer ${BEARER_TOKEN}" \
   -H "Content-Type: image/jpeg" \
   --data-binary "@${IMAGE_FILE}")
 
+UPLOAD_FILE=$(echo "${UPLOAD_RESPONSE}" | cut -d ':' -f2-)
+
 ## download
 curl -X GET \
   "${API_URL}/download?file=${UPLOAD_FILE}" \
   -H "Authorization: Bearer ${BEARER_TOKEN}" \
-  -o "/tmp/${UPLOAD_FILE}"
+  -o "/tmp/${UPLOAD_FILE}" &&
+  ls -l "/tmp/${UPLOAD_FILE}"
