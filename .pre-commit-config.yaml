@@ -53,7 +53,7 @@ repos:
     - --mapping=2
     - --sequence=2
     - --offset=0
-    - --width=75
+    - --width=100
 
 - repo: https://github.com/adrienverge/yamllint.git
   rev: 79a6b2b1392eaf49cdd32ac4f14be1a809bbd8f7    # frozen: v1.37.1
