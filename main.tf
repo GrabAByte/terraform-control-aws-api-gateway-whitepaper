@@ -4,9 +4,8 @@ module "vpc" {
 }
 
 module "s3" {
-  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.2.0"
-  bucket_name     = "grababyte-api-gateway-whitepaper-bucket"
-  log_bucket_name = "grababyte-api-gateway-whitepaper-log-bucket"
+  source      = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.2.0"
+  bucket_name = "grababyte-api-gateway-whitepaper-bucket"
 
   tags = local.tags
 }
