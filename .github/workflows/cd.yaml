@@ -41,7 +41,7 @@ jobs:
       run: |2
 
         # initialize
-        terraform init -backend-config=backends/development.tf && \
+        terraform init && \
         terraform workspace select development && \
 
         # smoke test
