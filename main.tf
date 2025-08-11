@@ -54,7 +54,7 @@ module "lambda_auth" {
 module "lambda_upload" {
   source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.5.0"
 
-  bucket_name          = "grababyte-api-whitepaper-bucket"
+  bucket_name          = "grababyte-api-gateway-whitepaper-bucket"
   dynamodb_integration = true
   dynamodb_table       = "upload"
   function_name        = "upload_function"
@@ -77,7 +77,7 @@ module "lambda_upload" {
 module "lambda_download" {
   source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.5.0"
 
-  bucket_name          = "grababyte-api-whitepaper-bucket"
+  bucket_name          = "grababyte-api-gateway-whitepaper-bucket"
   dynamodb_integration = true
   dynamodb_table       = "download"
   function_name        = "download_function"
@@ -111,14 +111,14 @@ module "api_gateway" {
     },
     "download" = {
       api_authorization_method = "CUSTOM"
-      http_method              = "POST"
+      http_method              = "GET"
       integration_http_method  = "POST"
       integration_type         = "AWS_PROXY"
       lambda_invoke_arn        = module.lambda_download.invoke_arn
     }
   }
   binary_media_types = [
-    "application/json",
+    "application/octet-stream",
     "image/jpeg",
     "image/png"
   ]
