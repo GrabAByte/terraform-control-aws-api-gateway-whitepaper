@@ -68,6 +68,6 @@ jobs:
       workspace: ${{ matrix.workspaces }}
     needs: [apply, test]
 
-  # semantic-release:
-  #   uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@v1.1.0
-  #   needs: [apply]
+  semantic-release:
+    uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@v1.1.0
+    needs: [apply]
