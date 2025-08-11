@@ -44,28 +44,6 @@ repos:
   hooks:
   - id: gitleaks
 
-# YAML
-- repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
-  rev: 8d1b9cadaf854cb25bb0b0f5870e1cc66a083d6b    # frozen: 0.2.3
-  hooks:
-  - id: yamlfmt
-    args:
-    - --mapping=2
-    - --sequence=2
-    - --offset=0
-    - --width=100
-
-- repo: https://github.com/adrienverge/yamllint.git
-  rev: 79a6b2b1392eaf49cdd32ac4f14be1a809bbd8f7    # frozen: v1.37.1
-  hooks:
-  - id: yamllint
-    types:
-    - file
-    - yaml
-    args:
-    - --strict
-    indentation: disable
-
 # Bash
 - repo: https://github.com/jumanjihouse/pre-commit-hooks
   rev: 38980559e3a605691d6579f96222c30778e5a69e    # frozen: 3.0.0

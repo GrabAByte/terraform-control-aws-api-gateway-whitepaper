@@ -70,4 +70,4 @@ jobs:
 
   semantic-release:
     uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@v1.1.0
-    needs: [apply]
+    needs: [apply, test, destroy]
