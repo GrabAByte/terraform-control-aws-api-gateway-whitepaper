@@ -1,1 +1,0 @@
-{"errorMessage": "'queryStringParameters'", "errorType": "KeyError", "requestId": "20a70979-3575-4a5f-895d-9f782731ba87", "stackTrace": ["  File \"/var/task/download_function.py\", line 11, in lambda_handler\n    file_name = event[\"queryStringParameters\"][\"file\"]\n"]}
