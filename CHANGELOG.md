@@ -1,3 +1,16 @@
+# [1.9.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.8.0...v1.9.0) (2025-08-11)
+
+
+### Bug Fixes
+
+* CI/CD ordering and keep infrastructure alive ([#48](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/48)) ([304003f](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/304003fda91afe54072d6ebe3e4489c96f64d4f4))
+* quick fix for log bucket variable ([#49](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/49)) ([c884992](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/c88499264a8f1714295ae95ad6c77aaa6b921507))
+
+
+### Features
+
+* add timeout option to lambda functions ([27f0946](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/27f0946008fe432e903aeb799058c4a478e4b906))
+
 # [1.8.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.7.0...v1.8.0) (2025-08-11)
 
 
