@@ -1,3 +1,24 @@
+# [1.8.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.7.0...v1.8.0) (2025-08-11)
+
+
+### Bug Fixes
+
+* /download resource to download object from the S3 bucket using the API gateway ([#46](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/46)) ([5b200f2](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/5b200f206baae2b770a6e611c1dcb26341171313))
+* align ([2800ac3](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/2800ac3c39cb58eeccf61a8194c7be897469f118))
+* align naming conventions for lambda  ([#39](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/39)) ([841b858](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/841b858c2ab4548e1f16be1fe2268bdc18fa0623))
+* binary types allowed on requests ([#45](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/45)) ([28698e4](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/28698e4ad6dcb70ec1ff5a46e8c037edef728673))
+* bucket name environment variable ([#42](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/42)) ([003add1](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/003add1c928e8b304daacf5cce432ced774fae2d))
+* revert ci cd destroy ([744178d](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/744178d7f46c145462acd68207108634cd1c376a))
+* tagging ([#41](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/41)) ([2676522](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/26765227989a61ecfdfd090d049a5b448e0699a0))
+* typo ([ba075cc](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/ba075cc259d858b9991b6c93925780443323ff8d))
+
+
+### Features
+
+* add api call verbosity ([#40](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/40)) ([6974730](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/69747302db0c63a171556c9251f42cb78a340eae))
+* add apply branch pipeline functionality ([700dce3](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/700dce3289423491c99bbd0a0f7431887181df60))
+* add dynamo db integration ([#43](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/43)) ([c66fa15](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/c66fa15018d452d25f5369f30a98747a9a47a7e2))
+
 # [1.7.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.6.0...v1.7.0) (2025-08-09)
 
 
