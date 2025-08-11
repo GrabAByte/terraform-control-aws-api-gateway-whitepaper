@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usage () {
+usage() {
   echo "Error: Arguments are required to run this script, exiting."
   echo "Usage: ./api-call.sh https://<API_ID>.execute-api.<REGION>.amazonaws.com tom-richards.jpg"
 }
@@ -27,19 +27,8 @@ curl -X POST \
   --data-binary "@${IMAGE_FILE}"
 
 ## download
-aws lambda invoke \
-  --function-name download_function \
-  --payload '{
-      "bucket":"grababyte-api-whitepaper-bucket",
-      "key":"upload-2025-08-09T16:52:38.494038.jpg"
-    }' \
-  --cli-binary-format raw-in-base64-out \
-  --region eu-west-2 \
-  response.json
-
-## TODO: Fix API wants payload base64 encoded
-# curl -X POST \
-#   "${API_URL}/download" \
-#   -H "Authorization: Bearer abcfdefg12345678" \
-#   -H "Content-Type: application/json" \
-#   -d '{ "bucket": "grababyte-api-whitepaper-bucket", "key": "upload-2025-08-09T16:52:38.494038.jpg" }'
+#FILE=""
+#curl -X GET \
+#  "${API_URL}/download?file=${FILE}" \
+#  -H "Authorization: Bearer ${BEARER_TOKEN}" \
+#  -o "${FILE}"
