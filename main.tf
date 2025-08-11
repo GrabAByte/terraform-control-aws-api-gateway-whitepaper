@@ -34,7 +34,7 @@ module "dynamodb_download" {
 }
 
 module "lambda_auth" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=fix/lambda-env"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.5.1"
 
   api_integration = true
   function_name   = "auth_function"
@@ -52,22 +52,21 @@ module "lambda_auth" {
 }
 
 module "lambda_upload" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=fix/lambda-env"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.5.1"
 
-  # bucket_name          = "grababyte-api-gateway-whitepaper-bucket"
   dynamodb_integration = true
-  dynamodb_table       = "upload"
-  environment          = {
+  environment = {
     BUCKET = "grababyte-api-gateway-whitepaper-bucket"
+    DDB    = "upload"
     STAGE  = local.environment
   }
-  function_name        = "upload_function"
-  handler              = "upload_function.lambda_handler"
-  iam_role_name        = "upload_function_exec_role"
-  lambda_source        = "upload_function.py"
-  lambda_filename      = "upload_function.zip"
-  s3_integration       = true
-  runtime              = "python3.13"
+  function_name   = "upload_function"
+  handler         = "upload_function.lambda_handler"
+  iam_role_name   = "upload_function_exec_role"
+  lambda_source   = "upload_function.py"
+  lambda_filename = "upload_function.zip"
+  s3_integration  = true
+  runtime         = "python3.13"
 
   bucket_arn         = module.s3.bucket_arn
   dynamodb_table_arn = module.dynamodb_upload.table_arn
@@ -79,22 +78,21 @@ module "lambda_upload" {
 }
 
 module "lambda_download" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=fix/lambda-env"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.5.1"
 
-  # bucket_name          = "grababyte-api-gateway-whitepaper-bucket"
   dynamodb_integration = true
-  dynamodb_table       = "download"
-  environment          = {
+  environment = {
     BUCKET = "grababyte-api-gateway-whitepaper-bucket"
+    DDB    = "download"
     STAGE  = local.environment
   }
-  function_name        = "download_function"
-  handler              = "download_function.lambda_handler"
-  iam_role_name        = "download_function_exec_role"
-  lambda_source        = "download_function.py"
-  lambda_filename      = "download_function.zip"
-  runtime              = "python3.13"
-  s3_integration       = true
+  function_name   = "download_function"
+  handler         = "download_function.lambda_handler"
+  iam_role_name   = "download_function_exec_role"
+  lambda_source   = "download_function.py"
+  lambda_filename = "download_function.zip"
+  runtime         = "python3.13"
+  s3_integration  = true
 
   bucket_arn         = module.s3.bucket_arn
   dynamodb_table_arn = module.dynamodb_download.table_arn
