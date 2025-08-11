@@ -15,7 +15,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "grababyte-api-gateway-whitepaper"
+    bucket  = "grababyte-api-gateway-whitepaper-tfstate"
     key     = "tfstate"
     region  = "eu-west-2"
     encrypt = true

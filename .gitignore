@@ -16,6 +16,7 @@
 
 # binaries
 *.zip
+upload-*
 
 # editing files
 *.swp

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-usage () {
+usage() {
   echo "Error: Arguments are required to run this script, exiting."
   echo "Usage: ./api-call.sh https://<API_ID>.execute-api.<REGION>.amazonaws.com tom-richards.jpg"
 }
@@ -19,27 +19,28 @@ else
   BEARER_TOKEN="$3"
 fi
 
-## upload
-curl -X POST \
-  "${API_URL}/upload" \
-  -H "Authorization: Bearer ${BEARER_TOKEN}" \
-  -H "Content-Type: image/jpeg" \
-  --data-binary "@${IMAGE_FILE}"
+## upload - generate objects, records and observability
+for i in $(seq 1 5); do
+  UPLOAD_RESPONSE=$(curl -s -X POST \
+    "${API_URL}/upload" \
+    -H "Authorization: Bearer ${BEARER_TOKEN}" \
+    -H "Content-Type: image/jpeg" \
+    --data-binary "@${IMAGE_FILE}") &&
+    echo "/upload request #${i} successful"
+  sleep 2
+done
 
-## download
-aws lambda invoke \
-  --function-name download_function \
-  --payload '{
-      "bucket":"grababyte-api-whitepaper-bucket",
-      "key":"upload-2025-08-09T16:52:38.494038.jpg"
-    }' \
-  --cli-binary-format raw-in-base64-out \
-  --region eu-west-2 \
-  response.json
+UPLOAD_FILE=$(echo "${UPLOAD_RESPONSE}" | cut -d ':' -f2-)
+echo "File uploaded to the S3 bucket as: ${UPLOAD_FILE}"
 
-## TODO: Fix API wants payload base64 encoded
-# curl -X POST \
-#   "${API_URL}/download" \
-#   -H "Authorization: Bearer abcfdefg12345678" \
-#   -H "Content-Type: application/json" \
-#   -d '{ "bucket": "grababyte-api-whitepaper-bucket", "key": "upload-2025-08-09T16:52:38.494038.jpg" }'
+## download - generate objects, records and observability
+for i in $(seq 1 5); do
+  curl -s -X GET \
+    "${API_URL}/download?file=${UPLOAD_FILE}" \
+    -H "Authorization: Bearer ${BEARER_TOKEN}" \
+    -o "${UPLOAD_FILE}" &&
+    echo "/download request #${i} successful"
+  sleep 3
+done
+
+ls -l "${UPLOAD_FILE}"

@@ -1,5 +1,4 @@
-# Dynamo DB
-attributes = [
+dynamodb_attributes = [
   {
     name = "Object"
     type = "S"
@@ -10,8 +9,7 @@ attributes = [
   }
 ]
 
-# VPC
-nacl_rules = [
+vpc_nacl_rules = [
   {
     rule_number = 100
     protocol    = "6"

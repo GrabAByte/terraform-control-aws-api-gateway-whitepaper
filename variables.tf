@@ -16,7 +16,7 @@ locals {
   }
 }
 
-variable "attributes" {
+variable "dynamodb_attributes" {
   type = list(object({
     name = string
     type = string
@@ -24,7 +24,7 @@ variable "attributes" {
   description = "List of DynamoDB table attributes"
 }
 
-variable "nacl_rules" {
+variable "vpc_nacl_rules" {
   description = "List of ingress and egress NACL rules"
   type = list(object({
     rule_number = number
