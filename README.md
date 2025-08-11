@@ -40,6 +40,8 @@ endpoint, with the processing logic running in a Lambda function within a privat
 │   ├── development
 │   ├── pre-production
 │   └── production
+├── .github
+│   └── workflows
 └── test
     └── bats
         └── api
