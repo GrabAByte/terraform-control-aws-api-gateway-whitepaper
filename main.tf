@@ -1,6 +1,6 @@
 module "vpc" {
   source     = "github.com/GrabAByte/terraform-module-aws-vpc?ref=v1.2.1"
-  nacl_rules = var.nacl_rules
+  nacl_rules = var.vpc_nacl_rules
 }
 
 module "s3" {
@@ -13,7 +13,7 @@ module "s3" {
 
 module "dynamodb_upload" {
   source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.1.0"
-  attributes   = var.attributes
+  attributes   = var.dynamodb_attributes
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "Timestamp"
   name         = "upload"
@@ -24,7 +24,7 @@ module "dynamodb_upload" {
 
 module "dynamodb_download" {
   source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.1.0"
-  attributes   = var.attributes
+  attributes   = var.dynamodb_attributes
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "Timestamp"
   name         = "download"
@@ -34,7 +34,7 @@ module "dynamodb_download" {
 }
 
 module "lambda_auth" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.5.0"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=fix/lambda-env"
 
   api_integration = true
   function_name   = "auth_function"
@@ -52,11 +52,15 @@ module "lambda_auth" {
 }
 
 module "lambda_upload" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.5.0"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=fix/lambda-env"
 
-  bucket_name          = "grababyte-api-gateway-whitepaper-bucket"
+  # bucket_name          = "grababyte-api-gateway-whitepaper-bucket"
   dynamodb_integration = true
   dynamodb_table       = "upload"
+  environment          = {
+    BUCKET = "grababyte-api-gateway-whitepaper-bucket"
+    STAGE  = local.environment
+  }
   function_name        = "upload_function"
   handler              = "upload_function.lambda_handler"
   iam_role_name        = "upload_function_exec_role"
@@ -75,11 +79,15 @@ module "lambda_upload" {
 }
 
 module "lambda_download" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.5.0"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=fix/lambda-env"
 
-  bucket_name          = "grababyte-api-gateway-whitepaper-bucket"
+  # bucket_name          = "grababyte-api-gateway-whitepaper-bucket"
   dynamodb_integration = true
   dynamodb_table       = "download"
+  environment          = {
+    BUCKET = "grababyte-api-gateway-whitepaper-bucket"
+    STAGE  = local.environment
+  }
   function_name        = "download_function"
   handler              = "download_function.lambda_handler"
   iam_role_name        = "download_function_exec_role"
