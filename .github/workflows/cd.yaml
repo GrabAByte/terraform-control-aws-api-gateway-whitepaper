@@ -53,21 +53,21 @@ jobs:
 
     needs: [apply]
 
-  destroy:
-    strategy:
-      matrix:
-        workspaces: [development]
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestroy.yml@v1.1.0
-    secrets:
-      account: ${{ secrets.AWS_ACCOUNT }}
-      role: ${{ secrets.AWS_ROLE }}
-    with:
-      region: eu-west-2
-      terraformPath: .
-      terraformVars: environment/${{ matrix.workspaces }}/terraform.tfvars
-      workspace: ${{ matrix.workspaces }}
-    needs: [apply, test]
-
   semantic-release:
     uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@v1.1.0
-    needs: [apply, test, destroy]
+    needs: [apply, test]
+
+  # destroy:
+  #   strategy:
+  #     matrix:
+  #       workspaces: [development]
+  #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestroy.yml@v1.1.0
+  #   secrets:
+  #     account: ${{ secrets.AWS_ACCOUNT }}
+  #     role: ${{ secrets.AWS_ROLE }}
+  #   with:
+  #     region: eu-west-2
+  #     terraformPath: .
+  #     terraformVars: environment/${{ matrix.workspaces }}/terraform.tfvars
+  #     workspace: ${{ matrix.workspaces }}
+  #   needs: [apply, test]
