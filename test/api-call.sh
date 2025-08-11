@@ -19,18 +19,28 @@ else
   BEARER_TOKEN="$3"
 fi
 
-## upload
-UPLOAD_RESPONSE=$(curl -X POST \
-  "${API_URL}/upload" \
-  -H "Authorization: Bearer ${BEARER_TOKEN}" \
-  -H "Content-Type: image/jpeg" \
-  --data-binary "@${IMAGE_FILE}")
+## upload - generate objects, records and observability
+for i in $(seq 1 5); do
+  UPLOAD_RESPONSE=$(curl -s -X POST \
+    "${API_URL}/upload" \
+    -H "Authorization: Bearer ${BEARER_TOKEN}" \
+    -H "Content-Type: image/jpeg" \
+    --data-binary "@${IMAGE_FILE}") &&
+    echo "/upload request #${i} successful"
+  sleep 2
+done
 
 UPLOAD_FILE=$(echo "${UPLOAD_RESPONSE}" | cut -d ':' -f2-)
+echo "File uploaded to the S3 bucket as: ${UPLOAD_FILE}"
 
-## download
-curl -X GET \
-  "${API_URL}/download?file=${UPLOAD_FILE}" \
-  -H "Authorization: Bearer ${BEARER_TOKEN}" \
-  -o "/tmp/${UPLOAD_FILE}" &&
-  ls -l "/tmp/${UPLOAD_FILE}"
+## download - generate objects, records and observability
+for i in $(seq 1 5); do
+  curl -s -X GET \
+    "${API_URL}/download?file=${UPLOAD_FILE}" \
+    -H "Authorization: Bearer ${BEARER_TOKEN}" \
+    -o "${UPLOAD_FILE}" &&
+    echo "/download request #${i} successful"
+  sleep 3
+done
+
+ls -l "${UPLOAD_FILE}"
