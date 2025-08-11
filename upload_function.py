@@ -48,6 +48,5 @@ def lambda_handler(event, context):
 
     return {
         "statusCode": 200,
-        "body": f"Image uploaded successfully to {bucket}/{key} and record stored in DynamoDB"
+        "body": f"Image uploaded successfully to S3 {bucket} as:{key}"
     }
-
