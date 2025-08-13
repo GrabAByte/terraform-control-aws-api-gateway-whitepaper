@@ -12,9 +12,9 @@ Create an AWS infrastructure consisting of the following components:
 
 - Private VPC: To host the Lambda function securely using security groups and NACLs, and create endpoints for the business logic (Lambda) and data layer (S3/DynamoDB) to stay within the private network
 - AWS API Gateway: To act as the entry point for requests, which allows routes to one or more URIs
-- AWS S3 Bucket: To store data from the lambda function for upload or download purposes
-- AWS Lambda Function: To process requests and interact with the S3 bucket
-- AWS Dynamo DB: To store event metadata upon upload and download requests
+- AWS Lambda Function: To process requests and interact with the S3 bucket and dynamo DB
+- AWS S3 Bucket: To store images from the lambda function for upload or download purposes
+- AWS Dynamo DB: To store event metadata upon upload and download requests (Object and Timestamp)
 - (implicitly (AWS CloudWatch)): Logging and Metrics from the integrations sent to AWS CloudWatch Log Groups
 
 ### Requirements
@@ -61,7 +61,7 @@ endpoint, with the processing logic running in a Lambda function within a privat
 
 The following will need to be installed to run this project -
 
-- an AWS account to deploy into 
+- an AWS account to deploy into
 - setup of AWS credentials configuration within local environment
 - terraform for running the Infrastructure-as-Code
 - postman for testing the API gateway
