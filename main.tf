@@ -35,15 +35,20 @@ module "dynamodb_download" {
 }
 
 module "lambda_auth" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.7.0"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.7.1"
 
   api_integration = true
-  function_name   = "auth_function"
-  handler         = "auth_function.lambda_handler"
-  iam_role_name   = "auth_function_exec_role"
-  lambda_source   = "auth_function.py"
-  lambda_filename = "auth_function.zip"
-  runtime         = "python3.13"
+  environment = {
+    BEARER_TOKEN = "api-bearer-token"
+    STAGE        = local.environment
+  }
+  function_name              = "auth_function"
+  handler                    = "auth_function.lambda_handler"
+  iam_role_name              = "auth_function_exec_role"
+  lambda_source              = "auth_function.py"
+  lambda_filename            = "auth_function.zip"
+  runtime                    = "python3.13"
+  secretsmanager_integration = true
 
   security_groups = module.vpc.security_groups
   vpc_subnet_0    = module.vpc.vpc_subnet_0
@@ -53,7 +58,7 @@ module "lambda_auth" {
 }
 
 module "lambda_upload" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.7.0"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.7.1"
 
   dynamodb_integration = true
   environment = {
@@ -79,7 +84,7 @@ module "lambda_upload" {
 }
 
 module "lambda_download" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.7.0"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.7.1"
 
   dynamodb_integration = true
   environment = {
