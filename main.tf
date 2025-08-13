@@ -4,9 +4,10 @@ module "vpc" {
 }
 
 module "s3" {
-  source          = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.2.0"
-  bucket_name     = "grababyte-api-gateway-whitepaper-bucket"
-  log_bucket_name = "grababyte-api-gateway-whitepaper-log-bucket"
+  source            = "github.com/GrabAByte/terraform-module-aws-s3?ref=feat/enable_encryption"
+  bucket_name       = "grababyte-api-gateway-whitepaper-bucket"
+  enable_encryption = true
+  log_bucket_name   = "grababyte-api-gateway-whitepaper-log-bucket"
 
   tags = local.tags
 }
@@ -34,7 +35,7 @@ module "dynamodb_download" {
 }
 
 module "lambda_auth" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.5.1"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=feat/tracing"
 
   api_integration = true
   function_name   = "auth_function"
@@ -52,7 +53,7 @@ module "lambda_auth" {
 }
 
 module "lambda_upload" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.5.1"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=feat/tracing"
 
   dynamodb_integration = true
   environment = {
@@ -78,7 +79,7 @@ module "lambda_upload" {
 }
 
 module "lambda_download" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.5.1"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=feat/tracing"
 
   dynamodb_integration = true
   environment = {
@@ -104,7 +105,7 @@ module "lambda_download" {
 }
 
 module "api_gateway" {
-  source = "github.com/GrabAByte/terraform-module-aws-api-gateway?ref=v1.2.1"
+  source = "github.com/GrabAByte/terraform-module-aws-api-gateway?ref=feat/authorizer"
 
   api_name = "image"
   api_routes = {
