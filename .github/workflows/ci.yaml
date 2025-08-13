@@ -27,14 +27,24 @@ jobs:
   plan:
     strategy:
       matrix:
+        include:
+          - workspace: development
+            account: AWS_ACCOUNT_DEV
+            role: AWS_ROLE_DEV
+          - workspace: pre-production
+            account: AWS_ACCOUNT_PRE
+            role: AWS_ROLE_PRE
+          - workspace: production
+            account: AWS_ACCOUNT_PROD
+            role: AWS_ROLE_PROD
         workspaces: [development, pre-production, production]
     uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@v1.1.0
     secrets:
-      account: ${{ secrets.AWS_ACCOUNT }}
-      role: ${{ secrets.AWS_ROLE }}
+      account: ${{ secrets[matrix.account] }}
+      role: ${{ secrets[matrix.role] }}
     with:
       region: eu-west-2
       terraformPath: .
-      terraformVars: environment/${{ matrix.workspaces }}/terraform.tfvars
-      workspace: ${{ matrix.workspaces }}
+      terraformVars: environment/${{ matrix.workspace }}/terraform.tfvars
+      workspace: ${{ matrix.workspace }}
     needs: [lint,validate,scan]
