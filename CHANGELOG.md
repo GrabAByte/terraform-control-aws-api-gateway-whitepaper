@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.9.0...v1.10.0) (2025-08-13)
+
+
+### Features
+
+* add api authentication settings, KMS for bucket encryption and trace settings to lambda function ([#50](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/50)) ([1cd0c22](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/1cd0c22b1ddacee19befa4a8ca017cfdcbe41148))
+
 # [1.9.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.8.0...v1.9.0) (2025-08-11)
 
 
