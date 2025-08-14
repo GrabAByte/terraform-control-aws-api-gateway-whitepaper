@@ -1,3 +1,7 @@
+# resources are segregated by the AWS account they deploy into so have a common name / do not have local.environment interpolated into their name, but optional could do
+# example: api-name = "image-${local.environment}"
+# the tag does provide details of the environment however
+
 module "vpc" {
   source     = "github.com/GrabAByte/terraform-module-aws-vpc?ref=v1.2.1"
   nacl_rules = var.vpc_nacl_rules
