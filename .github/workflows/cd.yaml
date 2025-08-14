@@ -34,7 +34,7 @@ jobs:
 
   test:
     name: Test
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
     - name: Check out the codebase.
       uses: actions/checkout@v4
@@ -47,7 +47,6 @@ jobs:
 
     - name: Test
       run: |
-
         # smoke test
         API_URL=$(terraform output -raw api_url)
         IMAGE_FILE="tom-richards.jpg"
