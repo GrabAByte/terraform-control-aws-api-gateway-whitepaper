@@ -12,15 +12,16 @@ jobs:
   apply:
     strategy:
       matrix:
-        - workspace: development
-          account: AWS_ACCOUNT_DEV
-          role: AWS_ROLE_DEV
-      # - workspace: pre-production
-      #  account: AWS_ACCOUNT_PRE
-      #  role: AWS_ROLE_PRE
-      # - workspace: production
-      #  account: AWS_ACCOUNT_PROD
-      #  role: AWS_ROLE_PROD
+        include:
+          - workspace: development
+            account: AWS_ACCOUNT_DEV
+            role: AWS_ROLE_DEV
+        # - workspace: pre-production
+        #  account: AWS_ACCOUNT_PRE
+        #  role: AWS_ROLE_PRE
+        # - workspace: production
+        #  account: AWS_ACCOUNT_PROD
+        #  role: AWS_ROLE_PROD
     uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@v1.1.0
     secrets:
       account: ${{ secrets[matrix.account] }}
