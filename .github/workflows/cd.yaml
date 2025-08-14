@@ -48,10 +48,6 @@ jobs:
     - name: Test
       run: |
 
-        # initialize
-        terraform init && \
-        terraform workspace select development && \
-
         # smoke test
         API_URL=$(terraform output -raw api_url)
         IMAGE_FILE="tom-richards.jpg"
