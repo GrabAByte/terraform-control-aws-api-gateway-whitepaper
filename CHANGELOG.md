@@ -1,3 +1,16 @@
+# [1.11.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.10.0...v1.11.0) (2025-08-14)
+
+
+### Bug Fixes
+
+* cd pipeline conditional for matrix.workspace ([#52](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/52)) ([69ff827](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/69ff827e234e475e8883fe9005804e91dbb29b05))
+* cd pipeline syntax error ([#53](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/53)) ([9d162a8](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/9d162a8f92567170b22d474a4042846b55ccdaaa))
+
+
+### Features
+
+* add dynamic aws accounts for mock route-to-live ([#51](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/51)) ([d3aa816](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/d3aa816af5ecf8810e18be7fde3926d508767174))
+
 # [1.10.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.9.0...v1.10.0) (2025-08-13)
 
 
