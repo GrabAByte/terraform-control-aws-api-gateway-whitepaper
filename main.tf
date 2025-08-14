@@ -2,8 +2,10 @@
 # example: api-name = "image-${local.environment}"
 
 module "vpc" {
-  source     = "github.com/GrabAByte/terraform-module-aws-vpc?ref=v1.2.1"
+  source     = "github.com/GrabAByte/terraform-module-aws-vpc?ref=v1.3.0"
   nacl_rules = var.vpc_nacl_rules
+
+  tags = local.tags
 }
 
 module "s3" {
