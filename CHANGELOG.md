@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.11.4...v1.12.0) (2025-08-15)
+
+
+### Features
+
+* add environments ([#59](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/59)) ([c68d511](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/c68d51133bce4ad437592d6796ca3d48bfaf1380))
+
 ## [1.11.4](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.11.3...v1.11.4) (2025-08-15)
 
 
