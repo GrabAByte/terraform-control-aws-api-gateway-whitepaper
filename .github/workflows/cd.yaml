@@ -20,7 +20,8 @@ jobs:
       terraformPath: .
       terraformVars: environment/development/terraform.tfvars
       workspace: development
-    environment: development
+    environment:
+      name: development
 
   test:
     name: Test
@@ -69,7 +70,8 @@ jobs:
       terraformVars: environment/pre-production/terraform.tfvars
       workspace: pre-production
     needs: [apply-development, test, semantic-release]
-    environment: pre-production
+    environment:
+      name: pre-production
 
   apply-production:
     runs-on: ubuntu-22.04
@@ -83,4 +85,5 @@ jobs:
       terraformVars: environment/production/terraform.tfvars
       workspace: production
     needs: [apply-development, test, semantic-release, apply-pre-production]
-    environment: production
+    environment:
+      name: production
