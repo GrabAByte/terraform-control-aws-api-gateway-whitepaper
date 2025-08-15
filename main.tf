@@ -11,7 +11,7 @@ module "vpc" {
 module "s3" {
   source            = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.3.0"
   bucket_name       = "grababyte-api-gateway-whitepaper-bucket"
-  enable_encryption = true
+  enable_encryption = var.enable_encryption
   log_bucket_name   = "grababyte-api-gateway-whitepaper-log-bucket"
 
   tags = local.tags
@@ -20,7 +20,7 @@ module "s3" {
 module "dynamodb_upload" {
   source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.1.0"
   attributes   = var.dynamodb_attributes
-  billing_mode = "PAY_PER_REQUEST"
+  billing_mode = var.billing_mode
   hash_key     = "Timestamp"
   name         = "upload"
   range_key    = "Object"
@@ -31,7 +31,7 @@ module "dynamodb_upload" {
 module "dynamodb_download" {
   source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.1.0"
   attributes   = var.dynamodb_attributes
-  billing_mode = "PAY_PER_REQUEST"
+  billing_mode = var.billing_mode
   hash_key     = "Timestamp"
   name         = "download"
   range_key    = "Object"
@@ -52,7 +52,7 @@ module "lambda_auth" {
   iam_role_name              = "auth_function_exec_role"
   lambda_source              = "auth_function.py"
   lambda_filename            = "auth_function.zip"
-  runtime                    = "python3.13"
+  runtime                    = var.runtime
   secretsmanager_integration = true
 
   security_groups = module.vpc.security_groups
@@ -77,7 +77,7 @@ module "lambda_upload" {
   lambda_source   = "upload_function.py"
   lambda_filename = "upload_function.zip"
   s3_integration  = true
-  runtime         = "python3.13"
+  runtime         = var.runtime
 
   bucket_arn         = module.s3.bucket_arn
   dynamodb_table_arn = module.dynamodb_upload.table_arn
@@ -102,7 +102,7 @@ module "lambda_download" {
   iam_role_name   = "download_function_exec_role"
   lambda_source   = "download_function.py"
   lambda_filename = "download_function.zip"
-  runtime         = "python3.13"
+  runtime         = var.runtime
   s3_integration  = true
 
   bucket_arn         = module.s3.bucket_arn
@@ -142,7 +142,7 @@ module "api_gateway" {
 
   lambda_auth_invoke_arn = module.lambda_auth.invoke_arn
   lambda_names           = ["upload_function", "download_function"]
-  stage_name             = "v1beta1"
+  stage_name             = var.stage_name # "v1beta1"
 
   tags = local.tags
 }
