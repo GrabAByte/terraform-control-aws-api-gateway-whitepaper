@@ -9,8 +9,8 @@ dynamodb_attributes = [
   }
 ]
 
-enable_encryption = false
-stage_name        = "v2beta1"
+s3_enable_encryption = false
+api_stage_name       = "v2beta1"
 
 vpc_nacl_rules = [
   {

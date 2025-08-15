@@ -71,13 +71,13 @@ module "lambda_upload" {
     DDB    = "upload"
     STAGE  = local.environment
   }
-  function_name   = "upload_function"
-  handler         = "upload_function.lambda_handler"
-  iam_role_name   = "upload_function_exec_role"
-  lambda_source   = "upload_function.py"
-  lambda_filename = "upload_function.zip"
-  s3_integration  = true
-  runtime         = var.lambda_runtime
+  function_name      = "upload_function"
+  handler            = "upload_function.lambda_handler"
+  iam_role_name      = "upload_function_exec_role"
+  lambda_source      = "upload_function.py"
+  lambda_filename    = "upload_function.zip"
+  s3_integration     = true
+  runtime            = var.lambda_runtime
   bucket_arn         = module.s3.bucket_arn
   dynamodb_table_arn = module.dynamodb_upload.table_arn
   security_groups    = module.vpc.security_groups
@@ -142,5 +142,5 @@ module "api_gateway" {
   lambda_auth_invoke_arn = module.lambda_auth.invoke_arn
   lambda_names           = ["upload_function", "download_function"]
   stage_name             = var.api_stage_name
-  tags = local.tags
+  tags                   = local.tags
 }
