@@ -37,6 +37,7 @@ jobs:
           - workspace: production
             account: AWS_ACCOUNT_PROD
             role: AWS_ROLE_PROD
+    environment: ${{ matrix.workspace }}
     uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@v1.2.0
     secrets:
       account: ${{ secrets[matrix.account] }}
