@@ -10,7 +10,7 @@ permissions: write-all
 
 jobs:
   apply-development:
-    environment: development
+    runs-on: ubuntu-22.04
     uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@v1.2.0
     secrets:
       account: ${{ secrets.AWS_ACCOUNT_DEV }}
@@ -20,6 +20,7 @@ jobs:
       terraformPath: .
       terraformVars: environment/development/terraform.tfvars
       workspace: development
+    environment: development
 
   test:
     name: Test
@@ -57,7 +58,7 @@ jobs:
     needs: [apply-development, test]
 
   apply-pre-production:
-    environment: pre-production
+    runs-on: ubuntu-22.04
     uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@v1.2.0
     secrets:
       account: ${{ secrets.AWS_ACCOUNT_PRE }}
@@ -68,9 +69,10 @@ jobs:
       terraformVars: environment/pre-production/terraform.tfvars
       workspace: pre-production
     needs: [apply-development, test, semantic-release]
+    environment: pre-production
 
   apply-production:
-    environment: production
+    runs-on: ubuntu-22.04
     uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@v1.2.0
     secrets:
       account: ${{ secrets.AWS_ACCOUNT_PROD }}
@@ -81,3 +83,4 @@ jobs:
       terraformVars: environment/production/terraform.tfvars
       workspace: production
     needs: [apply-development, test, semantic-release, apply-pre-production]
+    environment: production
