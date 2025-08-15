@@ -9,6 +9,9 @@ dynamodb_attributes = [
   }
 ]
 
+enable_encryption = false
+stage_name        = "v2beta1"
+
 vpc_nacl_rules = [
   {
     rule_number = 100
