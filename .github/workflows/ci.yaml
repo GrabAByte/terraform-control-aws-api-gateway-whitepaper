@@ -7,11 +7,11 @@ permissions: write-all
 
 jobs:
   lint:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformLint.yml@v1.2.0
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformLint.yml@v1.3.0
     with:
       terraformPath: .
   validate:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformValidate.yml@v1.2.0
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformValidate.yml@v1.3.0
     secrets:
       account: ${{ secrets.AWS_ACCOUNT }}
       role: ${{ secrets.AWS_ROLE }}
@@ -20,7 +20,7 @@ jobs:
       terraformPath: .
     needs: [lint]
   scan:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformScan.yml@v1.2.0
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformScan.yml@v1.3.0
     with:
       terraformPath: .
     needs: [lint,validate]
@@ -37,7 +37,7 @@ jobs:
           - workspace: production
             account: AWS_ACCOUNT_PROD
             role: AWS_ROLE_PROD
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@v1.2.0
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@v1.3.0
     secrets:
       account: ${{ secrets[matrix.account] }}
       role: ${{ secrets[matrix.role] }}
