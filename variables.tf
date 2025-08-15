@@ -16,7 +16,7 @@ locals {
   }
 }
 
-variable "billing_mode" {
+variable "dynamodb_billing_mode" {
   type        = string
   description = "The DynamoDB Billing Mode"
   default     = "PAY_PER_REQUEST"
@@ -30,7 +30,7 @@ variable "dynamodb_attributes" {
   description = "List of DynamoDB table attributes"
 }
 
-variable "enable_encryption" {
+variable "s3_enable_encryption" {
   type        = bool
   description = "Enable KMS encryption of S3 buckets"
 }
@@ -54,13 +54,13 @@ variable "region" {
   default     = "eu-west-2"
 }
 
-variable "runtime" {
+variable "lambda_runtime" {
   type        = string
   description = "The Lambda runtime"
   default     = "python3.13"
 }
 
-variable "stage_name" {
+variable "api_stage_name" {
   type        = string
   description = "The stage name of the API Gateway"
   default     = "v1beta1"

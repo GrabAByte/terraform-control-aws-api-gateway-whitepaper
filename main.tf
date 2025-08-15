@@ -2,7 +2,7 @@
 # example: api-name = "image-${local.environment}"
 
 module "vpc" {
-  source     = "github.com/GrabAByte/terraform-module-aws-vpc?ref=v1.3.0"
+  source     = "github.com/GrabAByte/terraform-module-aws-vpc?ref=v1.3.1"
   nacl_rules = var.vpc_nacl_rules
 
   tags = local.tags
@@ -11,16 +11,16 @@ module "vpc" {
 module "s3" {
   source            = "github.com/GrabAByte/terraform-module-aws-s3?ref=v1.3.0"
   bucket_name       = "grababyte-api-gateway-whitepaper-bucket"
-  enable_encryption = var.enable_encryption
+  enable_encryption = var.s3_enable_encryption
   log_bucket_name   = "grababyte-api-gateway-whitepaper-log-bucket"
 
   tags = local.tags
 }
 
 module "dynamodb_upload" {
-  source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.1.0"
+  source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.1.1"
   attributes   = var.dynamodb_attributes
-  billing_mode = var.billing_mode
+  billing_mode = var.dynamodb_billing_mode
   hash_key     = "Timestamp"
   name         = "upload"
   range_key    = "Object"
@@ -29,9 +29,9 @@ module "dynamodb_upload" {
 }
 
 module "dynamodb_download" {
-  source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.1.0"
+  source       = "github.com/GrabAByte/terraform-module-aws-dynamo-db?ref=v1.1.1"
   attributes   = var.dynamodb_attributes
-  billing_mode = var.billing_mode
+  billing_mode = var.dynamodb_billing_mode
   hash_key     = "Timestamp"
   name         = "download"
   range_key    = "Object"
@@ -40,7 +40,7 @@ module "dynamodb_download" {
 }
 
 module "lambda_auth" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.7.1"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.7.2"
 
   api_integration = true
   environment = {
@@ -52,7 +52,7 @@ module "lambda_auth" {
   iam_role_name              = "auth_function_exec_role"
   lambda_source              = "auth_function.py"
   lambda_filename            = "auth_function.zip"
-  runtime                    = var.runtime
+  runtime                    = var.lambda_runtime
   secretsmanager_integration = true
 
   security_groups = module.vpc.security_groups
@@ -63,7 +63,7 @@ module "lambda_auth" {
 }
 
 module "lambda_upload" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.7.1"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.7.2"
 
   dynamodb_integration = true
   environment = {
@@ -71,14 +71,13 @@ module "lambda_upload" {
     DDB    = "upload"
     STAGE  = local.environment
   }
-  function_name   = "upload_function"
-  handler         = "upload_function.lambda_handler"
-  iam_role_name   = "upload_function_exec_role"
-  lambda_source   = "upload_function.py"
-  lambda_filename = "upload_function.zip"
-  s3_integration  = true
-  runtime         = var.runtime
-
+  function_name      = "upload_function"
+  handler            = "upload_function.lambda_handler"
+  iam_role_name      = "upload_function_exec_role"
+  lambda_source      = "upload_function.py"
+  lambda_filename    = "upload_function.zip"
+  s3_integration     = true
+  runtime            = var.lambda_runtime
   bucket_arn         = module.s3.bucket_arn
   dynamodb_table_arn = module.dynamodb_upload.table_arn
   security_groups    = module.vpc.security_groups
@@ -89,7 +88,7 @@ module "lambda_upload" {
 }
 
 module "lambda_download" {
-  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.7.1"
+  source = "github.com/GrabAByte/terraform-module-aws-lambda?ref=v1.7.2"
 
   dynamodb_integration = true
   environment = {
@@ -102,7 +101,7 @@ module "lambda_download" {
   iam_role_name   = "download_function_exec_role"
   lambda_source   = "download_function.py"
   lambda_filename = "download_function.zip"
-  runtime         = var.runtime
+  runtime         = var.lambda_runtime
   s3_integration  = true
 
   bucket_arn         = module.s3.bucket_arn
@@ -115,7 +114,7 @@ module "lambda_download" {
 }
 
 module "api_gateway" {
-  source = "github.com/GrabAByte/terraform-module-aws-api-gateway?ref=v1.3.0"
+  source = "github.com/GrabAByte/terraform-module-aws-api-gateway?ref=v1.3.1"
 
   api_name = "image"
   api_routes = {
@@ -142,7 +141,6 @@ module "api_gateway" {
 
   lambda_auth_invoke_arn = module.lambda_auth.invoke_arn
   lambda_names           = ["upload_function", "download_function"]
-  stage_name             = var.stage_name # "v1beta1"
-
-  tags = local.tags
+  stage_name             = var.api_stage_name
+  tags                   = local.tags
 }
