@@ -78,7 +78,6 @@ module "lambda_upload" {
   lambda_filename = "upload_function.zip"
   s3_integration  = true
   runtime         = var.lambda_runtime
-
   bucket_arn         = module.s3.bucket_arn
   dynamodb_table_arn = module.dynamodb_upload.table_arn
   security_groups    = module.vpc.security_groups
@@ -142,7 +141,6 @@ module "api_gateway" {
 
   lambda_auth_invoke_arn = module.lambda_auth.invoke_arn
   lambda_names           = ["upload_function", "download_function"]
-  stage_name             = var.api_stage_name # "v1beta1"
-
+  stage_name             = var.api_stage_name
   tags = local.tags
 }

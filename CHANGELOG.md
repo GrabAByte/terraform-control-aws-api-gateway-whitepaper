@@ -1,3 +1,17 @@
+## [1.11.2](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.11.1...v1.11.2) (2025-08-15)
+
+
+### Bug Fixes
+
+* add variables at control scope ([#56](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/56)) ([eba6167](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/eba61674e5ca4d364bbb0741eedac3514c3861de))
+
+## [1.11.1](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.11.0...v1.11.1) (2025-08-14)
+
+
+### Bug Fixes
+
+* remove deprecated backend configuration ([#55](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/issues/55)) ([72f4747](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/72f4747b790aa722588b063a38b5ccd9dd78899b))
+
 # [1.11.0](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.10.0...v1.11.0) (2025-08-14)
 
 

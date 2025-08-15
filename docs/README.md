@@ -33,13 +33,16 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_api_stage_name"></a> [api\_stage\_name](#input\_api\_stage\_name) | The stage name of the API Gateway | `string` | `"v1beta1"` | no |
+/a> [api\_stage\_name](#input\_api\_stage\_name) | The stage name of the API Gateway | `string` | `"v1beta1"` | no |
 | <a name="input_dynamodb_attributes"></a> [dynamodb\_attributes](#input\_dynamodb\_attributes) | List of DynamoDB table attributes | <pre>list(object({<br/>    name = string<br/>    type = string<br/>  }))</pre> | n/a | yes |
 | <a name="input_dynamodb_billing_mode"></a> [dynamodb\_billing\_mode](#input\_dynamodb\_billing\_mode) | The DynamoDB Billing Mode | `string` | `"PAY_PER_REQUEST"` | no |
+| <a name="input_enable_encryption"></a> [enable\_encryption](#input\_enable\_encryption) | Enable KMS encryption of S3 buckets | `bool` | n/a | yes |
 | <a name="input_environment_map"></a> [environment\_map](#input\_environment\_map) | The environment lookup for each workspace | `map(any)` | <pre>{<br/>  "development": "development",<br/>  "pre-production": "pre-production",<br/>  "production": "production"<br/>}</pre> | no |
 | <a name="input_lambda_runtime"></a> [lambda\_runtime](#input\_lambda\_runtime) | The Lambda runtime | `string` | `"python3.13"` | no |
 | <a name="input_region"></a> [region](#input\_region) | The AWS region in which to deploy | `string` | `"eu-west-2"` | no |
 | <a name="input_s3_enable_encryption"></a> [s3\_enable\_encryption](#input\_s3\_enable\_encryption) | Enable KMS encryption of S3 buckets | `bool` | n/a | yes |
+| <a name="input_runtime"></a> [runtime](#input\_runtime) | The Lambda runtime | `string` | `"python3.13"` | no |
+| <a name="input_stage_name"></a> [stage\_name](#input\_stage\_name) | The stage name of the API Gateway | `string` | `"v1beta1"` | no |
 | <a name="input_vpc_nacl_rules"></a> [vpc\_nacl\_rules](#input\_vpc\_nacl\_rules) | List of ingress and egress NACL rules | <pre>list(object({<br/>    rule_number = number<br/>    protocol    = string<br/>    rule_action = string<br/>    egress      = bool<br/>    cidr_block  = string<br/>    from_port   = number<br/>    to_port     = number<br/>  }))</pre> | n/a | yes |
 
 ## Outputs
