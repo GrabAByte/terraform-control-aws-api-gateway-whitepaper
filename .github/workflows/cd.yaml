@@ -4,7 +4,6 @@ on:
   push:
     branches:
     - main
-    - feat/environment_approval
 
 permissions: write-all
 
@@ -22,7 +21,7 @@ jobs:
         # - workspace: production
         #   account: AWS_ACCOUNT_PROD
         #   role: AWS_ROLE_PROD
-    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@feat/environment_approval
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@v1.3.0
     secrets:
       account: ${{ secrets[matrix.account] }}
       role: ${{ secrets[matrix.role] }}
@@ -63,5 +62,5 @@ jobs:
     needs: [apply]
 
   semantic-release:
-    uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@feat/environment_approval
+    uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@v1.3.0
     needs: [apply, test]
