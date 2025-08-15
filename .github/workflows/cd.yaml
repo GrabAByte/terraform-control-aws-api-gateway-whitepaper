@@ -4,33 +4,23 @@ on:
   push:
     branches:
     - main
+    - feat/environment_approval
 
 permissions: write-all
 
 jobs:
-  # unable to use workflow_dispatch with re-usable workflows so must auto-trigger on merge
-  apply:
+  apply-development:
     strategy:
-      matrix:
-        include:
-          - workspace: development
-            account: AWS_ACCOUNT_DEV
-            role: AWS_ROLE_DEV
-        # - workspace: pre-production
-        #  account: AWS_ACCOUNT_PRE
-        #  role: AWS_ROLE_PRE
-        # - workspace: production
-        #  account: AWS_ACCOUNT_PROD
-        #  role: AWS_ROLE_PROD
+    environment: development
     uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@v1.2.0
     secrets:
-      account: ${{ secrets[matrix.account] }}
-      role: ${{ secrets[matrix.role] }}
+      account: ${{ secrets.AWS_ACCOUNT_DEV }}
+      role: ${{ secrets.AWS_ROLE_DEV }}
     with:
       region: eu-west-2
       terraformPath: .
-      terraformVars: environment/${{ matrix.workspace }}/terraform.tfvars
-      workspace: ${{ matrix.workspace }}
+      terraformVars: environment/development/terraform.tfvars
+      workspace: development
 
   test:
     name: Test
@@ -60,23 +50,37 @@ jobs:
         cd ./test && \
         ./api-call.sh "${API_URL}" "${IMAGE_FILE}" "${BEARER_TOKEN}"
 
-    needs: [apply]
+    needs: [apply-development]
 
+  # only one legitimate environment, so tag at development on successful apply
   semantic-release:
     uses: GrabAByte/github-devops-workflows/.github/workflows/semanticRelease.yml@v1.2.0
-    needs: [apply, test]
+    needs: [apply-development, test]
 
-  ## keep alive
-  # destroy:
-  #   strategy:
-  #     matrix:
-  #   uses: GrabAByte/github-devops-workflows/.github/workflows/terraformDestroy.yml@v1.2.0
-  #   secrets:
-  #     account: ${{ secrets.AWS_ACCOUNT }}
-  #     role: ${{ secrets.AWS_ROLE }}
-  #   with:
-  #     region: eu-west-2
-  #     terraformPath: .
-  #     terraformVars: environment/${{ matrix.workspaces }}/terraform.tfvars
-  #     workspace: ${{ matrix.workspaces }}
-  #   needs: [apply, test]
+  apply-pre-production:
+    strategy:
+    environment: pre-production
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@v1.2.0
+    secrets:
+      account: ${{ secrets.AWS_ACCOUNT_PRE }}
+      role: ${{ secrets.AWS_ROLE_PRE }}
+    with:
+      region: eu-west-2
+      terraformPath: .
+      terraformVars: environment/pre-production/terraform.tfvars
+      workspace: pre-production
+    needs: [apply-development, test, semantic-release]
+
+  apply-production:
+    strategy:
+    environment: production
+    uses: GrabAByte/github-devops-workflows/.github/workflows/terraformApply.yml@v1.2.0
+    secrets:
+      account: ${{ secrets.AWS_ACCOUNT_PROD }}
+      role: ${{ secrets.AWS_ROLE_PROD }}
+    with:
+      region: eu-west-2
+      terraformPath: .
+      terraformVars: environment/production/terraform.tfvars
+      workspace: production
+    needs: [apply-development, test, semantic-release, apply-pre-production]
