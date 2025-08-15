@@ -10,11 +10,12 @@ permissions: write-all
 
 jobs:
   apply:
-    matrix:
-      include:
-        - workspace: development
-          account: AWS_ACCOUNT_DEV
-          role: AWS_ROLE_DEV
+    strategy:
+      matrix:
+        include:
+          - workspace: development
+            account: AWS_ACCOUNT_DEV
+            role: AWS_ROLE_DEV
         # - workspace: pre-production
         #   account: AWS_ACCOUNT_PRE
         #   role: AWS_ROLE_PRE
