@@ -26,6 +26,7 @@ jobs:
     needs: [lint,validate]
   plan:
     strategy:
+    environment: ${{ matrix.workspace }}
       matrix:
         include:
           - workspace: development
@@ -37,7 +38,6 @@ jobs:
           - workspace: production
             account: AWS_ACCOUNT_PROD
             role: AWS_ROLE_PROD
-    environment: ${{ matrix.workspace }}
     uses: GrabAByte/github-devops-workflows/.github/workflows/terraformPlan.yml@v1.2.0
     secrets:
       account: ${{ secrets[matrix.account] }}
