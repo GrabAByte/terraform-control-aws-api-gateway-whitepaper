@@ -1,3 +1,10 @@
+## [1.11.4](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.11.3...v1.11.4) (2025-08-15)
+
+
+### Bug Fixes
+
+* add kms privileges too auth lambda ([aa9f2aa](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/commit/aa9f2aa942221cf4ec4c725dbb312bbb5bf4a9d3))
+
 ## [1.11.3](https://github.com/GrabAByte/terraform-control-aws-api-gateway-whitepaper/compare/v1.11.2...v1.11.3) (2025-08-15)
 
 
